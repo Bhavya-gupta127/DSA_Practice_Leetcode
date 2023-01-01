@@ -1,0 +1,75 @@
+class   Solution   { 
+  public : 
+     vector < int >   twoSum ( vector < int > &  nums ,   int  target )   { 
+         
+         vector < int > ans ; 
+         
+         map < int , int > mp ; 
+          for ( auto  i : nums ) 
+             mp [ i ] ++ ; 
+         
+          for ( int  i = 0 ; i < nums . size ( ) ; i ++ ) 
+          { 
+              if ( mp . find ( target - nums [ i ] ) != mp . end ( ) ) 
+              { 
+                  if ( mp [ nums [ i ] ] < 2   &&  nums [ i ] == target - nums [ i ] ) 
+                      continue ; 
+ 
+                 ans . push_back ( i ) ; 
+                  for ( int  j = nums . size ( ) - 1 ; j >= 0 ; j -- ) 
+                  { 
+                      if ( nums [ j ] == target - nums [ i ] ) 
+                      { 
+                         ans . push_back ( j ) ; 
+                          break ; 
+                      } 
+                  } 
+                  break ; 
+              } 
+          } 
+          return  ans ; 
+         
+         
+      } 
+         
+         
+         
+         
+         
+         
+  //         int k=target; 
+         
+  //         int n=nums.size(); 
+  //         map<int , int >m; 
+ 
+  //         int i,j; 
+  //         for(i=0;i<n;i++) 
+  //         { 
+  //             if(m.find(k-nums[i])==m.end()) 
+  //             { 
+  //                 m[nums[i]]++; 
+  //             } 
+  //             else 
+  //             { 
+  //                 break;   
+  //             } 
+                 
+  //         } 
+         
+         
+  //         vector<int> v; 
+  //         v.push_back(i); 
+         
+  //         for(j=0;j<n;j++) 
+  //         { 
+  //             if(nums[j]==k-nums[i])    
+  //             { 
+  //                 v.push_back(j); 
+  //                 break; 
+  //             } 
+  //         } 
+  //         return v; 
+  //     } 
+         
+ 
+  } ;
