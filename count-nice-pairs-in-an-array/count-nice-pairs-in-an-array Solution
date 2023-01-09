@@ -1,0 +1,24 @@
+class   Solution   { 
+  public : 
+      int   countNicePairs ( vector < int > &  nums )   { 
+         vector < int > rev ; 
+          int  mod = 1e9 + 7 ; 
+          for ( auto  i : nums ) 
+          { 
+             string s = to_string ( i ) ; 
+              reverse ( s . begin ( ) , s . end ( ) ) ; 
+              int  newi = stoi ( s ) ; 
+             rev . push_back ( newi ) ; 
+          } 
+         map < int , int > mp ; 
+          long   long  ans = 0 ; 
+          for ( int  i = nums . size ( ) - 1 ; i >= 0 ; i -- ) 
+          { 
+              if ( mp [ nums [ i ] - rev [ i ] ] != 0 ) 
+                 ans = ( ans + mp [ nums [ i ] - rev [ i ] ] ) % mod ; 
+             mp [ nums [ i ] - rev [ i ] ] = ( mp [ nums [ i ] - rev [ i ] ] + 1 ) % mod ; 
+          } 
+          return  ans ; 
+ 
+      } 
+  } ;
