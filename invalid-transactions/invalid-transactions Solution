@@ -1,0 +1,50 @@
+class   Solution   { 
+  public : 
+     vector < string >   invalidTransactions ( vector < string > &  transactions )   { 
+         vector < vector < string >> transac ; 
+          for ( int  i = 0 ; i < transactions . size ( ) ; i ++ ) 
+          { 
+             string s = transactions [ i ] ; 
+             stringstream  ss ( s ) ; 
+             vector < string > v ; 
+              while ( ss . good ( ) ) 
+              { 
+                 string temp ; 
+                  getline ( ss , temp , ',' ) ; 
+                 v . push_back ( temp ) ; 
+              } 
+             v . push_back ( to_string ( i ) ) ; 
+             transac . push_back ( v ) ; 
+          } 
+          sort ( transac . begin ( ) , transac . end ( ) ) ; 
+          // set<string>myset; 
+         vector < string > ans ; 
+          // map<string,int>mp; 
+          for ( int  i = 0 ; i < transac . size ( ) ; i ++ ) 
+          { 
+              if ( stoi ( transac [ i ] [ 2 ] ) > 1000 ) 
+                 ans . push_back ( transactions [ stoi ( transac [ i ] [ 4 ] ) ] ) ; 
+              else 
+              { 
+                  for ( int  j = 0 ; j < transac . size ( ) ; j ++ ) 
+                  { 
+                      if ( i != j  &&  transac [ i ] [ 0 ] == transac [ j ] [ 0 ]   &&  transac [ i ] [ 3 ] != transac [ j ] [ 3 ] ) 
+                      { 
+                          int  a = stoi ( transac [ i ] [ 1 ] ) ; 
+                          int  b = stoi ( transac [ j ] [ 1 ] ) ; 
+                          if ( abs ( a - b ) <= 60 ) 
+                          { 
+                             ans . push_back ( transactions [ stoi ( transac [ i ] [ 4 ] ) ] ) ; 
+                              break ; 
+                          } 
+                      } 
+                  } 
+ 
+              } 
+            
+ 
+          } 
+         
+          return  ans ; 
+      } 
+  } ;
