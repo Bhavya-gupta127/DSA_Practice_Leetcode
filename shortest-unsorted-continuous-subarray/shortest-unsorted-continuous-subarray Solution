@@ -1,0 +1,28 @@
+class   Solution   { 
+  public : 
+      int   findUnsortedSubarray ( vector < int > &  nums )   { 
+         vector < int > v = nums ; 
+          sort ( v . begin ( ) , v . end ( ) ) ; 
+          if ( v == nums ) 
+              return   0 ; 
+          int  start = 0 ; 
+          int  end = 0 ; 
+          for ( int  i = 0 ; i < v . size ( ) ; i ++ ) 
+          { 
+              if ( v [ i ] != nums [ i ] ) 
+              { 
+                 start = i ; 
+                  break ; 
+              } 
+          } 
+          for ( int  i = v . size ( ) - 1 ; i >= 0 ; i -- ) 
+          { 
+              if ( v [ i ] != nums [ i ] ) 
+              { 
+                 end = i ; 
+                  break ; 
+              } 
+          } 
+          return  end - start + 1 ; 
+      } 
+  } ;
