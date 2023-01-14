@@ -1,0 +1,63 @@
+class   Solution   { 
+ public : 
+      int   abc ( int  i , vector < int > &  p ) { 
+          if ( i == p [ i ] )   return  i ; 
+         p [ i ]   =   abc ( p [ i ] , p ) ; 
+          return  p [ i ] ; 
+      } 
+     string  smallestEquivalentString ( string s1 ,  string s2 ,  string baseStr )   { 
+         vector < int >   p ( 26 , 0 ) ; 
+          for ( int  i = 0 ; i < 26 ; i ++ )  p [ i ] = i ; 
+          for ( int  i = 0 ; i < s1 . length ( ) ; i ++ ) { 
+              int  x  =   abc ( s1 [ i ] - 'a' , p ) ; 
+              int  y  =   abc ( s2 [ i ] - 'a' , p ) ; 
+             p [ max ( x , y ) ]   =   min ( x , y ) ; 
+          } 
+          for ( int  i = 0 ; i < baseStr . length ( ) ; i ++ ) { 
+             baseStr [ i ] = abc ( baseStr [ i ] - 'a' , p ) + 'a' ; 
+          } 
+          return  baseStr ; 
+      } 
+ } ; // class Solution { 
+ // public: 
+ //     string smallestEquivalentString(string s1, string s2, string baseStr) { 
+         
+ //         vector<char>alpha(100000,'z'+1); 
+ //         queue<char>q; 
+ //         for(int i=0;i<26;i++) 
+ //         { 
+ //             q.push('a'+i); 
+ //             while(!q.empty()) 
+ //             { 
+ //                 q.pop(); 
+ //                 for(int j=0;j<s1.size();j++) 
+ //                 { 
+ //                     if(alpha[s1[j]]<='z') 
+ //                     { 
+ //                         if(s1[j]=='a'+i || s2[j]=='a'+i) 
+ //                         { 
+ //                             // q.push(s1[j]); 
+ //                             // q.push(s2[j]); 
+ //                             // alpha[s1[j]]='a'+i; 
+ //                             // alpha[s2[j]]='a'+i; 
+ //                         } 
+ //                     } 
+ //                 } 
+ //             } 
+ //         } 
+ //         for(auto i:alpha) 
+ //             cout<<i<<" "; 
+ //         string ans; 
+ //         return ans; 
+ //         // for(int i=0;i<s1.size();i++) 
+ //         // { 
+ //         //     char a=s1[i]; 
+ //         //     char b=s2[i]; 
+ 
+ //         //     alpha[a-'a']=min({a,alpha[a-'a'],alpha[b-'a'],b}); 
+ //         //     alpha[b-'a']=min({a,alpha[a-'a'],alpha[b-'a'],b}); 
+ //         // } 
+ //         // for(au) 
+ 
+ //     } 
+ // };
