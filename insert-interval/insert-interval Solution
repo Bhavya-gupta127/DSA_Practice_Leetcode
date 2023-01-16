@@ -1,0 +1,27 @@
+class   Solution   { 
+  public : 
+     vector < vector < int >>   insert ( vector < vector < int >> &  intervals ,  vector < int > &  newInterval )   { 
+         vector < vector < int >> ans ; 
+         priority_queue < pair < int , int > , vector < pair < int , int >> , greater < pair < int , int >> > pq ; 
+          for ( auto  i : intervals ) 
+             pq . push ( { i [ 0 ] , i [ 1 ] } ) ; 
+         pq . push ( { newInterval [ 0 ] , newInterval [ 1 ] } ) ; 
+          int  start , end ; 
+          while ( ! pq . empty ( ) ) 
+          { 
+             start = pq . top ( ) . first ; 
+             end = pq . top ( ) . second ; 
+             pq . pop ( ) ; 
+              if ( pq . empty ( )   ||  end < pq . top ( ) . first ) 
+                 ans . push_back ( { start , end } ) ; 
+              else 
+              { 
+                  int  temp = pq . top ( ) . second ; 
+                 pq . pop ( ) ; 
+                 pq . push ( { start , max ( temp , end ) } ) ; 
+              } 
+          } 
+ 
+          return  ans ; 
+      } 
+  } ;
