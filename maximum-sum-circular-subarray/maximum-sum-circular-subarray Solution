@@ -1,0 +1,52 @@
+class   Solution   { 
+  public : 
+      int   maxSubarraySumCircular ( vector < int > &  nums )   { 
+          //i1 
+          //kadane algo on circular array 
+         
+         
+          //i2 
+          // min subarray on normal array and max subarray  
+          //  
+         
+          long   long  sum = 0 ; 
+          bool  neg = true ; 
+          for ( auto  i  : nums ) 
+          { 
+              if ( i >= 0 ) 
+                 neg = false ; 
+             sum += i ; 
+          } 
+          int  i = 0 ; 
+          long   long  cursum = nums [ 0 ] ; 
+          long   long  maxsum = nums [ 0 ] ; 
+          int  j = 1 ; 
+          int  n = nums . size ( ) ; 
+          while ( j < n ) 
+          { 
+              if ( cursum < 0 ) 
+                 cursum = nums [ j ] ; 
+              else 
+                 cursum += nums [ j ] ; 
+             maxsum = max ( maxsum , cursum ) ; 
+             j ++ ; 
+          } 
+         cursum = nums [ 0 ] ; 
+          long   long  minsum = nums [ 0 ] ; 
+         j = 1 ; 
+          while ( j < n ) 
+          { 
+              if ( cursum > 0 ) 
+                 cursum = nums [ j ] ; 
+              else 
+                 cursum += nums [ j ] ; 
+             minsum = min ( minsum , cursum ) ; 
+             j ++ ; 
+          } 
+          // cout<<maxsum<<" "<<minsum; 
+          if ( neg ) 
+              return  maxsum ; 
+          return   max ( maxsum , sum - minsum ) ; 
+         
+      } 
+  } ;
