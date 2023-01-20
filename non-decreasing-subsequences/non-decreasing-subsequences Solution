@@ -1,0 +1,23 @@
+class   Solution   { 
+  public : 
+      void   solve ( int  i , vector < int > & nums , vector < int > v , set < vector < int >> & myset ) 
+      { 
+          if ( v . size ( ) > 1 )   
+             myset . insert ( v ) ; 
+          if ( i >= nums . size ( ) ) 
+              return ; 
+          if ( v . empty ( )   ||  nums [ i ] >= v . back ( ) ) 
+          { 
+             v . push_back ( nums [ i ] ) ; 
+                  solve ( i + 1 , nums , v , myset ) ; 
+             v . pop_back ( ) ; 
+          } 
+          solve ( i + 1 , nums , v , myset ) ; 
+      } 
+     vector < vector < int >>   findSubsequences ( vector < int > &  nums )   { 
+         set  < vector < int >>  myset ; 
+          solve ( 0 , nums , { } , myset ) ; 
+         vector < vector < int >> ans ( myset . begin ( ) , myset . end ( ) ) ; 
+          return  ans ; 
+      } 
+  } ;
