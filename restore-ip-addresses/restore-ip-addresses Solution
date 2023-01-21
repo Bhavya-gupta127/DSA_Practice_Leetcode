@@ -1,0 +1,51 @@
+class   Solution   { 
+  public : 
+      void   addValidIP ( string &  snew , vector < string > & ans ) 
+      { 
+         istringstream  ss ( snew ) ; 
+         vector < string > v ; 
+          while ( ss . good ( ) ) 
+          { 
+             string temp ; 
+              getline ( ss , temp , '.' ) ; 
+             v . push_back ( temp ) ; 
+          } 
+          for ( auto  x : v ) 
+          { 
+              if ( ( x . size ( ) != 1   &&  x [ 0 ] == '0' )   ||  x == ""   ||   stoll ( x ) > 255 )   //leading 0 or x is empty or greater than 255 
+                  return ; 
+          } 
+         ans . push_back ( snew ) ; 
+      } 
+      void   adddots ( int  i , int  j , string &  s , string snew , vector < string > & ans ) 
+      { 
+          if ( i > s . size ( )   ||  j > 3 ) 
+              return ; 
+          if ( i == s . size ( )   &&  j == 3 ) 
+              addValidIP ( snew , ans ) ; 
+         snew += s [ i ] ; 
+          //take condition 
+         snew += '.' ; 
+          adddots ( i + 1 , j + 1 , s , snew , ans ) ; 
+         snew . pop_back ( ) ; 
+ 
+          //not take condition 
+          adddots ( i + 1 , j , s , snew , ans ) ; 
+         
+ 
+      } 
+     vector < string >   restoreIpAddresses ( string s )   { 
+          //rquirements  
+          //4 single dots 
+          //no leading zeros 
+          //each integer between 2 dots less than 255 
+          //only digits 0-9 and dots should be there  => this is covered in constraints 
+ 
+          //recursively add '.' to the string (2^n) 
+          //if string is valid than add it to the vector O(n); 
+          //to optimise this solution we can use dp of index and string 
+         vector < string > ans ; 
+          adddots ( 0 , 0 , s , "" , ans ) ; 
+          return  ans ; 
+      } 
+  } ;
