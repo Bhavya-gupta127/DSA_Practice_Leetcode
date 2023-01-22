@@ -1,0 +1,61 @@
+class   Solution   { 
+  public : 
+      void   bfs ( vector < vector < int >> & mat , vector < vector < int >> & vis , vector < vector < int >> & ans ) 
+      { 
+         queue < vector < int >> q ; 
+          //adding all the zeros to the queue with distance dis as 0 
+          for ( int  i = 0 ; i < mat . size ( ) ; i ++ ) 
+          { 
+              for ( int  j = 0 ; j < mat [ 0 ] . size ( ) ; j ++ ) 
+              { 
+                  if ( mat [ i ] [ j ] == 0 ) 
+                  { 
+                     vis [ i ] [ j ] = 1 ; 
+                     q . push ( { i , j , 0 } ) ; 
+                  } 
+              } 
+          } 
+ 
+          while ( ! q . empty ( ) ) 
+          { 
+              int  row = q . front ( ) [ 0 ] ; 
+              int  col = q . front ( ) [ 1 ] ; 
+              int  dis = q . front ( ) [ 2 ] ; 
+             vis [ row ] [ col ] = 1 ; 
+             ans [ row ] [ col ] = dis ; 
+              //distance to nearest zero is dis  
+             q . pop ( ) ; 
+             
+ 
+              //for all 4 neighbours if they are valid,not visited and not 0 then we add them to queue with dis=dis+1 
+              if ( row != 0   &&  vis [ row - 1 ] [ col ] != 1   &&  mat [ row - 1 ] [ col ] == 1 ) 
+              { 
+                 vis [ row - 1 ] [ col ] = 1 ; 
+                 q . push ( { row - 1 , col , dis + 1 } ) ; 
+              } 
+              if ( row != mat . size ( ) - 1   &&  vis [ row + 1 ] [ col ] != 1   &&  mat [ row + 1 ] [ col ] == 1 ) 
+              { 
+                 vis [ row + 1 ] [ col ] = 1 ; 
+                 q . push ( { row + 1 , col , dis + 1 } ) ; 
+              } 
+              if ( col != 0   &&  vis [ row ] [ col - 1 ] != 1   &&  mat [ row ] [ col - 1 ] == 1 ) 
+              { 
+                 vis [ row ] [ col - 1 ] = 1 ; 
+                 q . push ( { row , col - 1 , dis + 1 } ) ; 
+              } 
+              if ( col != mat [ 0 ] . size ( ) - 1   &&  vis [ row ] [ col + 1 ] != 1   &&  mat [ row ] [ col + 1 ] == 1 ) 
+              { 
+                 vis [ row ] [ col + 1 ] = 1 ; 
+                 q . push ( { row , col + 1 , dis + 1 } ) ; 
+              } 
+ 
+          } 
+         
+      } 
+     vector < vector < int >>   updateMatrix ( vector < vector < int >> &  mat )   { 
+         vector < vector < int >> vis ( mat . size ( ) , vector < int > ( mat [ 0 ] . size ( ) , 0 ) ) ; 
+         vector < vector < int >> ans ( mat . size ( ) , vector < int > ( mat [ 0 ] . size ( ) , 0 ) ) ; 
+          bfs ( mat , vis , ans ) ; 
+          return  ans ; 
+      } 
+  } ;
