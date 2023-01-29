@@ -8,8 +8,8 @@ class Solution {
   public:
     int solve(int a, int b) {
         int num=a^b;
-        int num1=(a^b)&a;
-        int num2=(a^b)&b;
+        int num1=num&a;
+        int num2=num&b;
         int ans=0;
         if(num1!=0)
             ans++;
