@@ -1,0 +1,17 @@
+class   Solution   { 
+  public : 
+      int   solve ( long  a , long  b , long  c , int  n ) 
+      { 
+          if ( n == 0 ) 
+              return  a ; 
+          return   solve ( b , c , a + b + c , n - 1 ) ; 
+      } 
+      int   tribonacci ( int  n )   { 
+          // vector<int>v(n); 
+          // v[0]=0; 
+          // v[1]=1; 
+          // v[2]=1; 
+          return   solve ( 0 , 1 , 1 , n ) ; 
+ 
+      } 
+  } ;
