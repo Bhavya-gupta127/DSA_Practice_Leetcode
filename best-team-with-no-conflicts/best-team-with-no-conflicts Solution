@@ -1,0 +1,30 @@
+class   Solution   { 
+  public : 
+      int   solve ( int  i , int  maxscore , vector < pair < int , int >> & v , vector < vector < int >> & dp ) 
+      { 
+          if ( i >= v . size ( ) ) 
+              return   0 ; 
+          if ( dp [ i ] [ maxscore + 1 ] != - 1 ) 
+              return  dp [ i ] [ maxscore + 1 ] ; 
+          int  pick = 0 ; 
+          int  notpick = 0 ; 
+          if ( v [ maxscore ] . second <= v [ i ] . second ) 
+          { 
+              int  temp = maxscore ; 
+              if ( v [ maxscore ] . second  <=  v [ i ] . second ) 
+                 temp = i ; 
+             pick = solve ( i + 1 , temp , v , dp ) + v [ i ] . second ; 
+          } 
+         notpick = solve ( i + 1 , maxscore , v , dp ) ; 
+          return  dp [ i ] [ maxscore + 1 ] = max ( notpick , pick ) ; 
+      } 
+      int   bestTeamScore ( vector < int > &  scores ,  vector < int > &  ages )   { 
+         vector < pair < int , int >> v ; 
+         v . push_back ( { 0 , 0 } ) ; 
+          for ( int  i = 0 ; i < scores . size ( ) ; i ++ ) 
+             v . push_back ( { ages [ i ] , scores [ i ] } ) ; 
+          sort ( v . begin ( ) , v . end ( ) ) ; 
+         vector < vector < int >> dp ( scores . size ( ) + 1 , vector < int > ( scores . size ( ) + 1 , - 1 ) ) ; 
+          return   solve ( 1 , 0 , v , dp ) ; 
+      } 
+  } ;
