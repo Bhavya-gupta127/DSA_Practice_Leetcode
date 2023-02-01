@@ -1,0 +1,24 @@
+class   Solution   { 
+  public : 
+     string  gcdOfStrings ( string str1 ,  string str2 )   { 
+       //brute force approach 
+         string s ; 
+          if ( str1 . size ( ) < str2 . size ( ) ) 
+              swap ( str1 , str2 ) ; 
+         string ans ;     
+          for ( int  i = 0 ; i < str2 . size ( ) ; i ++ )    
+          { 
+             s . push_back ( str2 [ i ] ) ; 
+              int  n = s . size ( ) ; 
+             string temp = "" ; 
+              for ( int  j = 0 ; j < str1 . size ( ) / n ; j ++ ) 
+                 temp += s ; 
+             string temp2 = "" ; 
+              for ( int  j = 0 ; j < str2 . size ( ) / n ; j ++ ) 
+                 temp2 += s ; 
+              if ( temp == str1  &&  temp2 == str2 )   
+                 ans = s ; 
+          } 
+          return  ans ; 
+      } 
+  } ;
