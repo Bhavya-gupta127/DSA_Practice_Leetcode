@@ -1,0 +1,75 @@
+class   Solution   { 
+  public : 
+     vector < vector < int >>   generateMatrix ( int  n )   { 
+ 
+          int  left = 0 ; 
+          int  right = n - 1 ; 
+          int  top = 0 ; 
+          int  bottom = n - 1 ; 
+         vector < vector < int >>   ans ( n , vector < int >   ( n ) ) ; 
+          int  i = 1 ; 
+          int  j ; 
+         
+          // 1  2  3  4  5  
+          // 16 17 18 19 6 
+          // 15 24 25 20 7 
+          // 14 23 22 21 8 
+          // 13 12 11 10 9 
+          while ( i <= n * n ) 
+          { 
+              //left to right 
+             j = left ; 
+              while ( j <= right ) 
+              { 
+                 ans [ top ] [ j ] = i ; 
+                 i ++ ; 
+                 j ++ ; 
+              } 
+             top ++ ; 
+             
+              //top to bottom 
+             j = top ; 
+              while ( j <= bottom ) 
+              { 
+                 ans [ j ] [ right ] = i ; 
+                 i ++ ; 
+                 j ++ ; 
+              } 
+             right -- ; 
+             
+              // right to left 
+             j = right ; 
+              while ( j >= left ) 
+              { 
+                 ans [ bottom ] [ j ] = i ; 
+                 i ++ ; 
+                 j -- ; 
+              } 
+             bottom -- ; 
+             
+              //bottom to top 
+             j = bottom ; 
+              while ( j >= top ) 
+              { 
+                 ans [ j ] [ left ] = i ; 
+                 i ++ ; 
+                 j -- ; 
+              } 
+             left ++ ; 
+             
+             
+              if ( left > right ) 
+                  break ; 
+              if ( top > bottom ) 
+                  break ; 
+             
+             
+          } 
+         
+         
+         
+          return  ans ; 
+         
+         
+      } 
+  } ;
