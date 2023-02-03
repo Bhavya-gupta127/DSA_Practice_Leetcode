@@ -1,0 +1,23 @@
+class   Solution   { 
+  public : 
+     vector < int >   productExceptSelf ( vector < int > &  nums )   { 
+          //prefix product 
+         vector < long   long > pre ; 
+         pre . push_back ( nums [ 0 ] ) ; 
+          for ( int  i = 1 ; i < nums . size ( ) ; i ++ ) 
+             pre . push_back ( pre . back ( ) * nums [ i ] ) ; 
+          //suffix product 
+         vector < long   long > suf ; 
+         suf . push_back ( nums . back ( ) ) ; 
+          for ( int  i = nums . size ( ) - 2 ; i >= 0 ; i -- ) 
+             suf . push_back ( nums [ i ] * suf . back ( ) ) ; 
+          reverse ( suf . begin ( ) , suf . end ( ) ) ; 
+          //ans -> prefix at i-1 * suffix at i+1 
+         vector < int > ans ; 
+         ans . push_back ( suf [ 1 ] ) ; 
+          for ( int  i = 1 ; i < nums . size ( ) - 1 ; i ++ ) 
+             ans . push_back ( pre [ i - 1 ] * suf [ i + 1 ] ) ; 
+         ans . push_back ( pre [ nums . size ( ) - 2 ] ) ; 
+          return  ans ; 
+      } 
+  } ;
