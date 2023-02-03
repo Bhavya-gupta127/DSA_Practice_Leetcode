@@ -1,0 +1,22 @@
+class   Solution   { 
+  public : 
+      int   subarraySum ( vector < int > &  nums ,   int  k )   { 
+ 
+         vector < int > v ; 
+         v . push_back ( nums [ 0 ] ) ; 
+         map < int , int > mp ; 
+          for ( int  i = 1 ; i < nums . size ( ) ; i ++ ) 
+             v . push_back ( v . back ( ) + nums [ i ] ) ; 
+          int  ans = 0 ; 
+          for ( int  i = 0 ; i < v . size ( ) ; i ++ ) 
+          { 
+              if ( v [ i ] == k ) 
+                 ans ++ ; 
+              if ( mp [ v [ i ] - k ] != 0 ) 
+                 ans += mp [ v [ i ] - k ] ; 
+             mp [ v [ i ] ] ++ ; 
+             
+          } 
+          return  ans ; 
+      } 
+  } ;
