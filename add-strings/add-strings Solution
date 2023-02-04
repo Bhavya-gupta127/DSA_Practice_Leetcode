@@ -1,45 +1,49 @@
 class   Solution   { 
   public : 
      string  addStrings ( string num1 ,  string num2 )   { 
-          // 011 
-          // 123    
-          // ---- 
-          // 134 
-          // ---- 
- 
-          //inttution : we need to add leading 0s 
-          //reverse both strings and add 0s 
- 
-          if ( num1 . size ( ) > num2 . size ( ) ) 
-              swap ( num1 , num2 ) ; 
-          reverse ( num1 . begin ( ) , num1 . end ( ) ) ; 
-          while ( num1 . size ( ) < num2 . size ( ) ) 
-             num1 . push_back ( '0' ) ; 
-          reverse ( num1 . begin ( ) , num1 . end ( ) ) ; 
-          int  ptr = num2 . size ( ) - 1 ; 
+         
+          int  i = num1 . size ( ) - 1 ; 
+          int  j = num2 . size ( ) - 1 ; 
           int  carry = 0 ; 
-         string ans ; 
-          while ( ptr >= 0 ) 
+         stack < int > s ; 
+          int  temp ; 
+          while ( i >= 0   ||  j >= 0   ||  carry != 0 ) 
           { 
-              int  temp = carry + num2 [ ptr ] - '0' + num1 [ ptr ] - '0' ; 
-              int  cur ; 
+             temp = 0 ; 
+              if ( i >= 0 ) 
+              { 
+                 temp += num1 [ i ] - '0' ; 
+                 i -- ; 
+              } 
+              if ( j >= 0 ) 
+              { 
+                 temp += num2 [ j ] - '0' ; 
+                 j -- ; 
+              } 
+             temp += carry ; 
+             
               if ( temp > 9 ) 
               { 
-                 cur = temp % 10 ; 
+                 s . push ( temp % 10 ) ; 
                  temp /= 10 ; 
-                 carry = temp % 10 ; 
+                 carry = temp ; 
               } 
               else 
               { 
-                 cur = temp ; 
+                 s . push ( temp ) ; 
                  carry = 0 ; 
               } 
-             ans . push_back ( cur + '0' ) ; 
-             ptr -- ; 
+             
+             
           } 
-          if ( carry ) 
-             ans . push_back ( carry + '0' ) ; 
-          reverse ( ans . begin ( ) , ans . end ( ) ) ; 
+         
+         string ans ; 
+          while ( ! s . empty ( ) ) 
+          { 
+             ans . push_back ( s . top ( ) + '0' ) ; 
+             s . pop ( ) ; 
+          } 
           return  ans ; 
+         
       } 
   } ;
