@@ -1,0 +1,45 @@
+class   Solution   { 
+  public : 
+     string  addStrings ( string num1 ,  string num2 )   { 
+          // 011 
+          // 123    
+          // ---- 
+          // 134 
+          // ---- 
+ 
+          //inttution : we need to add leading 0s 
+          //reverse both strings and add 0s 
+ 
+          if ( num1 . size ( ) > num2 . size ( ) ) 
+              swap ( num1 , num2 ) ; 
+          reverse ( num1 . begin ( ) , num1 . end ( ) ) ; 
+          while ( num1 . size ( ) < num2 . size ( ) ) 
+             num1 . push_back ( '0' ) ; 
+          reverse ( num1 . begin ( ) , num1 . end ( ) ) ; 
+          int  ptr = num2 . size ( ) - 1 ; 
+          int  carry = 0 ; 
+         string ans ; 
+          while ( ptr >= 0 ) 
+          { 
+              int  temp = carry + num2 [ ptr ] - '0' + num1 [ ptr ] - '0' ; 
+              int  cur ; 
+              if ( temp > 9 ) 
+              { 
+                 cur = temp % 10 ; 
+                 temp /= 10 ; 
+                 carry = temp % 10 ; 
+              } 
+              else 
+              { 
+                 cur = temp ; 
+                 carry = 0 ; 
+              } 
+             ans . push_back ( cur + '0' ) ; 
+             ptr -- ; 
+          } 
+          if ( carry ) 
+             ans . push_back ( carry + '0' ) ; 
+          reverse ( ans . begin ( ) , ans . end ( ) ) ; 
+          return  ans ; 
+      } 
+  } ;
