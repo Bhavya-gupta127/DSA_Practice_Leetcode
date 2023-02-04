@@ -1,0 +1,25 @@
+class   Solution   { 
+  public : 
+      int   longestPalindrome ( string s )   { 
+         
+         map < int , int > mp ; 
+          for ( auto  i :  s ) 
+             mp [ i ] ++ ; 
+ 
+          int  ans = 0 ; 
+          bool  odd = false ; 
+ 
+          for ( auto  i : mp ) 
+          { 
+              if ( i . second % 2 == 1 ) 
+                 odd = true ; 
+             ans += ( i . second / 2 ) * 2 ;             
+          } 
+         
+          if ( odd ) 
+             ans ++ ; 
+         
+          return  ans ; 
+         
+      } 
+  } ;
