@@ -1,0 +1,87 @@
+/**
+  * Definition for singly-linked list.
+  * struct ListNode {
+  *     int val;
+  *     ListNode *next;
+  *     ListNode(int x) : val(x), next(NULL) {}
+  * };
+  */ 
+  class   Solution   { 
+  public : 
+     
+      ListNode  * getIntersectionNode ( ListNode  * headA ,  ListNode  * headB )   { 
+          
+  //          ListNode * a=headA; 
+  //          while(a!=NULL) 
+  //          { 
+  //              a->val=-1; 
+  //              a=a->next; 
+  //          } 
+          
+  //          ListNode * b=headB; 
+  //          while(b!=NULL) 
+  //          { 
+  //              if(b->val==-1) 
+  //                  return b; 
+  //              else 
+  //                  b=b->next; 
+  //          } 
+  //          return NULL; 
+          
+          
+           if ( headA == headB ) 
+               return  headA ; 
+          
+           while ( headA != NULL ) 
+           { 
+              ListNode * ptr = headB ; 
+               while ( ptr != NULL ) 
+               { 
+                   if ( headA == ptr ) 
+                       return  ptr ; 
+                   else 
+                      ptr = ptr -> next ; 
+               } 
+              headA = headA -> next ; 
+           } 
+           return   NULL ; 
+       } 
+     
+  //     ListNode* reverse(ListNode *head) 
+  //     { 
+         
+  //         ListNode* newhead=NULL; 
+  //         while(head) 
+  //         { 
+  //             ListNode* next=head->next; 
+  //             head->next=newhead; 
+  //             newhead=head; 
+  //             head=next; 
+             
+  //         } 
+  //         return newhead ; 
+  //     } 
+     
+  //     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) { 
+         
+  //         ListNode * a=reverse(headA); 
+  //         ListNode * b=reverse(headB); 
+  //         ListNode * c=a; 
+  //         ListNode * d=b; 
+  //         ListNode*ans=NULL; 
+         
+  //         while(a!=NULL && b!=NULL && a->val==b->val) 
+  //         { 
+  //             ans=a; 
+  //             a=a->next;    
+  //             b=b->next; 
+             
+             
+  //         } 
+  //         reverse(c); 
+  //         reverse(d); 
+         
+         
+  //         return ans; 
+  //     } 
+  } ;
