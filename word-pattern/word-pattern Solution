@@ -1,0 +1,23 @@
+class   Solution   { 
+  public : 
+      bool   wordPattern ( string pattern ,  string s )   { 
+         istringstream  ss ( s ) ; 
+         string temp ; 
+          int  i = 0 ; 
+         map < char , string > mp ; 
+         map < string , char > mp2 ; 
+          while ( getline ( ss , temp , ' ' ) ) 
+          { 
+              if ( mp . count ( pattern [ i ] )   &&  mp [ pattern [ i ] ] != temp ) 
+                  return   false ; 
+             mp [ pattern [ i ] ] = temp ; 
+              if ( mp2 . count ( temp )   &&  mp2 [ temp ] != pattern [ i ] ) 
+                  return   false ; 
+             mp2 [ temp ] = pattern [ i ] ; 
+             i ++ ; 
+          } 
+          if ( i != pattern . size ( ) ) 
+              return   false ; 
+          return   true ; 
+      } 
+  } ;
