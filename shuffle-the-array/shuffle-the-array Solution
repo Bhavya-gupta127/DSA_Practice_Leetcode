@@ -1,0 +1,15 @@
+class   Solution   { 
+  public : 
+     vector < int >   shuffle ( vector < int > &  nums ,   int  n )   { 
+          //using O(n) extra space 
+         vector < int > ans ; 
+          int  i = 0 ; 
+          int  j = nums . size ( ) / 2 ; 
+          while ( j < nums . size ( ) ) 
+          { 
+             ans . push_back ( nums [ i ++ ] ) ; 
+             ans . push_back ( nums [ j ++ ] ) ; 
+          } 
+          return  ans ; 
+      } 
+  } ;
