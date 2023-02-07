@@ -1,0 +1,35 @@
+class   Solution   { 
+ public : 
+      int   totalFruit ( vector < int > &  fruits )   { 
+          // 0 1 0 1 2 2 3 2 3 3 2 2 1 
+         map < int , int > mp ; 
+          int  ptr = 0 ; 
+          int  ans = 0 ; 
+          for ( int  i = 0 ; i < fruits . size ( ) ; i ++ ) 
+          { 
+              if ( mp . count ( fruits [ i ] ) ) 
+                 mp [ fruits [ i ] ] ++ ; 
+              else   if ( mp . size ( ) < 2 ) 
+                 mp [ fruits [ i ] ] ++ ; 
+              else 
+              { 
+                 ans = max ( ans , i - ptr ) ; 
+                  // int temp=i-2;; 
+                 mp [ fruits [ i ] ] ++ ; 
+                  int  temp = ptr ; 
+                  while ( mp . size ( ) > 2 ) 
+                  { 
+                      if ( mp [ fruits [ ptr ] ] == 1 ) 
+                         mp . erase ( fruits [ ptr ] ) ; 
+                      else 
+                         mp [ fruits [ ptr ] ] -- ; 
+                     ptr ++ ; 
+                  } 
+              } 
+ 
+              if ( i == fruits . size ( ) - 1 ) 
+                 ans = max ( ans , i - ptr + 1 ) ; 
+          } 
+          return  ans ; 
+      } 
+ } ;
