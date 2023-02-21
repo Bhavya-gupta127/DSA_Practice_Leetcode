@@ -1,17 +1,27 @@
 class   Solution   { 
-  public : 
+ public : 
       bool   increasingTriplet ( vector < int > &  nums )   { 
-          int  s1 = INT_MAX ; 
-          int  s2 = INT_MAX ; 
+         vector < int > v ( nums . size ( ) , 0 ) ; 
+          int  higher = INT_MIN ; 
+          for ( int  i = nums . size ( ) - 1 ; i >= 0 ; i -- ) 
+          { 
+              if ( nums [ i ] >= higher ) 
+                 higher = nums [ i ] ; 
+              else 
+                 v [ i ] ++ ; 
+          } 
+          int  lower = INT_MAX ; 
           for ( int  i = 0 ; i < nums . size ( ) ; i ++ ) 
           { 
-              if ( nums [ i ] <= s1 ) 
-                 s1 = nums [ i ] ; 
-              else   if ( nums [ i ] <= s2 ) 
-                 s2 = nums [ i ] ;  
-              else   if ( nums [ i ] > s2 ) 
-                  return   true ; 
+              if ( nums [ i ] <= lower ) 
+                 lower = nums [ i ] ; 
+              else 
+              { 
+                 v [ i ] ++ ; 
+                  if ( v [ i ] == 2 ) 
+                      return   true ; 
+              } 
           } 
           return   false ; 
       } 
-  } ;
+ } ;
