@@ -1,0 +1,50 @@
+class   Solution   { 
+ public : 
+      int   checkdays ( vector < int > &  weight , int  capacity ) 
+      { 
+          //O(n) check number of days for a particular capacity 
+          int  days = 0 ; 
+          int  cursum = 0 ; 
+          for ( int  i = 0 ; i < weight . size ( ) ; i ++ )  
+          { 
+              if ( weight [ i ] > capacity ) 
+                  return  INT_MAX ; 
+             cursum += weight [ i ] ; 
+              if ( cursum > capacity ) 
+              { 
+                 days ++ ; 
+                 cursum = weight [ i ] ; 
+              } 
+          } 
+          if ( cursum ) 
+             days ++ ; 
+          return  days ; 
+ 
+      } 
+      int   shipWithinDays ( vector < int > &  weights ,   int  days )   { 
+         
+          int  maxcapacity = 0 ; 
+          for ( auto  x : weights ) 
+             maxcapacity += x ; 
+ 
+          //O(log(m)) for binary search  m == maxcapacity 
+          int  low = 0 ; 
+          int  high = maxcapacity ; 
+          int  mid ; 
+          int  ans = INT_MAX ; 
+          while ( low <= high ) 
+          { 
+             mid = ( low + high ) / 2 ; 
+              int  temp = checkdays ( weights , mid ) ; 
+              if ( temp > days ) 
+                 low = mid + 1 ; 
+              else  
+              { 
+                 ans = min ( ans , mid ) ; 
+                 high = mid - 1 ; 
+              } 
+ 
+          } 
+          return  ans ; 
+      } 
+ } ;
