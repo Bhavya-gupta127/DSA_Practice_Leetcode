@@ -1,0 +1,48 @@
+class   Solution   { 
+ public : 
+      int   search ( vector < int > &  nums ,   int  target )   { 
+          //find first element smaller than nums[0] 
+          int  a = nums [ 0 ] ; 
+          if ( target == a ) 
+              return   0 ; 
+          int  l = 0 ; 
+          int  h = nums . size ( ) - 1 ; 
+          int  mid ; 
+          while ( l <= h ) 
+          { 
+             mid = ( l + h ) / 2 ; 
+             
+              if ( nums [ mid ] < a ) 
+                 h = mid - 1 ; 
+              else  
+                 l = mid + 1 ; 
+             
+          } 
+          int  n = mid ; 
+         l = 0 ; 
+         h = n ; 
+          while ( l <= h ) 
+          { 
+             mid = ( l + h ) / 2 ; 
+              if ( nums [ mid ] == target ) 
+                  return  mid ; 
+              else   if ( nums [ mid ] > target ) 
+                 h = mid - 1 ; 
+              else 
+                 l = mid + 1 ; 
+          } 
+         l = n ; 
+         h = nums . size ( ) - 1 ; 
+          while ( l <= h ) 
+          { 
+             mid = l + ( h - l ) / 2 ; 
+              if ( nums [ mid ] == target ) 
+                  return  mid ; 
+              else   if ( nums [ mid ] > target ) 
+                 h = mid - 1 ; 
+              else 
+                 l = mid + 1 ; 
+          } 
+          return   - 1 ; 
+      } 
+ } ;
