@@ -1,26 +1,34 @@
 class   Solution   { 
  public : 
       int   findMin ( vector < int > &  nums )   { 
-          int  first = nums [ 0 ] ; 
-          //find element smaller than first 
-          if ( nums . back ( ) > first ) 
-              return  first ; 
+          // 1234567 
+          // 56712340 
+          // 2 ascending arrays 
  
-          int  l = 0 ; 
-          int  h = nums . size ( ) - 1 ; 
-          int  mid ; 
-          int  ans = first ; 
-          while ( l <= h ) 
+          //find the sepereation point O(logn) 
+          // answer is the  element of mid pointer 
+ 
+ 
+          int  mid = - 1 , high = nums . size ( ) - 1 , low = 0 ; 
+          //base case 
+ 
+          if ( nums [ low ] < nums [ high ] ) 
+              return  nums [ low ] ; 
+ 
+          //binary search 
+          while ( low <= high ) 
           { 
-             mid = l  + ( h - l ) / 2 ; 
-              if ( nums [ mid ] >= first ) 
-                 l = mid + 1 ; 
+             mid = ( high + low ) / 2 ; 
+              if ( mid != 0   &&  nums [ mid ] < nums [ mid - 1 ] ) 
+                  return  nums [ mid ] ; 
+              else   if ( nums [ 0 ] > nums [ mid ] ) 
+                 high = mid - 1 ; 
               else 
-              { 
-                 ans = nums [ mid ] ; 
-                 h = mid - 1 ; 
-              } 
+                 low = mid + 1 ; 
           } 
-          return  ans ; 
+          return  nums [ mid ] ; 
+         
+ 
+ 
       } 
  } ;
