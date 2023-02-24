@@ -1,0 +1,26 @@
+class   Solution   { 
+ public : 
+      int   findMin ( vector < int > &  nums )   { 
+          int  first = nums [ 0 ] ; 
+          //find element smaller than first 
+          if ( nums . back ( ) > first ) 
+              return  first ; 
+ 
+          int  l = 0 ; 
+          int  h = nums . size ( ) - 1 ; 
+          int  mid ; 
+          int  ans = first ; 
+          while ( l <= h ) 
+          { 
+             mid = l  + ( h - l ) / 2 ; 
+              if ( nums [ mid ] >= first ) 
+                 l = mid + 1 ; 
+              else 
+              { 
+                 ans = nums [ mid ] ; 
+                 h = mid - 1 ; 
+              } 
+          } 
+          return  ans ; 
+      } 
+ } ;
