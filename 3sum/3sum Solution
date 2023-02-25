@@ -1,175 +1,35 @@
 class   Solution   { 
  public : 
      vector < vector < int >>   threeSum ( vector < int > &  nums )   { 
-      
-          // TLE solu  
- 
-          // sort(nums.begin(),nums.end()); 
-          // set<vector<int>>ans; 
-          // map<int,int>mp; 
-          // for(auto i:nums) 
-          //     mp[i]++; 
-          // for(int i=0;i<nums.size();i++) 
-          // { 
-          //     mp[nums[i]]--; 
-          //     for(int j=i+1;j<nums.size();j++) 
-          //     { 
-          //         mp[nums[j]]--; 
-          //         if(mp[-nums[i]-nums[j]]!=0) 
-          //         { 
-          //             vector<int>temp={nums[i],nums[j],-nums[i]-nums[j]}; 
-          //             sort(temp.begin(),temp.end()); 
-          //             ans.insert(temp); 
-          //         } 
-          //         mp[nums[j]]++; 
-          //     } 
-          //     mp[nums[i]]++; 
- 
-          // } 
-          // vector<vector<int>>res; 
-          // for(auto i:ans) 
-          //     res.push_back(i); 
-          // return res; 
- 
- 
- 
-         vector < vector < int >>  v ; 
-         
-          sort ( nums . begin ( ) , nums . end ( ) ) ; 
-         
-         
-          // -4 -1 -1 0 1 2 
-         
-          int  n = nums . size ( ) ; 
-         
-          int  l = 0 ; 
-          int  r = n - 1 ; 
-          int  tofind ; 
-          for ( int  i = 0 ; i < n - 2 ; i ++ ) 
+          sort ( nums . begin ( ) ,  nums . end ( ) ) ; 
+          // -4 -1 -1  0 1 2  
+         vector < vector < int >> ans ; 
+          for ( int  i = 0 ; i < nums . size ( ) ; i ++ ) 
           { 
-           
-              if ( i == 0   ||   ( i > 0   &&  nums [ i ] != nums [ i - 1 ] ) ) 
+              if ( i == 0   ||   ( nums [ i ] != nums [ i - 1 ] ) ) 
               { 
-             
-                 l = i + 1 ; 
-                 r = n - 1 ; 
-                 tofind = - 1 * nums [ i ] ; 
-                  while ( l < r ) 
+                  int  a = - nums [ i ] ; 
+                  int  l = i + 1 ; 
+                  int  h = nums . size ( ) - 1 ; 
+                  while ( l < h ) 
                   { 
-                      if ( nums [ l ] + nums [ r ] == tofind ) 
+                      if ( nums [ l ] + nums [ h ] == a ) 
                       { 
-                         v . push_back ( { nums [ i ] , nums [ l ] , nums [ r ] } ) ; 
- 
-                          while ( l < r  &&  nums [ l ] == nums [ l + 1 ] ) 
+                         ans . push_back ( { nums [ i ] , nums [ l ] , nums [ h ] } ) ; 
+                          while ( l < h  &&  nums [ l ] == nums [ l + 1 ] ) 
                              l ++ ; 
- 
- 
-                          while ( l < r  &&  nums [ r ] == nums [ r - 1 ] ) 
-                             r -- ; 
-                          r -- ; 
-                          l ++ ; 
+                          while ( l < h  &&  nums [ h ] == nums [ h - 1 ] ) 
+                             h -- ; 
+                         l ++ ; 
+                         h -- ; 
                       } 
-                      else   if ( nums [ l ] + nums [ r ] < tofind ) 
-                      { 
- 
-                            l ++ ; 
-                      } 
+                      else   if ( nums [ l ] + nums [ h ] < a ) 
+                         l ++ ; 
                       else 
-                      { 
- 
-                         r -- ; 
-                      } 
+                         h -- ; 
                   } 
               } 
           } 
-          return  v ; 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-          //next solu  
- 
-          /*
-         
-         map<int,int>mp;
-         for(int i=0;i<nums.size();i++)
-             mp[nums[i]]++;
-         
-         map<int,int>::iterator itr1;
-         map<int,int>::iterator itr2;
-         
-         vector<vector<int>> v;
-             
-         for(itr1=mp.begin();itr1!=mp.end();)
-         {
-             itr1++;
-             for(itr2=itr1;itr2!=mp.end();itr2++)
-             {
-                 if(mp[-1*itr1->first - itr2->first]!=0)
-                 {
-                     v.push_back({itr1->first,itr2->first,-1*itr1->first - itr2->first});
-                 }
-             }  
-         }
-         
-         return v;
-         */ 
-         
-         
- //         unordered_map<int,int> mp; 
- //         set <vector<int>> v; 
- //         int n=nums.size(); 
- //         vector<vector<int>>ans; 
- //         if(n<3) 
- //             return ans; 
- //         for(int i=0;i<n;i++) 
- //         { 
- //             // set.insert(nums[i]); 
- //             mp[nums[i]]++; 
- //         } 
-         
- //         for(int i=0;i<n;i++) 
- //         { 
- //             for(int j=i+1;j<n;j++) 
- //             { 
- //                 if(-nums[i]-nums[j] == nums[i] && mp[nums[i]]<=1) 
- //                 { 
- //                     continue; 
- //                 } 
- 
- //                 if(-nums[i]-nums[j] == nums[j] && mp[nums[j]]<=1) 
- //                 { 
- //                     continue; 
- //                 }    
-                 
- //                 if(-nums[i]-nums[j] == nums[j] && -nums[i]-nums[j] == nums[i] && mp[nums[j]]<=2) 
- //                 { 
- //                     continue; 
- //                 }    
- //                 if(mp[-nums[i]-nums[j]]!=0) 
- //                 { 
- //                     vector<int>tempv; 
- //                     tempv.push_back(nums[i]); 
- //                     tempv.push_back(nums[j]); 
- //                     tempv.push_back(-nums[i]-nums[j]); 
- //                     sort(tempv.begin(),tempv.end()); 
-                     
- //                     v.insert(tempv); 
-                     
- //                     // v.push_back(tempv);  
-                     
- //                 } 
- //             } 
- //         } 
- //         vector<vector<int>>ans1(v.begin(),v.end()); 
- //         return ans1; 
+          return  ans ; 
       } 
  } ;
