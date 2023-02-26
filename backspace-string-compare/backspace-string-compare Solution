@@ -1,28 +1,63 @@
-class   Solution   { 
+
+ class   Solution   { 
  public : 
+      int   chrcmp ( char  a ,   char  b ) {  
+          return  a  ^  b ;  
+      }  
       bool   backspaceCompare ( string s ,  string t )   { 
-         string ss ; 
-          for ( int  i = 0 ; i < s . size ( ) ; i ++ ) 
+         vector < char >  s1 ; 
+          int  n = s . length ( ) ; 
+          for ( int  i = 0 ; i < n ; i ++ ) 
           { 
-              if ( s [ i ] == '#' ) 
+              if ( s [ i ] != '#' ) 
               { 
-                  if ( ss . size ( ) != 0 ) 
-                     ss . pop_back ( ) ; 
+                 s1 . push_back ( s [ i ] ) ; 
               } 
               else 
-                 ss . push_back ( s [ i ] ) ; 
-          } 
-         string tt ; 
-          for ( int  i = 0 ; i < t . size ( ) ; i ++ ) 
-          { 
-              if ( t [ i ] == '#' ) 
               { 
-                  if ( tt . size ( ) != 0 ) 
-                     tt . pop_back ( ) ; 
+                   if ( ! s1 . empty ( ) ) 
+                     s1 . pop_back ( ) ; 
+              } 
+          } 
+         
+         vector < char >  t1 ; 
+          int  m = t . length ( ) ; 
+          for ( int  i = 0 ; i < m ; i ++ ) 
+          { 
+              if ( t [ i ] != '#' ) 
+              { 
+                 t1 . push_back ( t [ i ] ) ; 
               } 
               else 
-                 tt . push_back ( t [ i ] ) ; 
+              { 
+                  if ( ! t1 . empty ( ) ) 
+                     t1 . pop_back ( ) ; 
+              } 
           } 
-          return  tt == ss ; 
+             
+         n = s1 . size ( ) ; 
+         m = t1 . size ( ) ; 
+         
+ //         for(int i=0;i<n;i++) 
+ //             cout<<s1[i]<<" "; 
+         
+ //         for(int i=0;i<m;i++) 
+ //             cout<<t1[i]<<" "; 
+         
+         
+         
+          if ( n != m ) 
+              return   false ; 
+          else 
+          { 
+               for ( int  i = 0 ; i < n ; i ++ ) 
+               { 
+                   // if(chrcmp(s1[i], t1[i])!=0) 
+                  if ( s1 [ i ] != t1 [ i ] ) 
+                      return   false ; 
+               } 
+          } 
+             
+         return   true ; 
       } 
- } ;
+ } ; 
