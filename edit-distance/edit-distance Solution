@@ -1,0 +1,61 @@
+class   Solution   { 
+ public : 
+      int   solve ( int  i , int  j , string word1 , string word2 , string s , vector < vector < int >> & dp ) 
+      { 
+ 
+          if ( s == word2 ) 
+          { 
+              int  cnt = 0 ; 
+              while ( i != word1 . size ( ) ) 
+              { 
+                 cnt ++ ; 
+                 i ++ ; 
+              } 
+              while ( j != word2 . size ( ) ) 
+              { 
+                 cnt ++ ; 
+                 j ++ ; 
+              } 
+             
+              return  cnt ; 
+          } 
+          if ( j == word2 . size ( ) ) 
+          { 
+              int  a = word1 . size ( ) - i ; 
+              if ( a > 0 ) 
+                  return  a ; 
+              return   1e9 ; 
+          } 
+          if ( i == word1 . size ( ) ) 
+          { 
+              int  a = word2 . size ( ) - j ; 
+              if ( a > 0 ) 
+                  return  a ; 
+              return   1e9 ; 
+          } 
+          if ( dp [ i ] [ j ] != - 1 ) 
+              return  dp [ i ] [ j ] ; 
+         vector < int > v ; 
+          if ( word2 [ j ] == word1 [ i ] ) 
+          { 
+              //do nothing 
+             v . push_back ( solve ( i + 1 , j + 1 , word1 , word2 , s + word2 [ j ] , dp ) ) ; 
+          } 
+          else 
+          { 
+              //replace 
+             v . push_back ( solve ( i + 1 , j + 1 , word1 , word2 , s + word2 [ j ] , dp ) + 1 ) ; 
+              //delete 
+             v . push_back ( solve ( i + 1 , j , word1 , word2 , s , dp ) + 1 ) ; 
+              //insert 
+             v . push_back ( solve ( i , j + 1 , word1 , word2 , s + word2 [ j ] , dp ) + 1 ) ; 
+          } 
+          sort ( v . begin ( ) , v . end ( ) ) ; 
+         
+          return  dp [ i ] [ j ] = v [ 0 ] ; 
+      } 
+      int   minDistance ( string word1 ,  string word2 )   { 
+         vector < vector < int >> dp ( word1 . size ( ) + 1 , vector < int > ( word2 . size ( ) + 1 , - 1 ) ) ; 
+          return   solve ( 0 , 0 , word1 , word2 , "" , dp ) ; 
+      } 
+ } ;
