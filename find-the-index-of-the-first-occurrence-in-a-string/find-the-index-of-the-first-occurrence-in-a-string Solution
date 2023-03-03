@@ -1,0 +1,30 @@
+class   Solution   { 
+ public : 
+      int   strStr ( string haystack ,  string needle )   { 
+      
+          if ( needle == "" ) 
+              return   0 ; 
+          if ( haystack == ""   ||  haystack . length ( ) < needle . length ( ) ) 
+              return   - 1 ; 
+         
+          int  k = 0 ; 
+          int  j = 0 ; 
+         
+          for ( int  i = 0 ; i < haystack . length ( ) ; i ++ ) 
+          { 
+             j = i ; 
+             k = 0 ; 
+              while ( haystack [ j ] == needle [ k ] ) 
+              { 
+                 
+                 j ++ ; 
+                 k ++ ; 
+                  if ( k == needle . length ( ) ) 
+                      return  i ; 
+                 
+              } 
+          } 
+          return   - 1 ; 
+         
+      } 
+ } ;
