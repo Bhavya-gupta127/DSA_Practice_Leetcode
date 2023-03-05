@@ -1,5 +1,5 @@
 class   Solution   { 
-  public : 
+ public : 
      vector < int >   findAnagrams ( string s ,  string p )   { 
           if ( p . size ( ) > s . size ( ) ) 
               return   { } ; 
@@ -28,4 +28,4 @@ class   Solution   {
              ans . push_back ( i ) ; 
           return  ans ; 
       } 
-  } ;
+ } ;
