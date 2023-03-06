@@ -1,0 +1,21 @@
+class   Solution   { 
+ public : 
+      int   minSubArrayLen ( int  k ,  vector < int > &  nums )   { 
+         
+          int  l = 0 , r = 0 ; 
+          int  n = nums . size ( ) , sum = 0 , ans = 1e9 ; 
+          while ( l <= r ) 
+          { 
+              while ( sum >= k ) 
+              { 
+                 ans = min ( ans , r - l ) ; 
+                 sum -= nums [ l ++ ] ; 
+              } 
+              if ( r < n ) 
+                 sum += nums [ r ++ ] ; 
+              else 
+                  break ; 
+          } 
+          return  ans == 1e9 ? 0 : ans ; 
+      } 
+ } ;
