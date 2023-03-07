@@ -1,0 +1,33 @@
+class   Solution   { 
+ public : 
+      int   checktrips ( long   long  n , vector < int > & time , int  totalTrips ) 
+      { 
+          long   long  res = 0 ; 
+          for ( long   long  i = 0 ; i < time . size ( ) ; i ++ ) 
+          { 
+             res += n / time [ i ] ; 
+              if ( res >= totalTrips ) 
+                  return   1 ; 
+          } 
+          return  res >= totalTrips ? 1 : 0 ; 
+ 
+      } 
+      long   long   minimumTime ( vector < int > &  time ,   int  totalTrips )   { 
+          long   long  l = 0 ; 
+          long   long  h = 1e15 ; 
+          long   long  mid = 0 ; 
+          long   long  ans = 1e15 ; 
+          while ( l <= h ) 
+          { 
+             mid = l + ( h - l ) / 2 ; 
+              if ( checktrips ( mid , time , totalTrips ) == 1 )   //greater than totaltrips 
+              { 
+                 ans = min ( ans , mid ) ; 
+                 h = mid - 1 ; 
+              } 
+              else 
+                 l = mid + 1 ; 
+          } 
+          return  ans ; 
+      } 
+ } ;
