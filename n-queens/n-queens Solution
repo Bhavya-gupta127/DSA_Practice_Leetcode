@@ -1,0 +1,122 @@
+class   Solution   { 
+ public : 
+     
+      bool   isAllowed ( int  row , int  col , int  n  , vector < string > ans ) 
+      { 
+          for ( int  i = 0 ; i < n ; i ++ ) 
+          { 
+              if ( ans [ row ] [ i ] == 'Q' ) 
+                  return   false ; 
+          } 
+          for ( int  i = 0 ; i < n ; i ++ ) 
+          { 
+              if ( ans [ i ] [ col ] == 'Q' ) 
+                  return   false ; 
+          } 
+          int  i ; 
+          int  j ; 
+         
+         i = row ; 
+         j = col ; 
+          while ( i >= 0   &&  j >= 0 ) 
+          { 
+              if ( ans [ i ] [ j ] == 'Q' ) 
+                  return   false ; 
+             i -- ; 
+             j -- ; 
+          } 
+         i = row ; 
+         j = col ; 
+          while ( i >= 0   &&  j < n ) 
+          { 
+              if ( ans [ i ] [ j ] == 'Q' ) 
+                  return   false ; 
+             i -- ; 
+             j ++ ; 
+          } 
+         i = row ; 
+         j = col ; 
+          while ( i < n  &&  j >= 0 ) 
+          { 
+              if ( ans [ i ] [ j ] == 'Q' ) 
+                  return   false ; 
+             i ++ ; 
+             j -- ; 
+          } 
+         i = row ; 
+         j = col ; 
+          while ( i < n  &&  j < n ) 
+          { 
+              if ( ans [ i ] [ j ] == 'Q' ) 
+                  return   false ; 
+             i ++ ; 
+             j ++ ; 
+          } 
+         
+          return   true ; 
+      } 
+     
+     
+      void   solve ( int  row , int  col , int  n ,  vector < vector < string >> & ans , vector < string > v ) 
+      { 
+          // cout<<col<<" "; 
+          if ( col >= n ) 
+          { 
+             ans . push_back ( v ) ; 
+              return ; 
+          } 
+          for ( int  i = 0 ; i < n ; i ++ ) 
+          { 
+              if ( isAllowed ( i , col , n , v ) ) 
+              { 
+                 v [ i ] [ col ] = 'Q' ; 
+                  solve ( i , col + 1 , n , ans , v ) ; 
+                 v [ i ] [ col ] = '.' ; 
+              } 
+          } 
+         
+         
+ //         for(int i=0;i<n;i++) 
+ //         { 
+ //             ans[row][i]="-1"; 
+ //         } 
+ //         for(int i=0;i<n;i++) 
+ //         { 
+ //             ans[i][col]="-1"; 
+ //         } 
+ //         int i=row; 
+ //         int j=col; 
+ //         while(row>=0 && col>=0) 
+ //         ans[row][col]="1"; 
+         
+ //         for(int i=0;i<n;i++) 
+ //         { 
+ //             if() 
+ //         } 
+      } 
+     vector < vector < string >>   solveNQueens ( int  n )   { 
+         
+         vector < vector < string >>  ans ; 
+        
+         vector < string > v ; 
+          for ( int  j = 0 ; j < n ; j ++ ) 
+          { 
+             string s ; 
+              for ( int  k = 0 ; k < n ; k ++ ) 
+              { 
+                 s . push_back ( '.' ) ; 
+              } 
+             v . push_back ( s ) ; 
+          } 
+             
+         
+          solve ( 0 , 0 , n , ans , v ) ; 
+         
+          // ans[2][2]="Q"; 
+          // cout<<isAllowed(1,2,n,ans); 
+          return  ans ; 
+         
+             
+         
+      } 
+ } ;
