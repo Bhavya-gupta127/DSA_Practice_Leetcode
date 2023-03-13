@@ -11,22 +11,18 @@
   */ 
  class   Solution   { 
  public : 
-      bool   solve ( TreeNode *  p , TreeNode *  q ) 
+      bool   solve ( TreeNode  *  p , TreeNode * q ) 
       { 
           if ( p == NULL   &&  q == NULL ) 
               return   true ; 
-          if ( p == NULL   ||  q == NULL ) 
+          if ( p == NULL   ||  q == NULL   ||  p -> val != q -> val ) 
               return   false ; 
-          bool  a = solve ( p -> left , q -> right ) ; 
-          if ( p -> val != q -> val ) 
-              return   false ; 
-          bool  b = solve ( p -> right , q -> left ) ; 
-          return  a && b ; 
- 
+          return   solve ( p -> left , q -> right )   &&   solve ( p -> right , q -> left ) ; 
       } 
+ 
       bool   isSymmetric ( TreeNode *  root )   { 
           if ( root == NULL ) 
-              return   true ; 
+              return   NULL ; 
           return   solve ( root -> left , root -> right ) ; 
       } 
  } ;
