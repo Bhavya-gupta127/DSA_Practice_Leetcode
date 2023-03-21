@@ -1,0 +1,36 @@
+class   Solution   { 
+ public : 
+      long   long   zeroFilledSubarray ( vector < int > &  nums )   { 
+         map < int , int > mp ; 
+          int  curlen = 0 ; 
+          for ( int  i = 0 ; i < nums . size ( ) ; i ++ ) 
+          { 
+              if ( nums [ i ] == 0 ) 
+                 curlen ++ ; 
+              else 
+              { 
+                  if ( curlen != 0 ) 
+                  { 
+                     mp [ curlen ] ++ ; 
+                     curlen = 0 ; 
+                  } 
+              } 
+          } 
+          if ( curlen != 0 ) 
+             mp [ curlen ] ++ ; 
+          // 1 => 1 
+          // 2 => 3 
+          // 3 => 6 
+          // 4 => 10 
+          // 5 => 15 
+          //basically n*(n+1)/2 * freq; 
+          long   long  ans = 0 ; 
+          for ( auto   & i : mp ) 
+          { 
+              long   long  n = i . first ; 
+              long   long  freq = i . second ; 
+             ans += n * ( n + 1 ) / 2 * freq ; 
+          } 
+          return  ans ; 
+      } 
+ } ;
