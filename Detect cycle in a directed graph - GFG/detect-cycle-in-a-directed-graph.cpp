@@ -23,12 +23,11 @@ class Solution {
             if(indegree[i]==0)
                 q.push(i);
         }
-        vector<int>vis(V,0);
         while(!q.empty())
         {
             int node=q.front();
             q.pop();
-            vis[node]=1;
+            V--;
             for(auto &i:adj[node])
             {
                 indegree[i]--;
@@ -37,12 +36,7 @@ class Solution {
             }
             
         }
-        for(auto &i:vis)
-        {
-            if(i==0)
-                return true;
-        }
-        return false;
+        return !V==0;
         
                 
         
