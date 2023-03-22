@@ -1,0 +1,41 @@
+class   Solution   { 
+ public : 
+      int  ans = INT_MAX ; 
+      void   dfs ( int  node , vector < vector < pair < int , int >> > &  adj , vector < int > & vis ) 
+      { 
+          if ( vis [ node ] == 1 ) 
+              return ; 
+         
+         vis [ node ] = 1 ; 
+          for ( auto   & i : adj [ node ] ) 
+          { 
+             ans = min ( ans , i . second ) ; 
+              if ( vis [ i . first ] != 1 ) 
+              { 
+                  dfs ( i . first , adj , vis ) ; 
+              } 
+          } 
+      } 
+      int   minScore ( int  n ,  vector < vector < int >> &  roads )   { 
+         vector < vector < pair < int , int >> > adj ( n + 2 ) ; 
+          for ( auto   & i : roads ) 
+          { 
+             adj [ i [ 0 ] ] . push_back ( { i [ 1 ] , i [ 2 ] } ) ; 
+             adj [ i [ 1 ] ] . push_back ( { i [ 0 ] , i [ 2 ] } ) ; 
+          } 
+         vector < int > vis ( n + 2 , 0 ) ; 
+         
+          dfs ( 1 , adj , vis ) ; 
+      //    for(int i=0;i<n+1;i++) 
+      //    { 
+      //        cout<<i<<" : "; 
+      //        for(int j=0;j<adj[i].size();j++) 
+      //        { 
+      //            cout<<"{"<<adj[i][j].first<<" "<<adj[i][j].second<<"}"; 
+      //        } 
+      //        cout<<"\n"; 
+      //    } 
+          return  ans ; 
+ 
+      } 
+ } ;
