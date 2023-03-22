@@ -7,35 +7,71 @@ class Solution
 {
 	public:
 	//Function to return list containing vertices in Topological order. 
-	void topodfs(int node,vector<int>adj[],stack<int>&st,vector<int>&vis)
-	{
-	       vis[node]=1;
-	       for(auto i:adj[node])
-	       {
-	           if(vis[i]!=1)
-	                topodfs(i,adj,st,vis);
-	       }
-	       st.push(node);
-	}
+// 	void topodfs(int node,vector<int>adj[],stack<int>&st,vector<int>&vis)
+// 	{
+// 	       vis[node]=1;
+// 	       for(auto i:adj[node])
+// 	       {
+// 	           if(vis[i]!=1)
+// 	                topodfs(i,adj,st,vis);
+// 	       }
+// 	       st.push(node);
+// 	}
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
-	    stack<int>st;
-	    vector<int>vis(V+1,0);
-	    for(int i=0;i<V;i++)
-	    {
-	        if(vis[i]!=1)
-	            topodfs(i,adj,st,vis);
-	    }
+	    //dfs approach
+	    
+	   // stack<int>st;
+	   // vector<int>vis(V+1,0);
+	   // for(int i=0;i<V;i++)
+	   // {
+	   //     if(vis[i]!=1)
+	   //         topodfs(i,adj,st,vis);
+	   // }
 	        
-	    vector<int>ans;
-	    while(!st.empty())
-	    {
-	        ans.push_back(st.top());
-	       // cout<<st.top()<<" ";
-	        st.pop();
-	    }
-	    return ans;
-	    // code here
+	   // vector<int>ans;
+	   // while(!st.empty())
+	   // {
+	   //     ans.push_back(st.top());
+	   //     st.pop();
+	   // }
+	   // for(auto i:ans)
+	   //     cout<<i<<" ";
+	   //    cout<<"\n";
+	   // return ans;
+	   
+	   
+	   
+	   
+	   
+	   //bfs kahns' algorithm
+	   vector<int>indegree(V+1,0);
+	   for(int i=0;i<V;i++)
+	   {
+	        for(auto j:adj[i])   
+	            indegree[j]++;
+	   }
+	   queue<int>q;
+	   vector<int>ans;
+	   for(int i=0;i<V;i++)
+	   {
+	       if(indegree[i]==0)
+	            q.push(i);
+	   }
+	   while(!q.empty())
+	   {
+	       int node=q.front();
+           ans.push_back(node);
+	       q.pop();
+	       for(auto i:adj[node])
+	       {
+	           indegree[i]--;
+	           if(indegree[i]==0)  
+	                q.push(i);
+	       }
+	   }
+	   return ans;
+	   
 	}
 };
 
