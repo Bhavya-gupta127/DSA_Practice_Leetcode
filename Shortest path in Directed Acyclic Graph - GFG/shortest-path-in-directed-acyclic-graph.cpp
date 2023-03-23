@@ -9,30 +9,69 @@ using namespace std;
 class Solution {
     
   public:
-    void dfs(int node,vector<vector<pair<int,int>>>&adj,vector<int>&ans,int dis)
+    // void dfs(int node,vector<vector<pair<int,int>>>&adj,vector<int>&ans,int dis)
+    // {
+    //     ans[node]=min(ans[node],dis);
+    //     for(auto &i:adj[node])
+    //         dfs(i.first,adj,ans,dis+i.second);
+    // }
+    //  vector<int> shortestPath(int N,int M, vector<vector<int>>& edges){
+    //     vector<vector<pair<int,int>>>adj(N);
+    //     for(auto &i:edges)
+    //         adj[i[0]].push_back({i[1],i[2]});
+    //     vector<int>ans(N,INT_MAX);
+    //     dfs(0,adj,ans,0);
+    //     for(int i=0;i<N;i++)
+    //     {
+    //         if(ans[i]==INT_MAX)
+    //             ans[i]=-1;
+    //     }
+    //     return ans;
+    // }
+    void dfs(int node,vector<vector<pair<int,int>>>&adj,stack<int>&st,vector<int>&vis)
     {
-        ans[node]=min(ans[node],dis);
+        if(vis[node]==1)
+            return;
+        vis[node]=1;
         for(auto &i:adj[node])
         {
-            dfs(i.first,adj,ans,dis+i.second);
+            if(vis[i.first]!=1)
+                dfs(i.first,adj,st,vis);
         }
+        st.push(node);
     }
-     vector<int> shortestPath(int N,int M, vector<vector<int>>& edges){
-        // code here
+    vector<int> shortestPath(int N,int M, vector<vector<int>>& edges){
+         
         vector<vector<pair<int,int>>>adj(N);
         for(auto &i:edges)
-        {
             adj[i[0]].push_back({i[1],i[2]});
-        }
-        vector<int>ans(N,INT_MAX);
-        dfs(0,adj,ans,0);
+        stack<int>st;
+        vector<int>vis(N,0);
         for(int i=0;i<N;i++)
+            dfs(0,adj,st,vis);
+        vector<int>ans(N,1e7);
+         
+        // while(!st.empty())
+        // {
+        //     cout<<st.top()<<" ";
+        //     st.pop();
+        // }
+        
+        ans[0]=0;
+        while(!st.empty())
         {
-            if(ans[i]==INT_MAX)
-                ans[i]=-1;
+            int node=st.top();
+            st.pop();
+            for(auto &i:adj[node])
+                ans[i.first]=min(ans[i.first],ans[node]+i.second);
         }
+        for(auto &i:ans)
+            if(i==1e7) i=-1;
         return ans;
-    }
+         
+     }
+    
+    
 };
 
 
