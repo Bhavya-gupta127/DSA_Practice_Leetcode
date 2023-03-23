@@ -1,0 +1,38 @@
+class   Solution   { 
+ public : 
+      void   dfs ( int  node , vector < vector < int >> & adj , vector < int > & vis ) 
+      { 
+          if ( vis [ node ] ) 
+              return ; 
+         vis [ node ] = 1 ; 
+          for ( auto   & i : adj [ node ] ) 
+          { 
+              if ( vis [ i ] != 1 ) 
+                  dfs ( i , adj , vis ) ; 
+          } 
+ 
+      } 
+      int   makeConnected ( int  n ,  vector < vector < int >> &  connections )   { 
+         vector < vector < int >> adj ( n ) ; 
+          for ( auto   & i : connections ) 
+          { 
+             adj [ i [ 0 ] ] . push_back ( i [ 1 ] ) ; 
+             adj [ i [ 1 ] ] . push_back ( i [ 0 ] ) ; 
+          } 
+          int  unconnected = - 1 ; 
+         vector < int > vis ( n , 0 ) ; 
+          for ( int  i = 0 ; i < n ; i ++ ) 
+          { 
+              if ( vis [ i ] != 1 ) 
+              { 
+                  dfs ( i , adj , vis ) ; 
+                 unconnected ++ ; 
+              } 
+ 
+          } 
+          if ( n - 1 > connections . size ( ) ) 
+              return   - 1 ; 
+          return  unconnected ; 
+ 
+      } 
+ } ;
