@@ -1,27 +1,20 @@
 class   Solution   { 
  public : 
-      int   solve ( int  i , vector < int > &  days ,  vector < int > &  costs , int  deadline , vector < vector < int >> & dp )   { 
-          if ( i == days . size ( ) ) 
+      int   solve ( int  i , vector < int > &  days ,  vector < int > &  costs , int  deadline , vector < int > & dp )   { 
+          if ( i >= days . size ( ) ) 
               return   0 ; 
-          if ( dp [ i ] [ deadline ] != - 1 ) 
-              return  dp [ i ] [ deadline ] ; 
-         vector < int > v ; 
-          if ( deadline >= days [ i ] ) 
-              return  dp [ i ] [ deadline ] = solve ( i + 1 , days , costs , deadline , dp ) ; 
-          else 
-          { 
-             v . push_back ( solve ( i + 1 , days , costs , days [ i ] , dp ) + costs [ 0 ] ) ; 
-             v . push_back ( solve ( i + 1 , days , costs , days [ i ] + 6 , dp ) + costs [ 1 ] ) ; 
-             v . push_back ( solve ( i + 1 , days , costs , days [ i ] + 29 , dp ) + costs [ 2 ] ) ; 
-              sort ( v . begin ( ) , v . end ( ) ) ; 
-              return  dp [ i ] [ deadline ] = v [ 0 ] ; 
-          } 
-          return   - 1 ; 
+          if ( deadline > days [ i ] ) 
+              return   solve ( i + 1 , days , costs , deadline , dp ) ; 
+          if ( dp [ i ] != - 1 ) 
+              return  dp [ i ] ; 
+         
+          int  a = solve ( i + 1 , days , costs , days [ i ] + 1 , dp ) + costs [ 0 ] ; 
+          int  b = solve ( i + 1 , days , costs , days [ i ] + 7 , dp ) + costs [ 1 ] ; 
+          int  c = solve ( i + 1 , days , costs , days [ i ] + 30 , dp ) + costs [ 2 ] ; 
+          return  dp [ i ] = min ( a , min ( b , c ) ) ; 
       } 
       int   mincostTickets ( vector < int > &  days ,  vector < int > &  costs )   { 
-          // vector<int>dp(days.size(),-1); 
-         vector < vector < int >> dp ( days . size ( ) + 1 , vector < int > ( 1000 , - 1 ) ) ; 
-          sort ( days . begin ( ) , days . end ( ) ) ; 
-          return   solve ( 0 , days , costs , 0 , dp ) ; 
+         vector < int > dp ( days . size ( ) , - 1 ) ; 
+          return   solve ( 0 , days , costs , days [ 0 ] , dp ) ; 
       } 
  } ;
