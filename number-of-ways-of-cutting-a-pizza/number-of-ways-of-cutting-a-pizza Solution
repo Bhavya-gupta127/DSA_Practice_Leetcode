@@ -1,0 +1,50 @@
+class   Solution   { 
+ public : 
+      int  mod = 1e9 + 7 ; 
+ 
+      bool   isvalid ( int  sr , int  sc , int  r , int  c , vector < string > & pizza ) 
+      { 
+          for ( int  i = sr ; i <= r ; i ++ ) 
+          { 
+              for ( int  j = sc ; j <= c ; j ++ ) 
+              { 
+                  if ( pizza [ i ] [ j ] == 'A' ) 
+                      return   true ; 
+              } 
+          } 
+          return   false ; 
+      } 
+      int   solve ( int  r , int  c , vector < string > & pizza , int  k , vector < vector < vector < int >> > & dp ) 
+      { 
+          if ( k == 0 ) 
+              return   1 ; 
+ 
+          int  n = pizza . size ( ) ; 
+          int  m = pizza [ 0 ] . size ( ) ; 
+ 
+          if ( dp [ r ] [ c ] [ k ] != - 1 ) 
+              return  dp [ r ] [ c ] [ k ] ; 
+         
+          long   long  ans = 0 ; 
+          for ( int  i = r ; i < n - 1 ; i ++ ) 
+          { 
+              if ( isvalid ( r , c , i , m - 1 , pizza )   &&   isvalid ( i + 1 , c , n - 1 , m - 1 , pizza ) )    
+                 ans += solve ( i + 1 , c , pizza , k - 1 , dp ) % mod ; 
+          } 
+          for ( int  j = c ; j < m - 1 ; j ++ ) 
+          { 
+              if ( isvalid ( r , c , n - 1 , j , pizza )   &&   isvalid ( r , j + 1 , n - 1 , m - 1 , pizza )   )    
+                 ans += solve ( r , j + 1 , pizza , k - 1 , dp ) % mod ; 
+          } 
+ 
+          return  dp [ r ] [ c ] [ k ] = ans % mod ; 
+      } 
+      int   ways ( vector < string > &  pizza ,   int  k )   { 
+        
+          int  n = pizza . size ( ) ; 
+          int  m = pizza [ 0 ] . size ( ) ; 
+ 
+         vector < vector < vector < int >> > dp ( n , vector < vector < int >> ( m , vector < int > ( k , - 1 ) ) ) ; 
+          return   solve ( 0 , 0 , pizza , k - 1 , dp ) ; 
+      } 
+ } ;
