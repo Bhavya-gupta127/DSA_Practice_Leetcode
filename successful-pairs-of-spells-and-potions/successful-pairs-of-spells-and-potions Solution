@@ -1,0 +1,43 @@
+class   Solution   { 
+ public : 
+     vector < int >   successfulPairs ( vector < int > &  spells ,  vector < int > &  potions ,   long   long  success )   { 
+      
+          sort ( potions . begin ( ) , potions . end ( ) ) ; 
+         vector <   int >  v ; 
+          int   n = spells . size ( ) ; 
+          int  m = potions . size ( ) ; 
+          int   ans ; 
+          for ( int  i = 0 ; i < n ; i ++ ) 
+          { 
+              int  l = 0 ;  
+              int  h = m - 1 ; 
+              int  mid ; 
+              unsigned   long   long  temp ; 
+              unsigned   long   long  temp2 ; 
+             ans = 0 ; 
+               // temp=success / spells[i]; 
+                  // temp2=success % spells[i]; 
+              while ( l <= h ) 
+              { 
+                 mid = ( l + h ) / 2 ; 
+                  // temp=potions[mid]*spells[i]; 
+                  if ( ( long   long ) potions [ mid ] * spells [ i ] >= success ) 
+                  { 
+                      if ( m - mid > ans ) 
+                         ans = m - mid ; 
+                      // ans=max(ans,m-mid); 
+                     h = mid - 1 ; 
+                  } 
+                  else 
+                  { 
+                     l = mid + 1 ; 
+                  } 
+                 
+              } 
+             v . push_back ( ans ) ; 
+          } 
+         
+          return  v ; 
+         
+      } 
+ } ;
