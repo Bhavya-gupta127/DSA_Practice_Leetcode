@@ -12,13 +12,14 @@ class Solution
     {
         // Code here
         vector<int>dis(V,1e9);
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        // priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        queue<pair<int,int>>pq;
         pq.push({0,S});
         dis[S]=0;
         while(!pq.empty())
         {
-            int d=pq.top().first;
-            int node=pq.top().second;
+            int d=pq.front().first;
+            int node=pq.front().second;
             pq.pop();
             for(auto i:adj[node])
             {
