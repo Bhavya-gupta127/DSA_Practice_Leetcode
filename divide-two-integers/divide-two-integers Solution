@@ -1,0 +1,20 @@
+class   Solution   { 
+ public : 
+      int   divide ( int  dividend ,   int  divisor )   { 
+      // intution :  
+      // long division method in binary form 
+     
+      // string s_divisor=to_string(divisor); 
+     
+      // string s_dividend=to_string(dividend); 
+ 
+      long   long  ans =   ( long   long ) dividend / divisor ; 
+      if ( ans > INT_MAX ) 
+          return  INT_MAX ; 
+      if ( ans < INT_MIN ) 
+          return  INT_MIN ; 
+      return  ans ; 
+ 
+         
+      } 
+ } ;
