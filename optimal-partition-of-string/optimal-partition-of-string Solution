@@ -1,0 +1,36 @@
+class   Solution   { 
+ public : 
+      int   partitionString ( string s )   { 
+          int  p1 = 0 , p2 = 0 , i ; 
+         set < int > myset ; 
+         i = 0 ;   // from start to end 
+          while ( i < s . size ( ) ) 
+          { 
+              if ( myset . find ( s [ i ] ) != myset . end ( ) ) 
+              { 
+                 p1 ++ ; 
+                 myset . clear ( ) ; 
+              } 
+             myset . insert ( s [ i ] ) ; 
+             i ++ ; 
+          } 
+          if ( ! myset . empty ( ) ) 
+             p1 ++ ; 
+         
+         i = s . size ( ) - 1 ;    //from end to start 
+          while ( i >= 0 ) 
+          { 
+              if ( myset . find ( s [ i ] ) != myset . end ( ) ) 
+              { 
+                 p2 ++ ; 
+                 myset . clear ( ) ; 
+              } 
+             myset . insert ( s [ i ] ) ; 
+             i -- ; 
+          } 
+          if ( ! myset . empty ( ) ) 
+             p2 ++ ; 
+ 
+          return   min ( p1 , p2 ) ; 
+      } 
+ } ;
