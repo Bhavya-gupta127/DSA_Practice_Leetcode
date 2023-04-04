@@ -1,0 +1,41 @@
+class   Solution   { 
+ public : 
+      int   networkDelayTime ( vector < vector < int >> &  times ,   int  n ,   int  k )   { 
+         vector < vector < pair < int , int >> > adj ( n + 1 ) ; 
+          for ( auto  i : times ) 
+          { 
+              int  sr = i [ 0 ] ; 
+              int  tg = i [ 1 ] ; 
+              int  wt = i [ 2 ] ; 
+             adj [ sr ] . push_back ( { tg , wt } ) ; 
+          } 
+         vector < int > dist ( n + 1 , 1e9 ) ; 
+         dist [ k ] = 0 ; 
+         priority_queue < pair < int , int > , vector < pair < int , int >> , greater < pair < int , int >> > pq ; 
+         pq . push ( { 0 , k } ) ; 
+          while ( ! pq . empty ( ) ) 
+          { 
+              int  dis = pq . top ( ) . first ; 
+              int  node = pq . top ( ) . second ; 
+             pq . pop ( ) ; 
+              for ( auto  i : adj [ node ] ) 
+              { 
+                  int  cur = i . first ; 
+                  int  wt = i . second ;  
+                  if ( dist [ cur ] > dis + wt ) 
+                  { 
+                     dist [ cur ] = dis + wt ; 
+                     pq . push ( { dist [ cur ] , cur } ) ; 
+                  } 
+              } 
+          } 
+          //return max of distance vector 
+          int  ans = 0 ; 
+          for ( int  i = 1 ; i <= n ; i ++ ) 
+          { 
+             cout << i << " " << dist [ i ] << "\n" ; 
+             ans = max ( ans , dist [ i ] ) ; 
+          } 
+          return  ans == 1e9 ? - 1 : ans ; 
+      } 
+ } ;
