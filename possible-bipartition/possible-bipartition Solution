@@ -1,0 +1,55 @@
+class   Solution   { 
+ public : 
+      bool   bfs ( int  node , vector < vector < int >> & adj , vector < int > & vis , vector < int > & v ) 
+      { 
+         vis [ node ] = 1 ; 
+         queue < pair < int , int >> q ; 
+         q . push ( { node , 1 } ) ; 
+         v [ node ] = 1 ; 
+          while ( ! q . empty ( ) ) 
+          { 
+              int  s = q . size ( ) ; 
+              for ( int  i = 0 ; i < s ; i ++ ) 
+              { 
+ 
+                  int  cur = q . front ( ) . first ; 
+                  int  color = q . front ( ) . second ; 
+                 q . pop ( ) ; 
+                  for ( auto  it : adj [ cur ] ) 
+                  { 
+                      if ( v [ it ] != 0   &&  v [ it ] != - color ) 
+                          return   false ; 
+                      if ( vis [ it ] != 1 ) 
+                      { 
+                         q . push ( { it , - color } ) ; 
+                         v [ it ] = - color ; 
+                         vis [ it ] = 1 ; 
+                      } 
+                  } 
+              } 
+          } 
+ 
+          return   true ; 
+      } 
+      bool   possibleBipartition ( int  n ,  vector < vector < int >> &  dislikes )   { 
+          //if a cycle of odd length exists then return false 
+          //this is a directed graph 
+          //to find cycle in directed graph we can use dfs with pathvis and vis vectors 
+ 
+          //another way is to simply use 2 colors to make bipartition we can use bfs for this 
+         vector < vector < int >> adj ( n + 1 ) ; 
+          for ( auto  i : dislikes ) 
+          { 
+             adj [ i [ 0 ] ] . push_back ( i [ 1 ] ) ; 
+          } 
+          bool  ans = true ; 
+          for ( int  i = 1 ; i <= n ; i ++ ) 
+          { 
+             vector < int > vis ( n + 1 , 0 ) ; 
+             vector < int > v ( n + 1 , 0 ) ; 
+             ans = ans  &&   bfs ( i , adj , vis , v ) ; 
+          } 
+          return  ans ; 
+ 
+      } 
+ } ;
