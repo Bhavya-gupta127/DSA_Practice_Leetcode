@@ -1,0 +1,41 @@
+class   Solution   { 
+ public : 
+      bool   ispossible ( vector < long   long > nums , int  n ) 
+      { 
+          for ( int  i = nums . size ( ) - 1 ; i > 0 ; i -- ) 
+          { 
+              if ( nums [ i ] <= n ) 
+                  continue ; 
+             nums [ i - 1 ] += nums [ i ] - n ; 
+          } 
+          if ( nums [ 0 ] <= n ) 
+              return   true ; 
+          return   false ; 
+      } 
+      int   minimizeArrayValue ( vector < int > &  nums )   { 
+         
+         vector < long   long > v ; 
+         
+          int  l = 0 , h = 0 ; 
+          for ( auto   & i : nums ) 
+          { 
+             v . push_back ( i ) ; 
+             h = max ( i , h ) ; 
+          } 
+          int  ans = 0 ; 
+          while ( l <= h ) 
+          { 
+              int  mid = l + ( h - l ) / 2 ; 
+              if ( ispossible ( v , mid ) ) 
+              { 
+                 ans = mid ; 
+                 h = mid - 1 ; 
+              } 
+              else 
+              { 
+                 l = mid + 1 ; 
+              } 
+          } 
+          return  ans ; 
+      } 
+ } ;
