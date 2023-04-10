@@ -1,46 +1,25 @@
 class   Solution   { 
  public : 
       bool   isValid ( string s )   { 
-         
-         stack < int >  st ; 
-          int  n = s . length ( ) ; 
-          for ( int  i = 0 ; i < n ; i ++ ) 
+         stack < char > st ; 
+          for ( auto  i : s ) 
           { 
-              if ( s [ i ] == '('   ||  s [ i ] == '{'   ||  s [ i ] == '[' ) 
+              if ( ! st . empty ( ) ) 
               { 
-                 st . push ( s [ i ] ) ; 
-              } 
-              else   if ( s [ i ] == ')'   ) 
-              { 
-                  if ( st . empty ( ) ) 
-                      return   false ; 
-                  if ( st . top ( ) == '(' ) 
+                  if ( i == ')'   &&  st . top ( ) == '(' ) 
+                     st . pop ( ) ; 
+                  else   if ( i == '}'   &&  st . top ( ) == '{' ) 
+                     st . pop ( ) ; 
+                  else   if ( i == ']'   &&  st . top ( ) == '[' ) 
                      st . pop ( ) ; 
                   else 
-                      return   false ; 
+                     st . push ( i ) ; 
               } 
-              else   if ( s [ i ] == '}'   ) 
-              { 
-                  if ( st . empty ( ) ) 
-                      return   false ; 
-                  if ( st . top ( ) == '{' ) 
-                     st . pop ( ) ; 
-                  else 
-                      return   false ; 
-              } 
-              else   if ( s [ i ] == ']'   ) 
-              { 
-                  if ( st . empty ( ) ) 
-                      return   false ; 
-                  if ( st . top ( ) == '[' ) 
-                     st . pop ( ) ; 
-                  else 
-                      return   false ; 
-              } 
+              else 
+                 st . push ( i ) ; 
           } 
-          if ( st . empty ( ) ) 
-              return   true ; 
-          else 
+          if ( ! st . empty ( ) )    
               return   false ; 
+          return   true ; 
       } 
  } ;
