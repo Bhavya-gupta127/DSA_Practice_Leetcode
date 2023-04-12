@@ -1,0 +1,38 @@
+class   Solution   { 
+ public : 
+      int   solve ( int  i , int   & n , vector < string > & grid , vector < string > & v ,  unordered_map < string , int > & dp ) 
+      { 
+          int  mod = 1e9 + 7 ; 
+          if ( i == n ) 
+              return   1 ; 
+          long   long  ans = 0 ; 
+         string temp = "start" ; 
+         string s2 ; 
+          if ( ! grid . empty ( ) ) 
+          { 
+             s2 = grid . back ( ) ; 
+             temp = to_string ( i ) + grid . back ( ) ; 
+          } 
+          if ( dp . count ( temp ) != 0 ) 
+              return  dp [ temp ] % mod ; 
+          for ( auto   & s1 : v ) 
+          { 
+              if ( grid . empty ( )   ||   ! ( s1 [ 0 ] == s2 [ 0 ]   ||  s1 [ 1 ] == s2 [ 1 ]   ||  s1 [ 2 ] == s2 [ 2 ] ) ) 
+              { 
+                 grid . push_back ( s1 ) ; 
+                 ans += solve ( i + 1 , n , grid , v , dp ) % mod ; 
+                 grid . pop_back ( ) ; 
+              } 
+          } 
+          return  dp [ temp ] = ans % mod ; 
+      } 
+      int   numOfWays ( int  n )   { 
+         vector < string > grid ; 
+         vector < string > v = { "RYR" , "RYG" , "RGR" , "RGY" , "YRY" , "YRG" , "YGR" , "YGY" , "GRY" , "GRG" , "GYR" , "GYG" } ; 
+         unordered_map < string , int > dp ; 
+          int  ans = solve ( 0 , n , grid , v , dp ) ; 
+          // for(auto i:dp) 
+              // cout<<i.first<<" "<<i.second<<"\n"; 
+          return  ans ; 
+      } 
+ } ;
