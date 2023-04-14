@@ -1,0 +1,25 @@
+class   Solution   { 
+ public : 
+      int   solve ( int  i , int  j , string &  s , vector < vector < int >> & dp ) 
+      { 
+          if ( i > j  ||  i >= s . size ( )   ||  j < 0 ) 
+              return   0 ; 
+          if ( dp [ i ] [ j ] != - 1 ) 
+              return  dp [ i ] [ j ] ; 
+          int  ans = 0 ; 
+          if ( s [ i ] == s [ j ] ) 
+          { 
+             ans = solve ( i + 1 , j - 1 , s , dp ) ; 
+              if ( i == j ) 
+                 ans += 1 ; 
+              else 
+                 ans += 2 ; 
+          } 
+         ans = max ( { ans , solve ( i + 1 , j , s , dp ) , solve ( i , j - 1 , s , dp ) } ) ; 
+          return  dp [ i ] [ j ] = ans ; 
+      } 
+      int   longestPalindromeSubseq ( string s )   { 
+         vector < vector < int >> dp ( s . size ( ) , vector < int > ( s . size ( ) , - 1 ) ) ; 
+          return   solve ( 0 , s . size ( ) - 1 , s , dp ) ; 
+      } 
+ } ;
