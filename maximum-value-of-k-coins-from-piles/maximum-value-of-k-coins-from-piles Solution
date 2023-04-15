@@ -1,0 +1,70 @@
+class   Solution   { 
+ public : 
+      int   solve ( int  i , vector < vector < int >> & piles , int  k , vector < vector < int >> & dp ) 
+      { 
+          if ( k <= 0   ||  i >= piles . size ( ) ) 
+              return   0 ; 
+          if ( dp [ i ] [ k ] != - 1 ) 
+              return  dp [ i ] [ k ] ; 
+          int  ans = 0 ; 
+          for ( int  j = 0 ; j < min ( ( int ) k , ( int ) piles [ i ] . size ( ) ) ; j ++ ) 
+             ans = max ( ans , piles [ i ] [ j ] + solve ( i + 1 , piles , k - 1 - j , dp ) ) ; 
+         ans = max ( ans , solve ( i + 1 , piles , k , dp ) ) ; 
+          return  dp [ i ] [ k ] = ans ; 
+      } 
+      int   maxValueOfCoins ( vector < vector < int >>  piles ,   int  k )   { 
+         
+          for ( int  i = 0 ; i < piles . size ( ) ; i ++ ) 
+          { 
+              for ( int  j = 1 ; j < piles [ i ] . size ( ) ; j ++ ) 
+              { 
+                 piles [ i ] [ j ] += piles [ i ] [ j - 1 ] ; 
+              } 
+          } 
+        vector < vector < int >> dp ( piles . size ( ) , vector < int > ( k + 1 , - 1 ) ) ; 
+          int  ans = solve ( 0 , piles , k , dp ) ; 
+          // for(auto i:mp) 
+              // cout<<i.first<<" "<<i.second<<"\n"; 
+          return  ans ; 
+      } 
+ 
+ 
+ 
+ 
+ 
+ 
+      // int solve(vector<vector<int>>&piles, int k,string &s,unordered_map<string,int>&mp) 
+      // { 
+      //     if(k==0) 
+      //         return 0; 
+      //     if(mp.count(s)!=0) 
+      //         return mp[s]; 
+      //     int ans=0; 
+      //     for(int i=0;i<piles.size();i++) 
+      //     { 
+      //         if(!piles[i].empty()) 
+      //         { 
+      //             int temp=piles[i].back(); 
+      //             piles[i].pop_back(); 
+      //             s[i]=s[i]+1; 
+      //             mp[s]=solve(piles,k-1,s,mp)+temp; 
+      //             ans=max(ans,mp[s]); 
+      //             s[i]=s[i]-1; 
+      //             piles[i].push_back(temp); 
+      //         } 
+      //     } 
+      //     return ans; 
+      // } 
+      // int maxValueOfCoins(vector<vector<int>>& piles, int k) { 
+      //     for(int i=0;i<piles.size();i++) 
+      //         reverse(piles[i].begin(),piles[i].end()); 
+      //     string s=""; 
+      //     for(int i=0;i<piles.size();i++) 
+      //         s+="0"; 
+      //     unordered_map<string,int>mp; 
+      //     int ans=solve(piles,k,s,mp); 
+      //     for(auto i:mp) 
+      //         cout<<i.first<<" "<<i.second<<"\n"; 
+      //     return ans; 
+      // } 
+ } ;
