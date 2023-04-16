@@ -1,0 +1,59 @@
+class   Solution   { 
+ public : 
+      int  mod = 1e9 + 7 ; 
+      int   solve ( int  i , int  j , vector < vector < int >> & v , string &  target , vector < vector < int >> & dp ) 
+      { 
+          if ( i >= target . size ( ) ) 
+              return   1 ; 
+          if ( j >= v . size ( ) ) 
+              return   0 ; 
+          if ( dp [ i ] [ j ] != - 1 ) 
+              return  dp [ i ] [ j ] % mod ; 
+          long   long  ans = 0 ; 
+          int  k = target [ i ] - 'a' ; 
+         ans += ( long   long ) v [ j ] [ k ] * ( long   long ) ( solve ( i + 1 , j + 1 , v , target , dp ) % mod ) % mod ; 
+         ans += solve ( i , j + 1 , v , target , dp ) % mod ; 
+          return  dp [ i ] [ j ] = ans % mod ; 
+      } 
+      int   numWays ( vector < string > &  words ,  string target )   { 
+         vector < vector < int >> v ( words [ 0 ] . size ( ) , vector < int > ( 26 , 0 ) ) ; 
+          for ( auto &  i : words ) 
+          { 
+              for ( int  j = 0 ; j < i . size ( ) ; j ++ ) 
+              { 
+                  int  num = i [ j ] - 'a' ; 
+                 v [ j ] [ num ] ++ ; 
+              } 
+          } 
+          int  ans = 0 ; 
+         vector < vector < int >> dp ( target . size ( ) , vector < int > ( words [ 0 ] . size ( ) , - 1 ) ) ; 
+         ans = solve ( 0 , 0 , v , target , dp ) ; 
+          return  ans ; 
+      } 
+ 
+      // TLE approach  
+ 
+     
+      // int mod=1e9+7; 
+      // int solve(int i,int j,vector<string>& words, string& target,vector<vector<int>>&dp) 
+      // { 
+      //     if(i>=target.size()) 
+      //         return 1; 
+      //     if(j>=words[0].size()) 
+      //         return 0; 
+      //     if(dp[i][j]!=-1) 
+      //         return dp[i][j]%mod; 
+      //     long long ans=0; 
+      //     for(int k=0;k<words.size();k++) 
+      //     { 
+      //         if(words[k][j]==target[i]) 
+      //             ans+=solve(i+1,j+1,words,target,dp)%mod; 
+      //     } 
+      //     ans+=solve(i,j+1,words,target,dp)%mod; 
+      //     return dp[i][j]=ans%mod; 
+      // } 
+      // int numWays(vector<string>& words, string target) { 
+      //     vector<vector<int>>dp(target.size(),vector<int>(words[0].size(),-1)); 
+      //     return solve(0,0,words,target,dp); 
+      // } 
+ } ;
