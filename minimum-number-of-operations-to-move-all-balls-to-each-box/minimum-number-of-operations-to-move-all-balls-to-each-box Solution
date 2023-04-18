@@ -1,0 +1,40 @@
+class   Solution   { 
+ public : 
+     vector < int >   minOperations ( string boxes )   { 
+          // 0 1 2 3 4 5 6 
+          // 0 0 1 0 1 1 1 
+ 
+ 
+          // sum of one after cur index - curindex*num of one after cur 
+          // cur index*num of one before cur index -  sum of cur index 
+ 
+          int  sum_after = 0 , sum_before = 0 ; 
+          int  n_after = 0 , n_before = 0 ; 
+         
+ 
+          for ( int  i = 0 ; i < boxes . size ( ) ; i ++ ) 
+          { 
+              if ( boxes [ i ] == '1' )    
+              { 
+                 sum_after += i ; 
+                 n_after ++ ; 
+              } 
+          } 
+         vector < int > ans ; 
+          for ( int  i = 0 ; i < boxes . size ( ) ; i ++ ) 
+          { 
+              if ( boxes [ i ] == '1' ) 
+              { 
+                 sum_after -= i ; 
+                 n_after -- ; 
+              } 
+             ans . push_back ( ( sum_after - i * n_after ) + ( i * n_before - sum_before ) ) ; 
+              if ( boxes [ i ] == '1' ) 
+              { 
+                 sum_before += i ; 
+                 n_before ++ ; 
+              } 
+          } 
+          return  ans ; 
+      } 
+ } ;
