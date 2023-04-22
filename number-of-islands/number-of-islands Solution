@@ -1,5 +1,5 @@
 class   Solution   { 
-  private :  
+ private :  
       void   bfs ( int  row , int  col , vector < vector < char >> &  grid , vector < vector < int >> &  vis ) 
       { 
           int  n = grid . size ( ) ; 
@@ -36,7 +36,7 @@ class   Solution   {
  
           } 
       } 
-  public : 
+ public : 
       int   numIslands ( vector < vector < char >> &  grid )   { 
           int  n = grid . size ( ) ; 
           int  m = grid [ 0 ] . size ( ) ; 
@@ -56,4 +56,4 @@ class   Solution   {
           } 
           return  ans ; 
       } 
-  } ;
+ } ;
