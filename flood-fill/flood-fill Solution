@@ -1,22 +1,21 @@
 class   Solution   { 
-  private : 
-      void   dfs ( int  i , int  j , int  c , int  newc , vector < vector < int >> & image ) 
+ public : 
+      void   solve ( int  sr , int  sc , int  color , int  c , vector < vector < int >> &  image ) 
       { 
-          int  n = image . size ( ) ; 
-          int  m = image [ 0 ] . size ( ) ; 
-          if ( i < 0   ||  j < 0   ||  i >= n  ||  j >= m  ||  image [ i ] [ j ] != c  ||  image [ i ] [ j ] == newc ) 
+          if ( sr >= image . size ( )   ||  sc >= image [ 0 ] . size ( )   ||  sr < 0   ||  sc < 0   ||  image [ sr ] [ sc ] != c ) 
               return ; 
- 
-         image [ i ] [ j ] = newc ; 
-          dfs ( i - 1 , j , c , newc , image ) ; 
-          dfs ( i + 1 , j , c , newc , image ) ; 
-          dfs ( i , j - 1 , c , newc , image ) ; 
-          dfs ( i , j + 1 , c , newc , image ) ; 
+         image [ sr ] [ sc ] = color ; 
+          solve ( sr + 1 , sc , color , c , image ) ; 
+          solve ( sr - 1 , sc , color , c , image ) ; 
+          solve ( sr , sc + 1 , color , c , image ) ; 
+          solve ( sr , sc - 1 , color , c , image ) ; 
          
       } 
-  public : 
-     vector < vector < int >>   floodFill ( vector < vector < int >> &  image ,   int  sr ,   int  sc ,   int  color )   { 
-          dfs ( sr , sc , image [ sr ] [ sc ] , color , image ) ; 
+     vector < vector < int >>   floodFill ( vector < vector < int >>  image ,   int  sr ,   int  sc ,   int  color )   { 
+          int  c = image [ sr ] [ sc ] ; 
+          if ( c == color ) 
+              return  image ; 
+          solve ( sr , sc , color , c , image ) ; 
           return  image ; 
       } 
-  } ;
+ } ;
