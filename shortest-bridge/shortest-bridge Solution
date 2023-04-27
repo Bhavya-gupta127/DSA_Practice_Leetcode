@@ -1,0 +1,74 @@
+class   Solution   { 
+ public : 
+     vector < int > delrow = { 0 , 0 , 1 , - 1 } ; 
+     vector < int > delcol = { 1 , - 1 , 0 , 0 } ; 
+      void   dfs_markIsland ( int  i , int  j , vector < vector < int >> & grid , queue < vector < int >> & q2 ) 
+      { 
+          if ( i < 0   ||  j < 0   ||  i >= grid . size ( )   ||  j >= grid [ 0 ] . size ( )   ||  grid [ i ] [ j ] != 1 
+          ) 
+              return ; 
+         grid [ i ] [ j ] = 2 ; 
+         q2 . push ( { i , j , 0 } ) ; 
+          dfs_markIsland ( i + 1 , j , grid , q2 ) ; 
+          dfs_markIsland ( i - 1 , j , grid , q2 ) ; 
+          dfs_markIsland ( i , j + 1 , grid , q2 ) ; 
+          dfs_markIsland ( i , j - 1 , grid , q2 ) ; 
+      } 
+      int   bfs_findIsland ( vector < vector < int >> & grid , queue < vector < int >> & q ) 
+      { 
+         vector < vector < int >> vis ( grid . size ( ) , vector < int > ( grid [ 0 ] . size ( ) , 0 ) ) ; 
+          while ( ! q . empty ( ) ) 
+          { 
+              int  r = q . front ( ) [ 0 ] ; 
+              int  c = q . front ( ) [ 1 ] ; 
+              int  d = q . front ( ) [ 2 ] ; 
+             q . pop ( ) ; 
+              if ( grid [ r ] [ c ] == 1 )    
+                  return  d - 1 ; 
+              for ( int  x = 0 ; x < 4 ; x ++ ) 
+              { 
+                  int  row = r + delrow [ x ] ; 
+                  int  col = c + delcol [ x ] ; 
+                  if ( row >= 0   &&  col >= 0   &&  row < grid . size ( )   &&  col < grid [ 0 ] . size ( )   &&  grid [ row ] [ col ] != 2   &&  vis [ row ] [ col ] != 1   ) 
+                  { 
+                      if ( grid [ row ] [ col ] == 1 )    
+                          return  d ; 
+                     vis [ row ] [ col ] = 1 ; 
+                     q . push ( { row , col , d + 1 } ) ; 
+                  } 
+              } 
+          } 
+          return  INT_MAX ; 
+      } 
+      int   shortestBridge ( vector < vector < int >>  grid )   { 
+          // intution is bfs starting from each element of of island 1 
+          // step1 find 1 and convert all connected 1's to 2 
+          // step2 from each 2 call bfs to find nearest 1 
+ 
+          bool  flag = false ; 
+         queue < vector < int >> q ; 
+          for ( int  i = 0 ; i < grid . size ( ) ; i ++ ) 
+          { 
+              for ( int  j = 0 ; j < grid [ 0 ] . size ( ) ; j ++ ) 
+              { 
+                  if ( grid [ i ] [ j ] == 1 ) 
+                  { 
+                      dfs_markIsland ( i , j , grid , q ) ;   //convert all connected 1 to 2 
+                     flag = true ; 
+                      break ; 
+                  } 
+              } 
+              if ( flag ) 
+                  break ; 
+          } 
+          return   bfs_findIsland ( grid , q ) ;   //find distance to nearest 1 
+      } 
+ 
+ 
+      // [0,0,0,0,0,0] 
+      // [0,2,0,0,0,0] 
+      // [2,2,0,0,0,0] 
+      // [2,2,0,0,0,0] 
+      // [0,0,0,0,0,0] 
+      // [0,0,1,1,0,0] 
+ } ;
