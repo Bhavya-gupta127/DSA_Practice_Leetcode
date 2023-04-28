@@ -1,0 +1,20 @@
+class   Solution   { 
+ public : 
+      void   dfs ( int  node , vector < vector < int >> & adj , vector < vector < int >> & ans , vector < int > v ) 
+      { 
+          int  target = adj . size ( ) - 1 ; 
+          if ( node == target ) 
+             ans . push_back ( v ) ; 
+          for ( auto  i : adj [ node ] ) 
+          { 
+             v . push_back ( i ) ; 
+              dfs ( i , adj , ans , v ) ; 
+             v . pop_back ( ) ; 
+          } 
+      } 
+     vector < vector < int >>   allPathsSourceTarget ( vector < vector < int >> &  graph )   { 
+         vector < vector < int >> ans ; 
+          dfs ( 0 , graph , ans , { 0 } ) ; 
+          return  ans ; 
+      } 
+ } ;
