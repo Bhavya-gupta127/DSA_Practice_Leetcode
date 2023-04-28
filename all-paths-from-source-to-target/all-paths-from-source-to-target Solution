@@ -1,20 +1,22 @@
 class   Solution   { 
  public : 
-      void   dfs ( int  node , vector < vector < int >> & adj , vector < vector < int >> & ans , vector < int > v ) 
+     vector < vector < int >>  ans ;  
+      void   solve ( int  i , vector < vector < int >> &  graph , vector < int > v ) 
       { 
-          int  target = adj . size ( ) - 1 ; 
-          if ( node == target ) 
+          if ( i >= graph . size ( ) ) 
+              return ; 
+ 
+         v . push_back ( i ) ; 
+ 
+          if ( i == graph . size ( ) - 1 ) 
              ans . push_back ( v ) ; 
-          for ( auto  i : adj [ node ] ) 
-          { 
-             v . push_back ( i ) ; 
-              dfs ( i , adj , ans , v ) ; 
-             v . pop_back ( ) ; 
-          } 
+ 
+          for ( int  j = 0 ; j < graph [ i ] . size ( ) ; j ++ ) 
+              solve ( graph [ i ] [ j ] , graph , v ) ; 
       } 
      vector < vector < int >>   allPathsSourceTarget ( vector < vector < int >> &  graph )   { 
-         vector < vector < int >> ans ; 
-          dfs ( 0 , graph , ans , { 0 } ) ; 
+          int  k = 0 ; 
+          solve ( 0 , graph , { } ) ; 
           return  ans ; 
       } 
  } ;
