@@ -1,0 +1,80 @@
+class   DisjointSet   { 
+     vector < int >  rank ,  parent ,  size ;  
+ public :  
+      DisjointSet ( int  n )   { 
+         rank . resize ( n + 1 ,   0 ) ;  
+         parent . resize ( n + 1 ) ; 
+         size . resize ( n + 1 ) ;  
+          for ( int  i  =   0 ; i <= n ; i ++ )   { 
+             parent [ i ]   =  i ;  
+             size [ i ]   =   1 ;  
+          } 
+      } 
+ 
+      int   findUPar ( int  node )   { 
+          if ( node  ==  parent [ node ] ) 
+              return  node ;  
+          return  parent [ node ]   =   findUPar ( parent [ node ] ) ;  
+      } 
+ 
+      void   unionByRank ( int  u ,   int  v )   { 
+          int  ulp_u  =   findUPar ( u ) ;  
+          int  ulp_v  =   findUPar ( v ) ;  
+          if ( ulp_u  ==  ulp_v )   return ;  
+          if ( rank [ ulp_u ]   <  rank [ ulp_v ] )   { 
+             parent [ ulp_u ]   =  ulp_v ;  
+          } 
+          else   if ( rank [ ulp_v ]   <  rank [ ulp_u ] )   { 
+             parent [ ulp_v ]   =  ulp_u ;  
+          } 
+          else   { 
+             parent [ ulp_v ]   =  ulp_u ;  
+             rank [ ulp_u ] ++ ;  
+          } 
+      } 
+ 
+      void   unionBySize ( int  u ,   int  v )   { 
+          int  ulp_u  =   findUPar ( u ) ;  
+          int  ulp_v  =   findUPar ( v ) ;  
+          if ( ulp_u  ==  ulp_v )   return ;  
+          if ( size [ ulp_u ]   <  size [ ulp_v ] )   { 
+             parent [ ulp_u ]   =  ulp_v ;  
+             size [ ulp_v ]   +=  size [ ulp_u ] ;  
+          } 
+          else   { 
+             parent [ ulp_v ]   =  ulp_u ; 
+             size [ ulp_u ]   +=  size [ ulp_v ] ;  
+          } 
+      } 
+ } ; 
+ class   Solution   { 
+ public : 
+      static   bool   cmp ( vector < int > & a , vector < int > & b ) 
+      { 
+          return  a [ 2 ] < b [ 2 ] ; 
+      } 
+     vector < bool >   distanceLimitedPathsExist ( int  n ,  vector < vector < int >> &  edgeList ,  vector < vector < int >> &  queries )   { 
+         vector < vector < int >> og_queries = queries ; 
+         map < vector < int > , bool > mp ; 
+          sort ( edgeList . begin ( ) , edgeList . end ( ) , cmp ) ; 
+          sort ( queries . begin ( ) , queries . end ( ) , cmp ) ; 
+          int  ptr = 0 ; 
+         vector < bool > ans ; 
+         DisjointSet  ds ( n ) ; 
+          for ( int  i = 0 ; i < queries . size ( ) ; i ++ ) 
+          { 
+              while ( ptr < edgeList . size ( )   &&  edgeList [ ptr ] [ 2 ] < queries [ i ] [ 2 ] ) 
+              { 
+                 ds . unionBySize ( edgeList [ ptr ] [ 0 ] , edgeList [ ptr ] [ 1 ] ) ; 
+                 ptr ++ ; 
+              } 
+              if ( ds . findUPar ( queries [ i ] [ 0 ] ) == ds . findUPar ( queries [ i ] [ 1 ] ) ) 
+                 mp [ queries [ i ] ] = true ; 
+              else 
+                 mp [ queries [ i ] ] = false ; 
+          } 
+          for ( auto  i : og_queries ) 
+             ans . push_back ( mp [ i ] ) ; 
+          return  ans ; 
+      } 
+ } ;
