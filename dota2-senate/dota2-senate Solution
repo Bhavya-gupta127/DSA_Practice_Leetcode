@@ -1,0 +1,53 @@
+class   Solution   { 
+ public : 
+     string  predictPartyVictory ( string senate )   { 
+          // DRRDR => D#RDR => D#R#R => ##R#R => r wins 
+          // DRRRD => D#RRD => D#RR# => ##RR# => r wins 
+          // DDRRR => DD#RR => DD##R => #D##R  
+          // iterate through the vector for each party find party member in clockwise manner to right of that party if found replace by # if no other party member is found then he wins 
+          //O(n^2)  
+ 
+          int  r = 0 ; 
+          int  d = 0 ; 
+          for ( auto   & i : senate ) 
+          { 
+              if ( i == 'R' ) 
+                 r ++ ; 
+              else 
+                 d ++ ; 
+          } 
+ 
+          for ( int  i = 0 ; i < senate . size ( ) ; i ++ ) 
+          { 
+ 
+              if ( senate [ i ] == '#' ) 
+                  continue ; 
+              int  j = ( i + 1 ) % senate . size ( ) ; 
+              while ( j != i ) 
+              { 
+                  if ( senate [ j ] != '#'   &&  senate [ j ] != senate [ i ] ) 
+                  { 
+                      if ( senate [ j ] == 'R' ) 
+                         r -- ; 
+                      else 
+                         d -- ; 
+                     senate [ j ] = '#' ; 
+                      break ; 
+                  } 
+                 j = ( j + 1 ) % senate . size ( ) ; 
+              } 
+              if ( r == 0 ) 
+                  return   "Dire" ; 
+              if ( d == 0 ) 
+                  return   "Radiant" ; 
+          } 
+         string s ; 
+          for ( auto   & i : senate ) 
+          { 
+              if ( i != '#' ) 
+                 s . push_back ( i ) ; 
+          } 
+          return   predictPartyVictory ( s ) ; 
+ 
+      } 
+ } ;
