@@ -1,0 +1,38 @@
+class   Solution   { 
+ public : 
+      int   maxVowels ( string s ,   int  k )   { 
+          // basic sliding window 
+          // "bhavyagupta" k=4 
+          // "bhav" 1 
+          // "havy" 1 
+          // "avya" 2 
+          // and so on  
+          // then return maximum 
+          int  left = 0 ; 
+          int  right = 0 ; 
+          int  curVowels = 0 ; 
+          int  maxVowels = 0 ; 
+         set < char > vowels ; 
+         vowels . insert ( { 'a' , 'e' , 'i' , 'o' , 'u' } ) ; 
+         
+          for ( int  i = 0 ; i < k ; i ++ ) 
+          { 
+              if ( vowels . find ( s [ i ] ) != vowels . end ( ) ) 
+                 curVowels ++ ; 
+             right ++ ; 
+          } 
+         maxVowels = max ( maxVowels , curVowels ) ; 
+          while ( right < s . size ( ) ) 
+          { 
+              if ( vowels . find ( s [ left ] ) != vowels . end ( ) )   // left is a vowel 
+                 curVowels -- ; 
+              if ( vowels . find ( s [ right ] ) != vowels . end ( ) )   //right is vowel 
+                 curVowels ++ ; 
+             left ++ ; 
+             right ++ ; 
+             maxVowels = max ( maxVowels , curVowels ) ; 
+          } 
+          return  maxVowels ; 
+ 
+      } 
+ } ;
