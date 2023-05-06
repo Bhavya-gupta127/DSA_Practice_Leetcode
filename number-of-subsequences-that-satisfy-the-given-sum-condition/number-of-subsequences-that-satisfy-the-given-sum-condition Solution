@@ -1,0 +1,41 @@
+// class Solution { 
+ // public: 
+ //     int numSubseq(vector<int>& nums, int target) { 
+ //         0 1 2 3 4 5 6 7 
+ //         2 2 3 4 6 7 8 12                target => 8 
+ 
+ //         // j till sum nums[i]+nums[j]<=target 
+ //         // ans+=j-i  
+ //         // i++ loop till above repeat 
+ //         if(nums[j]+nums[i]<=target) 
+ 
+ 
+ 
+ 
+ //     } 
+ // }; 
+ class   Solution   { 
+ public : 
+      int  mod = 1000000007 ; 
+      int   numSubseq ( vector < int > &  nums ,   int  target )  
+      { 
+          sort ( nums . begin ( ) , nums . end ( ) ) ; 
+          int  res = 0 , n = nums . size ( ) , i = 0 , j = n - 1 ; 
+         vector < int > pow2 ( n + 1 , 1 ) ; 
+          for ( int  i = 1 ; i <= n ; i ++ ) 
+          { 
+             pow2 [ i ] = ( 2 * pow2 [ i - 1 ] ) % mod ; 
+          } 
+          while ( i <= j ) 
+          { 
+              if ( nums [ j ] + nums [ i ] <= target ) 
+              { 
+                 res = ( res + pow2 [ j - i ] ) % mod ; 
+                 i ++ ; 
+              } 
+              else 
+                 j -- ; 
+          } 
+          return  res ; 
+      } 
+ } ;
