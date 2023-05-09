@@ -1,0 +1,62 @@
+class   Solution   { 
+ public : 
+     vector < int >   spiralOrder ( vector < vector < int >> &  matrix )   { 
+          int  i = 0 , j = 0 ; 
+          int  l = 0 , r = matrix [ 0 ] . size ( ) - 1 , t = 0 , b = matrix . size ( ) - 1 ; 
+         vector < int > ans ; 
+          while ( t <= b  &&  l <= r ) 
+          { 
+              while ( j <= r  &&  t <= b  &&  l <= r ) 
+              { 
+                 ans . push_back ( matrix [ i ] [ j ] ) ; 
+                  if ( j != r ) 
+                     j ++ ; 
+                  else 
+                  { 
+                     t ++ ; 
+                     i = t ; 
+                      break ; 
+                  } 
+              } 
+              while ( i <= b  &&  t <= b  &&  l <= r ) 
+              { 
+                 ans . push_back ( matrix [ i ] [ j ] ) ; 
+                  if ( i != b ) 
+                     i ++ ; 
+                  else 
+                  { 
+                     r -- ; 
+                     j = r ; 
+                      break ; 
+                  } 
+              } 
+              while ( j >= l  &&  t <= b  &&  l <= r ) 
+              { 
+                 ans . push_back ( matrix [ i ] [ j ] ) ; 
+                  if ( j != l ) 
+                     j -- ; 
+                  else 
+                  { 
+                     b -- ; 
+                     i = b ; 
+                      break ; 
+                  } 
+              } 
+              while ( i >= t  &&  t <= b  &&  l <= r ) 
+              { 
+                 ans . push_back ( matrix [ i ] [ j ] ) ; 
+                  if ( i != t ) 
+                     i -- ; 
+                  else 
+                  { 
+                     l ++ ; 
+                     j = l ; 
+                      break ; 
+                  } 
+              } 
+          } 
+ 
+          return  ans ; 
+         
+      } 
+ } ;
