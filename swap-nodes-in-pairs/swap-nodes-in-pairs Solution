@@ -10,23 +10,49 @@
   */ 
  class   Solution   { 
  public : 
-     ListNode *   swapadj ( ListNode *  head ) 
-      { 
+ 
+     ListNode *   swapPairs ( ListNode *  head )   { 
           if ( head == NULL   ||  head -> next == NULL ) 
               return  head ; 
-         ListNode *  cur = head ;   // 3 
-         ListNode *  next = head -> next ;   //4 
-         ListNode *  supernext = next -> next ;   //null 
-         cur -> next = supernext ; 
-         next -> next = cur ; 
-         head = next ; 
-         head -> next -> next = swapadj ( supernext ) ; 
-          return  head ; 
+         ListNode *  ans = head -> next ; 
+         ListNode *  next = head -> next ; 
+         ListNode *  prev = NULL ; 
+         ListNode *  cur = head ; 
+       
+          while ( cur != NULL   &&  next != NULL ) 
+          { 
+              if ( prev != NULL ) 
+                 prev -> next = next ; 
+             ListNode *  temp = next -> next ; 
+             next -> next = cur ; 
+             cur -> next = temp ; 
+ 
+             prev = cur ; 
+             cur = cur -> next ; 
+              if ( cur == NULL ) 
+                  break ; 
+             next = cur -> next ; 
+ 
+          } 
+          return  ans ; 
       } 
-     ListNode *   swapPairs ( ListNode *  head )   { 
-          if ( head == NULL ) 
-              return  head ; 
-         
-          return   swapadj ( head ) ; 
-      } 
+        // dry run 
+          // 1 2 3 4 
+ 
+          // cur=1 
+          // next=2 
+          // temp=3 
+          // 2->next=1 
+          // 1->next=3 
+          // prev=1 
+          // cur=3 
+          // next=4 
+ 
+          // 1->next=4 
+          // temp=null 
+          // 4->next=3 
+          // 3->next=NULL 
+ 
+          // prev=4 
+          // cur=NUll 
  } ;
