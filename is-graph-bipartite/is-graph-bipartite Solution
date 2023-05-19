@@ -1,31 +1,38 @@
 class   Solution   { 
  public : 
-      bool   dfs ( int  cur , vector < vector < int >> & graph , vector < int > & vis ) 
-      { 
-          bool  ans = true ; 
-          for ( auto  i : graph [ cur ] ) 
-          { 
-              if ( vis [ i ] == 0 ) 
-              { 
-                 vis [ i ] = - 1 * vis [ cur ] ; 
-                 ans = ans  &&   dfs ( i , graph , vis ) ; 
+     
+      // Copied from discussion  
+     
+     
+     vector < int > vis , col ; 
+      bool   dfs ( int  v ,   int  c ,  vector < vector < int >> &  graph ) { 
+         vis [ v ] = 1 ; 
+         col [ v ] = c ; 
+          for ( int  child : graph [ v ] ) { 
+              if ( vis [ child ] == 0 ) { 
+                  // here c^1 is for flipping 1 by 0 or 0 by 1, that is flip the current color 
+                  if ( dfs ( child , c ^ 1 , graph ) == false )  
+                      return   false ; 
               } 
-              else   if ( vis [ i ] == vis [ cur ] ) 
-                  return   false ; 
+              else { 
+                  if ( col [ v ] == col [ child ] ) 
+                      return   false ; 
+              } 
           } 
-          return  ans ; 
+          return   true ; 
       } 
+     
       bool   isBipartite ( vector < vector < int >> &  graph )   { 
-         vector < int > vis ( graph . size ( ) , 0 ) ; 
-          bool  ans = true ; 
-          for ( int  i = 0 ; i < graph . size ( ) ; i ++ ) 
-          { 
-              if ( vis [ i ] == 0 ) 
-              { 
-                 vis [ i ] = 1 ; 
-                 ans = ans  &&   dfs ( i , graph , vis ) ; 
+          int  n = graph . size ( ) ; 
+         vis . resize ( n ) ; 
+         col . resize ( n ) ; 
+ 
+          for ( int  i = 0 ; i < n ; ++ i ) { 
+              if ( vis [ i ] == 0   &&   dfs ( i , 0 , graph ) == false ) {  
+                  return   false ; 
               } 
           } 
-          return  ans ; 
+         
+          return   true ; 
       } 
  } ;
