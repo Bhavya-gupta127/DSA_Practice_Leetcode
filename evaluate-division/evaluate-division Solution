@@ -1,0 +1,122 @@
+// class Solution { 
+ // public: 
+ //     vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) { 
+ //         // a/b=2 
+ //         // b/c=3 
+ //         // c/d=4 
+ //         // => a/d = a/b*b/c*c/d 
+ //         // according to given data there will be 20 equations and max 40 variables 
+ //         // total 40*39/2 * 2 equations 
+ //         // 1600 equations  
+ 
+ //         //brute force 
+ //         vector<pair<vector<string>,double>>v; 
+ //         for(int i=0;i<equations.size();i++) 
+ //         { 
+ //             string a=equations[i][0],b=equations[i][1]; 
+ //             v.push_back({{a,b},values[i]}); 
+ //             v.push_back({{a,b},1.0/values[i]}); 
+ //         } 
+ //         int s=v.size()-1; 
+ //         while(s!=v.size()) 
+ //         { 
+ //             s=v.size(); 
+ //             cout<<s<<" "; 
+ //             for(int i=0;i<v.size();i++) 
+ //             { 
+ //                 for(int j=i+1;j<v.size();j++) 
+ //                 { 
+ //                     string a=v[i].first[0],b=v[i].first[1]; 
+ //                     string c=v[j].first[0],d=v[j].first[1]; 
+ //                     // cout<<a<<" "<<b<<" "<<c<<" "<<d<<"\n"; 
+ //                     if(b==c) 
+ //                     { 
+ //                         v.push_back({{a,d},v[i].second*v[j].second}); 
+ //                     } 
+ //                 } 
+ //             } 
+ //         } 
+ //         vector<double>ans; 
+ //         for(int i=0;i<queries.size();i++) 
+ //         { 
+ //             string a=queries[i][0]; 
+ //             string b=queries[i][1]; 
+ //             for(auto j:v)     
+ //             { 
+ //                 if(j.first[0]==a && j.first[1]==b) 
+ //                 { 
+ //                     ans.push_back(j.second); 
+ //                     break; 
+ //                 } 
+ //             } 
+ //         } 
+ //         return ans; 
+ //     } 
+ // }; 
+ 
+ class   Solution   { 
+ public : 
+ void   dfs ( string start , string end , map < string , double > &  mp , map < string , vector < string >> &  graph , double &  val , map < string , int > &  visited , bool &  found ) { 
+         visited [ start ] = 1 ; 
+     
+          if ( found == true ) 
+              return   ; 
+          for ( auto  child : graph [ start ] ) { 
+              if ( visited [ child ] != 1 ) { 
+                  // cout<<start<<" "<<child<<"\n"; 
+                 val *= mp [ start + "->" + child ] ; 
+                  if ( end == child ) { 
+                      // cout<<end<<" -- "<<child<<"\n"; 
+                     found = true ; 
+                      return   ; 
+                  } 
+                  dfs ( child , end , mp , graph , val , visited , found ) ; 
+                  if ( found == true ) { 
+                      return   ; 
+                  } 
+                  else { 
+                     val /= mp [ start + "->" + child ] ; 
+                  } 
+              } 
+          } 
+        
+         
+      } 
+     vector < double >   calcEquation ( vector < vector < string >> &  equations ,  vector < double > &  values ,  vector < vector < string >> &  queries )   { 
+         vector < double >  ans ; 
+         map < string , double >  mp ; 
+         map < string , vector < string >>  graph ; 
+          for ( int  i = 0 ; i < equations . size ( ) ; i ++ ) { 
+             string u = equations [ i ] [ 0 ] ; 
+             string v = equations [ i ] [ 1 ] ; 
+             mp [ u + "->" + v ] = values [ i ] ; 
+             mp [ v + "->" + u ] = 1 / values [ i ] ; 
+             graph [ u ] . push_back ( v ) ; 
+             graph [ v ] . push_back ( u ) ; 
+          } 
+          for ( int  i = 0 ; i < queries . size ( ) ; i ++ ) { 
+             string start = queries [ i ] [ 0 ] ; 
+             string end = queries [ i ] [ 1 ] ; 
+              if ( graph . find ( start ) == graph . end ( ) || graph . find ( end ) == graph . end ( ) ) { 
+                 ans . push_back ( - 1 ) ; 
+              } 
+              else { 
+                  // ans.push_back(1); 
+                  double  val = 1 ; 
+                 map < string , int >  visited ; 
+                  bool  found = false ; 
+                  if ( start == end ) { 
+                     found = true ; 
+                  } 
+                  else 
+                  dfs ( start , end , mp , graph , val , visited , found ) ; 
+                  if ( found == true ) 
+                 ans . push_back ( val ) ; 
+                  else 
+                     ans . push_back ( - 1 ) ; 
+                 
+              } 
+          } 
+          return  ans ; 
+      } 
+ } ;
