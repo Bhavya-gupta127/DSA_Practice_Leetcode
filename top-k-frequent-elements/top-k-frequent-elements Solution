@@ -1,22 +1,34 @@
 class   Solution   { 
+      private : 
+             
+     
+              static   bool   compare   ( pair < int , int > &  a  ,  pair  < int , int > &  b ) { 
+                  return  a . second > b . second ; 
+              } 
  public : 
      vector < int >   topKFrequent ( vector < int > &  nums ,   int  k )   { 
-         map < int , int > mp ; 
-          for ( auto   & i : nums ) 
+         
+         
+          // copied from disscussion  
+          // only partly understoop 
+         
+         
+         unordered_map < int , int > mp ; 
+          for ( int   & i  : nums ) 
           { 
              mp [ i ] ++ ; 
           } 
-         vector < pair < int , int >> v ; 
-          for ( auto   & i : mp ) 
+         
+         vector < pair  < int , int >>   v   ( mp . begin ( ) , mp . end ( ) ) ; 
+          sort ( v . begin ( ) , v . end ( ) , compare ) ; 
+         
+         nums . clear ( ) ; 
+         
+          for (   int  i = 0 ; i < k ; i ++ ) 
           { 
-             v . push_back ( { i . second , i . first } ) ; 
+             nums . emplace_back ( v [ i ] . first ) ; 
           } 
-          sort ( v . rbegin ( ) , v . rend ( ) ) ; 
-         vector < int > ans ; 
-          for ( int  i = 0 ; i < k ; i ++ ) 
-          { 
-             ans . push_back ( v [ i ] . second ) ; 
-          } 
-          return  ans ; 
+          return  nums ; 
+         
       } 
  } ;
