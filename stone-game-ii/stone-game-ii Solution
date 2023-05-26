@@ -1,0 +1,39 @@
+class   Solution   { 
+ public : 
+     pair < int , int >   solve ( int  ind , int  turn , int  M , vector < int > & piles , vector < vector < vector < pair < int , int >> >> & dp ) 
+      { 
+          if ( ind >= piles . size ( ) ) 
+              return   { 0 , 0 } ; 
+          int  alice = 0 , bob = 0 ; 
+          int  sum = 0 ; 
+          if ( dp [ ind ] [ turn + 1 ] [ M ] . first != - 1 ) 
+              return  dp [ ind ] [ turn + 1 ] [ M ] ; 
+          for ( int  i = 1 ; i <= 2 * M  &&  ind + i - 1 < piles . size ( ) ; i ++ ) 
+          { 
+             sum += piles [ ind + i - 1 ] ; 
+             pair < int , int > temp = solve ( ind + i , - turn , max ( M , i ) , piles , dp ) ; 
+              if ( turn == 1 ) 
+              { 
+                  if ( alice < temp . first + sum ) 
+                  { 
+                     alice = temp . first + sum ; 
+                     bob = temp . second ; 
+                  } 
+              } 
+              else 
+              { 
+                  if ( bob < temp . second + sum ) 
+                  { 
+                     alice = temp . first ; 
+                     bob = temp . second + sum ; 
+                  } 
+              } 
+          } 
+          return  dp [ ind ] [ turn + 1 ] [ M ] = { alice , bob } ; 
+      } 
+      int   stoneGameII ( vector < int > &  piles )   { 
+          int  n = piles . size ( ) ; 
+         vector < vector < vector < pair < int , int >> >> dp ( n , vector < vector < pair < int , int >> > ( 3 , vector < pair < int , int >> ( 1000 , { - 1 , - 1 } ) ) ) ; 
+          return   solve ( 0 , 1 , 1 , piles , dp ) . first ; 
+      } 
+ } ;
