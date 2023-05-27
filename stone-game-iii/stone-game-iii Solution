@@ -1,0 +1,37 @@
+class   Solution   { 
+ public : 
+     pair < int , int >   solve ( int  ind , int  turn , vector < int > & stoneValue , vector < vector < pair < int , int >> > & dp ) 
+      { 
+          if ( ind >= stoneValue . size ( ) ) 
+              return   { 0 , 0 } ; 
+          if ( dp [ ind ] [ turn + 1 ] . first != 1e9   ||  dp [ ind ] [ turn + 1 ] . second != 1e9 ) 
+              return  dp [ ind ] [ turn + 1 ] ; 
+          int  alice = INT_MIN , bob = INT_MIN , sum = 0 ; 
+          for ( int  i = 1 ; i <= 3   &&  ind + i - 1 < stoneValue . size ( ) ; i ++ ) 
+          { 
+             sum += stoneValue [ ind + i - 1 ] ; 
+             pair < int , int >  temp = solve ( i + ind , - turn , stoneValue , dp ) ; 
+              if ( turn == 1   &&  alice < temp . first + sum ) 
+              { 
+                 alice = temp . first + sum ; 
+                 bob = temp . second ; 
+              } 
+              else   if ( turn  == - 1   &&  bob < temp . second + sum ) 
+              { 
+                 alice = temp . first ; 
+                 bob = temp . second + sum ; 
+              } 
+          } 
+          return  dp [ ind ] [ turn + 1 ] = { alice , bob } ; 
+      } 
+     string  stoneGameIII ( vector < int > &  stoneValue )   { 
+         vector < vector < pair < int , int >> > dp ( stoneValue . size ( ) , vector < pair < int , int >> ( 3 , { 1e9 , 1e9 } ) ) ; 
+         pair < int , int > ans = solve ( 0 , 1 , stoneValue , dp ) ; 
+         cout << ans . first << " " << ans . second ; 
+          if ( ans . first == ans . second ) 
+              return   "Tie" ; 
+          if ( ans . first > ans . second ) 
+              return   "Alice" ; 
+          return   "Bob" ; 
+      } 
+ } ;
