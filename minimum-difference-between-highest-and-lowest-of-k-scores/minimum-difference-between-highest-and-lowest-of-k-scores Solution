@@ -1,0 +1,17 @@
+class   Solution   { 
+ public : 
+      int   minimumDifference ( vector < int > &  nums ,   int  k )   { 
+          // 10 23 35 45 60 
+          // k=3  
+          sort ( nums . begin ( ) , nums . end ( ) ) ; 
+          int  p1 = 0 , p2 = k - 1 , ans = INT_MAX ; 
+          while ( p2 < nums . size ( ) ) 
+          { 
+             ans = min ( ans , nums [ p2 ] - nums [ p1 ] ) ; 
+             p1 ++ ; 
+             p2 ++ ; 
+          } 
+          return  ans ; 
+ 
+      } 
+ } ;
