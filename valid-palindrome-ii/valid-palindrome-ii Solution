@@ -1,0 +1,44 @@
+class   Solution   { 
+ public : 
+      bool   validPalindrome ( string s )   { 
+          int  p1 = 0 , p2 = s . size ( ) - 1 ; 
+          bool  flag = false ; 
+          bool  ans1 = true , ans2 = true ; 
+          while ( p1 < p2 ) 
+          { 
+              if ( s [ p1 ] != s [ p2 ] ) 
+              { 
+                  if ( flag == false ) 
+                     flag = true ; 
+                  else 
+                     ans1 = false ; 
+                 p1 ++ ; 
+              } 
+              else 
+              { 
+                 p1 ++ ; 
+                 p2 -- ; 
+              } 
+          } 
+         p1 = 0 ; 
+         p2 = s . size ( ) - 1 ; 
+         flag = false ; 
+          while ( p1 < p2 ) 
+          { 
+              if ( s [ p1 ] != s [ p2 ] ) 
+              { 
+                  if ( flag == false ) 
+                     flag = true ; 
+                  else 
+                     ans2 = false ; 
+                 p2 -- ; 
+              } 
+              else 
+              { 
+                 p1 ++ ; 
+                 p2 -- ; 
+              } 
+          } 
+          return  ans1 || ans2 ; 
+      } 
+ } ;
