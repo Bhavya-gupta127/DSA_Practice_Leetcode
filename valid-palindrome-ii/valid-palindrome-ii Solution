@@ -1,44 +1,81 @@
 class   Solution   { 
  public : 
       bool   validPalindrome ( string s )   { 
-          int  p1 = 0 , p2 = s . size ( ) - 1 ; 
-          bool  flag = false ; 
-          bool  ans1 = true , ans2 = true ; 
-          while ( p1 < p2 ) 
+         
+          int  del = 1 ; 
+          int  del2 = 1 ; 
+          int  left = 0 ; 
+          int  right = s . size ( ) - 1 ; 
+         
+          while ( left <= right ) 
           { 
-              if ( s [ p1 ] != s [ p2 ] ) 
+              if ( s [ left ] != s [ right ] ) 
               { 
-                  if ( flag == false ) 
-                     flag = true ; 
+                 del -- ; 
+                  //abcbcac 
+                 
+                  if ( left + 1 <= right  &&  s [ left + 1 ] == s [ right ] ) 
+                  { 
+                     left ++ ; 
+                     left ++ ; 
+                     right -- ; 
+                  } 
+                  else   if ( right - 1 >= left  &&  s [ left ] == s [ right - 1 ] ) 
+                  { 
+                     right -- ; 
+                     right -- ; 
+                     left ++ ; 
+                  } 
                   else 
-                     ans1 = false ; 
-                 p1 ++ ; 
+                  { 
+                     del -- ; 
+                      break ; 
+                  } 
               } 
               else 
               { 
-                 p1 ++ ; 
-                 p2 -- ; 
+                 left ++ ; 
+                 right -- ; 
               } 
           } 
-         p1 = 0 ; 
-         p2 = s . size ( ) - 1 ; 
-         flag = false ; 
-          while ( p1 < p2 ) 
+         
+         left = 0 ; 
+         right = s . size ( ) - 1 ; 
+          while ( left <= right ) 
           { 
-              if ( s [ p1 ] != s [ p2 ] ) 
+              if ( s [ left ] != s [ right ] ) 
               { 
-                  if ( flag == false ) 
-                     flag = true ; 
+                 del2 -- ; 
+                  //abcbcac 
+                  if ( right - 1 >= left  &&  s [ left ] == s [ right - 1 ] ) 
+                  { 
+                     right -- ; 
+                     right -- ; 
+                     left ++ ; 
+                  } 
+                  else   if ( left + 1 <= right  &&  s [ left + 1 ] == s [ right ] ) 
+                  { 
+                     left ++ ; 
+                     left ++ ; 
+                     right -- ; 
+                  } 
+ 
                   else 
-                     ans2 = false ; 
-                 p2 -- ; 
+                  { 
+                     del2 -- ; 
+                      break ; 
+                  } 
               } 
               else 
               { 
-                 p1 ++ ; 
-                 p2 -- ; 
+                 left ++ ; 
+                 right -- ; 
               } 
           } 
-          return  ans1 || ans2 ; 
+         
+          if ( del >= 0   ||  del2 >= 0   ) 
+              return   true ; 
+          else 
+              return   false ; 
       } 
  } ;
