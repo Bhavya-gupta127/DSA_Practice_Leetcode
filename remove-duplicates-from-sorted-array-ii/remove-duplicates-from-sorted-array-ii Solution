@@ -1,0 +1,31 @@
+class   Solution   { 
+ public : 
+      int   removeDuplicates ( vector < int > &  nums )   { 
+          int  count = 1 ; 
+          int  i = 1 , j = 1 ; 
+          int  ele = nums [ 0 ] ; 
+          while ( i < nums . size ( ) ) 
+          { 
+              if ( ele == nums [ i ] ) 
+                 count ++ ; 
+              else  
+              { 
+                 ele = nums [ i ] ; 
+                 count = 1 ; 
+              } 
+              if ( count <= 2 ) 
+                 nums [ j ++ ] = nums [ i ] ; 
+             i ++ ; 
+             
+          } 
+          return  j ; 
+          // sort(nums.begin(),nums.end()); 
+          // int ans=0; 
+          // for(int i=0;i<nums.size();i++) 
+          // { 
+          //     if(nums[i]!=1e9) 
+          //         ans++; 
+          // } 
+          // return ans; 
+      } 
+ } ;
