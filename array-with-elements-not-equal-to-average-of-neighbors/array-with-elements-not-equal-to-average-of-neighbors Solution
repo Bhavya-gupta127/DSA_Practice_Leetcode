@@ -1,0 +1,25 @@
+class   Solution   { 
+ public : 
+     vector < int >   rearrangeArray ( vector < int > &  nums )   { 
+          // 1 2 3 4 5 
+          // sort 
+          // 1 5 2 4 3 
+         
+          // 6 2 0 9 7 
+          // 0 2 6 7 9 
+          // 0 9 2 7 6 
+ 
+          int  p1 = 0 , p2 = nums . size ( ) - 1 ; 
+         vector < int > ans ; 
+          sort ( nums . begin ( ) , nums . end ( ) ) ; 
+          while ( p1 < p2 ) 
+          { 
+             ans . push_back ( nums [ p1 ++ ] ) ; 
+             ans . push_back ( nums [ p2 -- ] ) ; 
+          } 
+          if ( p1 == p2 ) 
+             ans . push_back ( nums [ p1 ] ) ; 
+          return  ans ; 
+ 
+      } 
+ } ;
