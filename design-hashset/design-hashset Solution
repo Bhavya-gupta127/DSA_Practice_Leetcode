@@ -1,24 +1,67 @@
 class   MyHashSet   { 
-      // brute force 
- private : 
-     vector < int > v ; 
  public : 
- 
+     vector < bool >  ans ; 
       MyHashSet ( )   { 
-         v . resize ( 1e6 + 1 ) ; 
+         ans . resize ( 1e6 + 1 , false ) ; 
       } 
      
       void   add ( int  key )   { 
-         v [ key ] = 1 ; 
+         ans [ key ] = true ; 
       } 
      
       void   remove ( int  key )   { 
-         v [ key ] = 0 ; 
+         ans [ key ] = false ; 
       } 
      
       bool   contains ( int  key )   { 
-          return  v [ key ] ; 
+          return  ans [ key ] ; 
       } 
+     
+     
+     
+ //       vector<int> vec; 
+     
+ //     MyHashSet() { 
+         
+ //     } 
+     
+ //     void add(int key) { 
+ //         for(int i=0;i<vec.size();i++) 
+ //         { 
+ //             if(vec[i]==key) 
+ //             { 
+ //                 return; 
+ //             } 
+ //         } 
+ //         vec.push_back(key); 
+ //         return ; 
+         
+ //     } 
+     
+ //     void remove(int key) { 
+         
+ //         for(int i=0;i<vec.size();i++) 
+ //         { 
+ //             if(vec[i]==key) 
+ //             { 
+ //                 vec.erase(vec.begin() + i); 
+ //                 return; 
+ //             } 
+ //         } 
+ //         return ; 
+ //     } 
+     
+ //     bool contains(int key) { 
+         
+ //         for(int i=0;i<vec.size();i++) 
+ //         { 
+ //             if(vec[i]==key) 
+ //             { 
+ //                 return true ; 
+ //             } 
+ //         } 
+ //         return false; 
+ //     } 
  } ; 
  
  /**
