@@ -1,0 +1,19 @@
+class   Solution   { 
+ public : 
+      int   lengthOfLongestSubstring ( string s )   { 
+          // mainting a set to store char 
+          // iterate through the string and insert char to set 
+          // while next char is already present in set i will erase chars from set from begining 
+          // store maxlen at each step 
+         set < char > myset ; 
+          int  ptr = 0 , ans = 0 ; 
+          for ( int  i = 0 ; i < s . size ( ) ; i ++ ) 
+          { 
+              while ( myset . find ( s [ i ] ) != myset . end ( ) ) 
+                 myset . erase ( s [ ptr ++ ] ) ; 
+             myset . insert ( s [ i ] ) ; 
+             ans = max ( ans , i - ptr + 1 ) ; 
+          } 
+          return  ans ; 
+      } 
+ } ;
