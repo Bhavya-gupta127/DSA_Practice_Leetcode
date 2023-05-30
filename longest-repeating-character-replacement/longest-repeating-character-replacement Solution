@@ -1,22 +1,10 @@
 class   Solution   { 
  public : 
-      int  maxfz = 0 , totalfz = 0 ; 
-      char  maxele ; 
-      void   checkmax ( unordered_map < char , int > & mp ) 
-      { 
-          int  mx = - 1 ; 
-          for ( auto  i : mp ) 
-          { 
-              if ( i . second > mx ) 
-              { 
-                 mx = i . second ; 
-                 maxfz = i . second ; 
-                 maxele = i . first ; 
-              } 
-          } 
-      } 
+     
       int   characterReplacement ( string s ,   int  k )   { 
          unordered_map < char , int > mp ; 
+          int  maxfz = 0 , totalfz = 0 ; 
+          char  maxele ; 
           int  i = 0 ; 
           int  j = 0 ; 
           int  ans = 0 ; 
@@ -24,14 +12,24 @@ class   Solution   {
           { 
              mp [ s [ j ] ] ++ ; 
              totalfz ++ ; 
-              checkmax ( mp ) ; 
+              // checkmax(mp); //or use logic that maxfz only need to inc not decrease 
+              if ( mp [ s [ j ] ] > maxfz ) 
+              { 
+                 maxele = s [ j ] ; 
+                 maxfz = mp [ s [ j ] ] ; 
+              } 
               while ( totalfz - maxfz > k ) 
               { 
                   if ( i >= s . size ( )   ||  j >= s . size ( ) ) 
                       break ; 
                  mp [ s [ i ] ] -- ; 
                  totalfz -- ; 
-                  checkmax ( mp ) ; 
+                  // checkmax(mp); 
+                  if ( mp [ s [ j ] ] > maxfz ) 
+                  { 
+                     maxele = s [ j ] ; 
+                     maxfz = mp [ s [ j ] ] ; 
+                  } 
                  i ++ ; 
               } 
              ans = max ( ans , j - i + 1 ) ; 
