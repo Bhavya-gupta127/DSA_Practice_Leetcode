@@ -1,42 +1,16 @@
 class   Solution   { 
  public : 
       int   minSubArrayLen ( int  target ,  vector < int > &  nums )   { 
-         
-         
-          //modified kadane? 
-         
-          int  cursum = 0 ; 
-          // int maxsum=nums[0]; 
-         
-          int  curlen = 0 ; 
-          int  minlen = INT_MAX ; 
-         
-          int  n = nums . size ( ) ; 
-          // for(int i=0;i<nums.size();i++) 
-         
-          int  i = 0 ; 
-          int  j = 0 ; 
-          while ( i < n + 1 ) 
+          int  i , j = 0 , sum = 0 , ans = INT_MAX ; 
+          for ( i = 0 ; i < nums . size ( ) ; i ++ ) 
           { 
-             
-             
-             curlen = i - j ; 
-           
-              if ( cursum >= target ) 
+             sum += nums [ i ] ; 
+              while ( sum >= target ) 
               { 
-                 minlen = min ( curlen , minlen ) ; 
-                 cursum -= nums [ j ] ; 
-                 j ++ ; 
-              } 
-              else 
-              { 
-                  if ( i < n ) 
-                     cursum += nums [ i ] ; 
-                 i ++ ; 
+                 ans = min ( ans , i - j + 1 ) ; 
+                 sum -= nums [ j ++ ] ; 
               } 
           } 
-         
-         
-          return  minlen == INT_MAX ? 0 : minlen ; 
+          return  ans == INT_MAX ? 0 : ans ; 
       } 
  } ;
