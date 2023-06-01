@@ -1,0 +1,35 @@
+class   Solution   { 
+ public : 
+      bool   valid ( map < char , int > & mps , map < char , int > & mpt ) 
+      { 
+          for ( auto   & i : mpt ) 
+          { 
+              if ( mps [ i . first ] < i . second ) 
+                  return   false ; 
+          } 
+          return   true ; 
+      } 
+     string  minWindow ( string s ,  string t )   { 
+          int  i , j = 0 ; 
+          int  ans_start = - 1 , ans_len = INT_MAX ; 
+         map < char , int > mpt , mps ; 
+          for ( auto   & i : t ) 
+             mpt [ i ] ++ ; 
+          for ( i = 0 ; i < s . size ( ) ; i ++ ) 
+          { 
+             mps [ s [ i ] ] ++ ; 
+              while ( valid ( mps , mpt ) ) 
+              { 
+                  if ( ans_len > i - j + 1 ) 
+                  { 
+                     ans_start = j ; 
+                     ans_len = i - j + 1 ; 
+                  } 
+                 mps [ s [ j ++ ] ] -- ; 
+              } 
+          } 
+          if ( ans_len == INT_MAX ) 
+              return   "" ; 
+          return  s . substr ( ans_start , ans_len ) ; 
+      } 
+ } ;
