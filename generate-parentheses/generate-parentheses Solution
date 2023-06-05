@@ -1,0 +1,42 @@
+class   Solution   { 
+ public : 
+      bool   isValid ( string &  s )   { 
+         set < char > open = { '(' } ; 
+         map < char , char > close ; 
+         close [ ')' ] = '(' ; 
+         stack < char > st ; 
+          for ( auto  i : s ) 
+          { 
+              if ( open . find ( i ) != open . end ( ) ) 
+                 st . push ( i ) ; 
+              else   if ( ! st . empty ( )   &&  close [ i ] == st . top ( ) ) 
+                 st . pop ( ) ; 
+              else 
+                  return   false ; 
+          } 
+          return  st . empty ( ) ; 
+      } 
+      void   solve ( string s , int  n , vector < string > & ans ) 
+      { 
+          if ( s . size ( ) == n ) 
+          { 
+              if ( isValid ( s ) ) 
+                 ans . push_back ( s ) ; 
+              return ; 
+          } 
+          // cout<<s<<"\n"; 
+          int  a = 0 , b = 0 ; 
+         s . push_back ( '(' ) ; 
+          solve ( s , n , ans ) ; 
+         s . pop_back ( ) ; 
+         s . push_back ( ')' ) ; 
+          solve ( s , n , ans ) ; 
+      } 
+     vector < string >   generateParenthesis ( int  n )   { 
+         string s ; 
+         vector < string > ans ; 
+          solve ( s , 2 * n , ans ) ; 
+          return  ans ; 
+         
+      } 
+ } ;
