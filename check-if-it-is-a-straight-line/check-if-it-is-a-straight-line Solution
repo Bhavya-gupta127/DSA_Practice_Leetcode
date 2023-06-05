@@ -1,0 +1,24 @@
+class   Solution   { 
+ public : 
+      bool   checkStraightLine ( vector < vector < int >> &  coordinates )   { 
+          double  y1 = coordinates [ 0 ] [ 1 ] , x1 = coordinates [ 0 ] [ 0 ] ; 
+          double  y2 = coordinates [ 1 ] [ 1 ] , x2 = coordinates [ 1 ] [ 0 ] ; 
+          double  slope = INT_MIN , m ; 
+          if ( x1 == x2 ) 
+             slope = INT_MAX ; 
+          else 
+             slope = ( y2 - y1 ) / ( x2 - x1 ) ; 
+          for ( int  i = 2 ; i < coordinates . size ( ) ; i ++ ) 
+          { 
+             y2 = coordinates [ i ] [ 1 ] , x2 = coordinates [ i ] [ 0 ] ; 
+              if ( x1 == x2 ) 
+                 m = INT_MAX ; 
+              else 
+                 m = ( y2 - y1 ) / ( x2 - x1 ) ; 
+ 
+              if ( m != slope ) 
+                  return   false ; 
+          } 
+          return   true ; 
+      } 
+ } ;
