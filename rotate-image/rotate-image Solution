@@ -1,20 +1,36 @@
 class   Solution   { 
-  public : 
+ public : 
       void   rotate ( vector < vector < int >> &  m )   { 
-          int  n = m . size ( ) - 1 ; 
-          for ( int  i = 0 ; i < n + 1 ; i ++ ) 
+ 
+          //transpose + reverse each row 
+ 
+          //transpose 
+          for ( int  i = 0 ; i < m . size ( ) ; i ++ ) 
           { 
-              for ( int  j = i ; j < n - i ; j ++ ) 
-              { 
-                  int  left = m [ i ] [ j ] ; 
-                  int  top = m [ j ] [ n - i ] ; 
-                  int  right = m [ n - i ] [ n - j ] ; 
-                  int  bottom = m [ n - j ] [ i ] ; 
-                 m [ j ] [ n - i ] = left ; 
-                 m [ n - i ] [ n - j ] = top ; 
-                 m [ n - j ] [ i ] = right ; 
-                 m [ i ] [ j ] = bottom ; 
-              } 
+              for ( int  j = i + 1 ; j < m . size ( ) ; j ++ ) 
+                  swap ( m [ i ] [ j ] , m [ j ] [ i ] ) ; 
+          }         
+          for ( int  i = 0 ; i < m . size ( ) ; i ++ ) 
+          { 
+              reverse ( m [ i ] . begin ( ) , m [ i ] . end ( ) ) ; 
           } 
+ 
+ 
+          // my approach  
+          // int n=m.size()-1; 
+          // for(int i=0;i<n+1;i++) 
+          // { 
+          //     for(int j=i;j<n-i;j++) 
+          //     { 
+          //         int left=m[i][j]; 
+          //         int top=m[j][n-i]; 
+          //         int right=m[n-i][n-j]; 
+          //         int bottom=m[n-j][i]; 
+          //         m[j][n-i]=left; 
+          //         m[n-i][n-j]=top; 
+          //         m[n-j][i]=right; 
+          //         m[i][j]=bottom; 
+          //     } 
+          // } 
       } 
-  } ;
+ } ;
