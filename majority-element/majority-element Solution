@@ -1,22 +1,19 @@
 class   Solution   { 
  public : 
       int   majorityElement ( vector < int > &  nums )   { 
-          //brute force => map to store frequency of each array linear time and space 
-          //to optimise space 
-          int  fz = 1 ; 
           int  ele = nums [ 0 ] ; 
-          for ( int  i = 1 ; i < nums . size ( ) ; i ++ ) 
+          int  fz = 0 ; 
+          for ( auto  i : nums ) 
           { 
-             
-              if ( ele == nums [ i ] ) 
+              if ( ele == i ) 
                  fz ++ ; 
               else 
               { 
                  fz -- ; 
-                  if ( fz == 0 ) 
+                  if ( fz <= 0 ) 
                   { 
+                     ele = i ; 
                      fz = 1 ; 
-                     ele = nums [ i ] ; 
                   } 
               } 
           } 
