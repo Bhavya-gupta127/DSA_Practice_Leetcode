@@ -1,23 +1,29 @@
 class   Solution   { 
  public : 
-     string  toBinary ( int  a ) 
-      { 
-         string s ; 
-          while ( a > 0 ) 
-          { 
-             s . push_back ( a % 2 + '0' ) ; 
-             a /= 2 ; 
-          } 
-          while ( s . size ( ) <= 30 ) 
-             s . push_back ( '0' ) ; 
-          reverse ( s . begin ( ) , s . end ( ) ) ; 
-          return  s ; 
-      } 
+      // string toBinary(int a) 
+      // { 
+      //     string s; 
+      //     while(a>0) 
+      //     { 
+      //         s.push_back(a%2+'0'); 
+      //         a/=2; 
+      //     } 
+      //     while(s.size()<=32) 
+      //         s.push_back('0'); 
+      //     reverse(s.begin(),s.end()); 
+      //     return s; 
+      // } 
       int   minFlips ( int  a ,   int  b ,   int  c )   { 
           //brute force  
-         string A = toBinary ( a ) , B = toBinary ( b ) , C = toBinary ( c ) ; 
+          // string A=toBinary(a),B=toBinary(b),C=toBinary(c); 
+         bitset < 32 >   x ( a ) ; 
+         bitset < 32 >   y ( b ) ; 
+         bitset < 32 >   z ( c ) ; 
+         string A = x . to_string ( ) ; 
+         string B = y . to_string ( ) ; 
+         string C = z . to_string ( ) ; 
           int  ans = 0 ; 
-          for ( int  i = 0 ; i <= 30 ; i ++ ) 
+          for ( int  i = 0 ; i <= 32 ; i ++ ) 
           { 
               if ( C [ i ] == '0' ) 
                  ans += A [ i ] - '0' + B [ i ] - '0' ; 
