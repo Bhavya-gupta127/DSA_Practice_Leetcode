@@ -1,27 +1,26 @@
 class   Solution   { 
  public : 
       int   longestConsecutive ( vector < int > &  nums )   { 
-         
-         set < int >   myset ( nums . begin ( ) , nums . end ( ) ) ; 
-          int  count = 1 ; 
-          int  maxcount = 1 ; 
-         
-         set < int > :: iterator it ; 
-         set < int > :: iterator itr ; 
-         itr = myset . begin ( ) ; 
-          if ( nums . size ( ) < 2 ) 
-              return  nums . size ( ) ; 
-         
-          ++ itr ; 
-          for ( it = myset . begin ( ) ; it != myset . end ( )   &&  itr != myset . end ( ) ; ++ it ) 
+          //brute force is to sort and count consecutive elementsn  
+          //optimal 
+         unordered_set < int > myset ; 
+          for ( auto  i : nums ) 
+             myset . insert ( i ) ; 
+          int  ans = 0 ; 
+          for ( int  i = 0 ; i < nums . size ( ) ; i ++ ) 
           { 
-              if ( * it == * itr - 1 ) 
-                 count ++ ; 
-              else 
-                 count = 1 ; 
-             maxcount = max ( maxcount , count ) ; 
-              ++ itr ; 
+              if ( myset . find ( nums [ i ] - 1 ) == myset . end ( ) ) 
+              { 
+                  int  ele = nums [ i ] ; 
+                  int  cnt = 0 ; 
+                  while ( myset . find ( ele ) != myset . end ( ) ) 
+                  { 
+                     cnt ++ ; 
+                     ele ++ ; 
+                  } 
+                 ans = max ( ans , cnt ) ; 
+              } 
           } 
-          return  maxcount ; 
+          return  ans ; 
       } 
  } ;
