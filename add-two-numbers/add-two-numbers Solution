@@ -10,38 +10,61 @@
   */ 
  class   Solution   { 
  public : 
- 
      ListNode *   addTwoNumbers ( ListNode *  l1 ,  ListNode *  l2 )   { 
-          int  carry = 0 , cur ; 
-         ListNode * head ; 
-         ListNode  * ans = NULL ; 
-          while ( 1 ) 
+         
+          int  carry = 0 ; 
+         ListNode  *  ans = NULL ; 
+         ListNode  * ansptr ; 
+          while ( l1 != NULL   ||  l2 != NULL   ||  carry != 0 ) 
           { 
-             cur = carry ; 
+              int  temp = 0 ; 
               if ( l1 != NULL ) 
-                 cur += l1 -> val ; 
-              if ( l2 != NULL ) 
-                 cur += l2 -> val ; 
-              if ( l1 == NULL   &&  l2 == NULL   &&  carry == 0 ) 
-                  break ; 
-              if ( ans == NULL ) 
               { 
-                 ans = new   ListNode ( cur % 10 ) ; 
-                 head = ans ; 
+                 temp += l1 -> val ; 
+                  l1 = l1 -> next ; 
+           
+              } 
+              if ( l2 != NULL ) 
+              { 
+                 temp += l2 -> val ; 
+                   l2 = l2 -> next ; 
+              } 
+             temp += carry ; 
+             
+              if ( temp > 9 ) 
+              { 
+                 carry = 0 ; 
+                  if ( ans == NULL ) 
+                  { 
+                     ans = new   ListNode (  temp % 10 ) ; 
+                     ansptr = ans ; 
+                  } 
+                  else 
+                  {        ans -> next = new   ListNode ( temp % 10 ) ; 
+                 
+                 ans = ans -> next ; 
+              } 
+                 carry = temp / 10 ;                
               } 
               else 
               { 
-                 ans -> next = new   ListNode ( cur % 10 ) ; 
+                 carry = 0 ; 
+                  if ( ans == NULL ) 
+                  { 
+                     
+                     ans = new   ListNode ( temp ) ; 
+                     ansptr = ans ; 
+                  } 
+                  else 
+                  { 
+                     ans -> next = new   ListNode ( temp ) ; 
+                 
                  ans = ans -> next ; 
+                  } 
               } 
-             cur /= 10 ; 
-             carry = cur % 10 ; 
-              if ( l1 != NULL ) 
-                 l1 = l1 -> next ; 
-              if ( l2 != NULL ) 
-                 l2 = l2 -> next ; 
- 
+            
+            
           } 
-          return  head ; 
+          return  ansptr ; 
       } 
  } ;
