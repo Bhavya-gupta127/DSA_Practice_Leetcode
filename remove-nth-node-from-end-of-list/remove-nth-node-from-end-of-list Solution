@@ -11,30 +11,30 @@
  class   Solution   { 
  public : 
      ListNode *   removeNthFromEnd ( ListNode *  head ,   int  n )   { 
-         
+ //if i maintain a node (fast node)which is n+1 steps ahead and that node reaches NULL then I know which node is to be removed(node to next of slow node) 
           if ( head == NULL ) 
               return  head ; 
-         ListNode * p1 = head ; 
-         ListNode * p2 = head ; 
-          for ( int  i = 0 ; i < n ; i ++ ) 
+         ListNode * slow = NULL , * fast = head ; 
+          int  i = 0 ; 
+          while ( fast != NULL ) 
           { 
-              if ( p2 == NULL ) 
-                  return  head ; 
-             p2 = p2 -> next ; 
+             i ++ ; 
+              if ( fast == NULL ) 
+                 fast = head ; 
+              else 
+                 fast = fast -> next ; 
+              if ( i > n ) 
+              { 
+                  if ( slow != NULL ) 
+                     slow = slow -> next ; 
+                  else  
+                     slow = head ; 
+              } 
           } 
-          if ( p2 == NULL ) 
-          { 
-             head = head -> next ; 
-              return  head ; 
-          } 
-         ListNode  *  prev = head ; 
-          while ( p2 != NULL ) 
-          { 
-             prev = p1 ; 
-             p1 = p1 -> next ; 
-             p2 = p2 -> next ; 
-          } 
-         prev -> next = p1 -> next ; 
+          if ( slow == NULL ) 
+              return  head -> next ; 
+          if ( slow -> next != NULL ) 
+             slow -> next = slow -> next -> next ; 
           return  head ; 
       } 
  } ;
