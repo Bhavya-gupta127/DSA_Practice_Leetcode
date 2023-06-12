@@ -1,0 +1,30 @@
+class   Solution   { 
+ public : 
+     vector < string >   summaryRanges ( vector < int > &  nums )   { 
+          if ( nums . empty ( ) ) 
+              return   { } ; 
+         vector < string > ans ; 
+          int  from = 0 , to = 0 ; 
+          for ( int  i = 1 ; i < nums . size ( ) ; i ++ ) 
+          { 
+              if ( nums [ i ] != nums [ i - 1 ] + 1 ) 
+              { 
+                  if ( from == to ) 
+                     ans . push_back ( to_string ( nums [ from ] ) ) ; 
+                  else 
+                     ans . push_back ( to_string ( nums [ from ] ) + "->" + to_string ( nums [ to ] ) ) ; 
+                 from = i ; 
+                 to = i ; 
+              } 
+              else 
+                 to ++ ; 
+ 
+          } 
+      if ( from == to ) 
+         ans . push_back ( to_string ( nums [ from ] ) ) ; 
+      else 
+         ans . push_back ( to_string ( nums [ from ] ) + "->" + to_string ( nums [ to ] ) ) ; 
+          return  ans ; 
+ 
+      } 
+ } ;
