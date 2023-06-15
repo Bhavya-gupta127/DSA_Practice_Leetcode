@@ -1,0 +1,47 @@
+/**
+  * Definition for a binary tree node.
+  * struct TreeNode {
+  *     int val;
+  *     TreeNode *left;
+  *     TreeNode *right;
+  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+  * };
+  */ 
+ class   Solution   { 
+ public : 
+      int   bfs ( TreeNode *  root ) 
+      { 
+          long   long  mx = INT_MIN ; 
+         queue < TreeNode * > q ; 
+         q . push ( root ) ; 
+          int  row = 1 , ans = - 1 ; 
+          while ( ! q . empty ( ) ) 
+          { 
+              int  s = q . size ( ) ; 
+ 
+              int  curmx = 0 ; 
+              for ( int  i = 0 ; i < s ; i ++ ) 
+              { 
+                 TreeNode *  cur = q . front ( ) ; 
+                 curmx += cur -> val ; 
+                 q . pop ( ) ; 
+                  if ( cur -> left != NULL ) 
+                     q . push ( cur -> left ) ; 
+                  if ( cur -> right != NULL ) 
+                     q . push ( cur -> right ) ; 
+              } 
+              if ( curmx > mx ) 
+              { 
+                 mx = curmx ; 
+                 ans = row ; 
+              } 
+             row ++ ; 
+          } 
+          return  ans ; 
+      } 
+      int   maxLevelSum ( TreeNode *  root )   { 
+          return   bfs ( root ) ; 
+      } 
+ } ;
