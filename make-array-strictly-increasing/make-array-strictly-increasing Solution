@@ -1,0 +1,27 @@
+class   Solution   { 
+ public : 
+ 
+      int   solve ( int  i , int  j , int  prev , vector < int > & arr1 ,  vector < int > & arr2 , vector < vector < int >> & dp ) 
+      { 
+          if ( i >= arr1 . size ( ) ) 
+              return   0 ; 
+          if ( dp [ i ] [ j ] != - 1 )     
+              return  dp [ i ] [ j ] ; 
+          int  pick = 1e9 + 7 , notpick = 1e9 + 7 ; 
+          if ( arr1 [ i ] > prev ) 
+             notpick = solve ( i + 1 , j , arr1 [ i ] , arr1 , arr2 , dp ) ; 
+         j = upper_bound ( arr2 . begin ( ) , arr2 . end ( ) , prev ) - arr2 . begin ( ) ; 
+          if ( j < arr2 . size ( ) ) 
+             pick = solve ( i + 1 , j + 1 , arr2 [ j ] , arr1 , arr2 , dp ) + 1 ; 
+          return  dp [ i ] [ j ] = min ( pick , notpick ) ; 
+      } 
+      int   makeArrayIncreasing ( vector < int > &  arr1 ,  vector < int > &  arr2 )   { 
+      
+          sort ( arr2 . begin ( ) , arr2 . end ( ) ) ; 
+          int  n = arr1 . size ( ) , m = arr2 . size ( ) ; 
+         vector < vector < int >> dp ( n , vector < int > ( m + 1 , - 1 ) ) ; 
+          int  ans  = solve ( 0 , 0 , - 1 , arr1 , arr2 , dp ) ; 
+          return  ans == 1e9 + 7 ? - 1 : ans ; 
+ 
+      } 
+ } ;
