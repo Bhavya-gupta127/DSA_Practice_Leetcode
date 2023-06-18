@@ -10,26 +10,26 @@ class Solution
     //be performed in a meeting room.
     static bool cmp(pair<int,int>&a,pair<int,int>&b)
     {
-        if(a.second!=b.second)
+        if(b.second!=a.second)
             return a.second<b.second;
-        return a.first<b.first;
+        return a.first>b.first;
     }
     int maxMeetings(int start[], int end[], int n)
     {
         // Your code here
+        //sort by ending time
         vector<pair<int,int>>v;
         for(int i=0;i<n;i++)
             v.push_back({start[i],end[i]});
         sort(v.begin(),v.end(),cmp);
-        
-        int prev=-1,ans=0;
-        for(int i=0;i<n;i++)
+        int ans=1;
+        int prevend=v[0].second;
+        for(int i=1;i<n;i++)
         {
-            // cout<<v[i].first<<" ";
-            if(v[i].first>prev)
+            if(v[i].first>prevend)
             {
                 ans++;
-                prev=v[i].second;
+                prevend=v[i].second;
             }
         }
         return ans;
