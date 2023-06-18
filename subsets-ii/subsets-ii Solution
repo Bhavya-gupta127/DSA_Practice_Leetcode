@@ -1,0 +1,24 @@
+class   Solution   { 
+ public : 
+      void   solve ( int  i , vector < int > & nums , set < vector < int >> & powerset , vector < int > & v ) 
+      { 
+          if ( i >= nums . size ( ) ) 
+          { 
+             vector < int > vv = v ; 
+              sort ( vv . begin ( ) , vv . end ( ) ) ; 
+             powerset . insert ( vv ) ; 
+              return ; 
+          } 
+         v . push_back ( nums [ i ] ) ; 
+          solve ( i + 1 , nums , powerset , v ) ; 
+         v . pop_back ( ) ; 
+          solve ( i + 1 , nums , powerset , v ) ; 
+      } 
+     vector < vector < int >>   subsetsWithDup ( vector < int > &  nums )   { 
+         set < vector < int >> powerset ; 
+         vector < int > v ; 
+          solve ( 0 , nums , powerset , v ) ; 
+         vector < vector < int >> ans ( powerset . begin ( ) , powerset . end ( ) ) ; 
+          return  ans ; 
+      } 
+ } ;
