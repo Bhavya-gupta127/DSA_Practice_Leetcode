@@ -1,0 +1,26 @@
+class   Solution   { 
+ public : 
+      int   removeDuplicates ( vector < int > &  nums )   { 
+         
+          int  n = nums . size ( ) ; 
+          int  k = 1 ; 
+          int  temp ; 
+          for ( int  i = 1 ; i < n ; i ++ ) 
+          { 
+              if ( nums [ i ] == nums [ i - 1 ]   ||  nums [ i ] == temp ) 
+              { 
+                  if ( nums [ i ] != INT_MAX ) 
+                     temp = nums [ i ] ; 
+                  nums [ i ] = INT_MAX ; 
+              } 
+              else 
+              { 
+                 k ++ ; 
+                
+              } 
+          } 
+          sort ( nums . begin ( ) , nums . end ( ) ) ; 
+          return  k ; 
+         
+      } 
+ } ;
