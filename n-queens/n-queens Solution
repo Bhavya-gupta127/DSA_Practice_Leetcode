@@ -1,122 +1,75 @@
 class   Solution   { 
  public : 
-     
-      bool   isAllowed ( int  row , int  col , int  n  , vector < string > ans ) 
+      bool   isPossible ( int  row , int  col , vector < string > & board ) 
       { 
-          for ( int  i = 0 ; i < n ; i ++ ) 
+          int  n = board . size ( ) ; 
+          // check vertically and horizonatally 
+          //since sq board if can check horizontally in same loop 
+          int  i , j ; 
+          for ( j = 0 ; j < n ; j ++ ) 
           { 
-              if ( ans [ row ] [ i ] == 'Q' ) 
+              if ( board [ row ] [ j ] == 'Q'   ||  board [ j ] [ col ] == 'Q' ) 
                   return   false ; 
           } 
-          for ( int  i = 0 ; i < n ; i ++ ) 
-          { 
-              if ( ans [ i ] [ col ] == 'Q' ) 
-                  return   false ; 
-          } 
-          int  i ; 
-          int  j ; 
-         
-         i = row ; 
-         j = col ; 
+ 
+         i = row - 1 ; 
+         j = col - 1 ; 
           while ( i >= 0   &&  j >= 0 ) 
           { 
-              if ( ans [ i ] [ j ] == 'Q' ) 
+              if ( board [ i -- ] [ j -- ] == 'Q' ) 
                   return   false ; 
-             i -- ; 
-             j -- ; 
           } 
-         i = row ; 
-         j = col ; 
-          while ( i >= 0   &&  j < n ) 
-          { 
-              if ( ans [ i ] [ j ] == 'Q' ) 
-                  return   false ; 
-             i -- ; 
-             j ++ ; 
-          } 
-         i = row ; 
-         j = col ; 
+         i = row + 1 ; 
+         j = col - 1 ; 
           while ( i < n  &&  j >= 0 ) 
           { 
-              if ( ans [ i ] [ j ] == 'Q' ) 
+              if ( board [ i ++ ] [ j -- ] == 'Q' ) 
                   return   false ; 
-             i ++ ; 
-             j -- ; 
           } 
-         i = row ; 
-         j = col ; 
-          while ( i < n  &&  j < n ) 
+         i = row - 1 ; 
+         j = col + 1 ; 
+          while ( i >= 0   &&  j < n ) 
           { 
-              if ( ans [ i ] [ j ] == 'Q' ) 
+              if ( board [ i -- ] [ j ++ ] == 'Q' ) 
                   return   false ; 
-             i ++ ; 
-             j ++ ; 
           } 
-         
           return   true ; 
       } 
-     
-     
-      void   solve ( int  row , int  col , int  n ,  vector < vector < string >> & ans , vector < string > v ) 
+      void   recurFindBoard ( int  col , vector < string > & board , vector < vector < string >> & allBoards ) 
       { 
-          // cout<<col<<" "; 
-          if ( col >= n ) 
+          //base case 
+          if ( col >= board [ 0 ] . size ( ) ) 
           { 
-             ans . push_back ( v ) ; 
+             allBoards . push_back ( board ) ; 
               return ; 
           } 
-          for ( int  i = 0 ; i < n ; i ++ ) 
+          for ( int  row = 0 ; row < board . size ( ) ; row ++ ) 
           { 
-              if ( isAllowed ( i , col , n , v ) ) 
+ 
+              //Place queen if possible to place the queen at board[row][col] 
+              if ( isPossible ( row , col , board ) ) 
               { 
-                 v [ i ] [ col ] = 'Q' ; 
-                  solve ( i , col + 1 , n , ans , v ) ; 
-                 v [ i ] [ col ] = '.' ; 
+                 board [ row ] [ col ] = 'Q' ; 
+                  recurFindBoard ( col + 1 , board , allBoards ) ; 
+                 board [ row ] [ col ] = '.' ; 
               } 
+ 
           } 
-         
-         
- //         for(int i=0;i<n;i++) 
- //         { 
- //             ans[row][i]="-1"; 
- //         } 
- //         for(int i=0;i<n;i++) 
- //         { 
- //             ans[i][col]="-1"; 
- //         } 
- //         int i=row; 
- //         int j=col; 
- //         while(row>=0 && col>=0) 
- //         ans[row][col]="1"; 
-         
- //         for(int i=0;i<n;i++) 
- //         { 
- //             if() 
- //         } 
       } 
      vector < vector < string >>   solveNQueens ( int  n )   { 
          
-         vector < vector < string >>  ans ; 
-        
-         vector < string > v ; 
-          for ( int  j = 0 ; j < n ; j ++ ) 
-          { 
-             string s ; 
-              for ( int  k = 0 ; k < n ; k ++ ) 
-              { 
-                 s . push_back ( '.' ) ; 
-              } 
-             v . push_back ( s ) ; 
-          } 
-             
-         
-          solve ( 0 , 0 , n , ans , v ) ; 
-         
-          // ans[2][2]="Q"; 
-          // cout<<isAllowed(1,2,n,ans); 
-          return  ans ; 
-         
-             
-         
+          //creating the chess board 
+         vector < string > board ( n ) ; 
+         string s ; 
+          for ( int  i = 0 ; i < n ; i ++ ) 
+             s . push_back ( '.' ) ; 
+          for ( int  i = 0 ; i < n ; i ++ ) 
+             board [ i ] = s ; 
+ 
+          //recursive function to find all possible boards 
+         vector < vector < string >> allBoards ; 
+          recurFindBoard ( 0 , board , allBoards ) ; 
+          return  allBoards ; 
+ 
       } 
  } ;
