@@ -1,0 +1,33 @@
+class   Solution   { 
+ public : 
+      void   solve ( int  i ,  vector < int > & nums ,  vector < int > & v  , vector < vector < int >> & ans ) 
+      { 
+          if ( v . size ( ) == nums . size ( ) ) 
+          { 
+             ans . push_back ( v ) ; 
+              return ; 
+          } 
+          for ( int  j = 0 ; j < nums . size ( ) ; j ++ ) 
+          { 
+              bool  flag = false ; 
+              for ( auto  k : v ) 
+                  if ( k == nums [ j ] ) 
+                     flag = true ; 
+              if ( ! flag ) 
+              { 
+                 v . push_back ( nums [ j ] ) ; 
+                  solve ( j + 1 , nums , v , ans ) ; 
+                 v . pop_back ( ) ; 
+              } 
+          } 
+          return ; 
+      } 
+ 
+ 
+     vector < vector < int >>   permute ( vector < int > &  nums )   { 
+         vector < vector < int >> ans ; 
+         vector < int > v ; 
+          solve ( 0 , nums , v , ans ) ; 
+          return  ans ; 
+      } 
+ } ;
