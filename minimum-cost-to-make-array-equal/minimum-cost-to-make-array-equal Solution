@@ -1,0 +1,73 @@
+class   Solution   { 
+ public : 
+ 
+      long   long   findCost ( int  m , vector < int > &  nums ,  vector < int > &  cost ) 
+      { 
+          long   long  ans = 0 ; 
+          for ( int  i = 0 ; i < nums . size ( ) ; i ++ ) 
+             ans += ( long   long ) abs ( nums [ i ] - m ) * cost [ i ] ; 
+          return  ans ; 
+      } 
+      long   long   minCost ( vector < int > &  nums ,  vector < int > &  cost )   { 
+          //brute force way is to find total cost to make all elements == 1 then 2 ..upto  1e6 find  
+          //TC=> O(1e11) 
+ 
+          //better => binary search 
+          long   long  l = 0 , h = 1e6 + 1 , m , prev , cur , next ; 
+          while ( l <= h ) 
+          { 
+             m = l + ( h - l ) / 2 ; 
+             prev = findCost ( m - 1 , nums , cost ) ; 
+             cur = findCost ( m , nums , cost ) ; 
+             next = findCost ( m + 1 , nums , cost ) ; 
+              if ( cur <= prev  &&  cur <= next ) 
+                  return  cur ; 
+              else   if ( cur < next ) 
+                 h = m - 1 ; 
+              else 
+                 l = m + 1 ; 
+          } 
+          return   - 1 ; 
+ 
+ 
+          //optimised => prefix sum O(n) wrong answer in 1 case 
+          // long long n=0; 
+          // // unordered_map<int,int>mp; 
+          // vector<long long>mp(1e6+1,0); 
+          // for(long long i=0;i<nums.size();i++) 
+          // { 
+          //     mp[nums[i]]=cost[i]; 
+          //     n=max((long long)nums[i],n); 
+          // } 
+ 
+          // vector<long long>suffix,modified_suffix,prefix,modified_prefix; 
+ 
+          // prefix.push_back(0); 
+          // modified_prefix.push_back(0); 
+          // for(long long i=1;i<=n;i++) 
+          // { 
+          //     modified_prefix.push_back(prefix.back()+modified_prefix.back()); 
+          //     prefix.push_back(mp[i]+prefix.back()); 
+          // } 
+ 
+          // suffix.push_back(0); 
+          // modified_suffix.push_back(0); 
+          // for(long long i=n;i>=1;i--) 
+          // { 
+          //     modified_suffix.push_back(suffix.back()+modified_suffix.back()); 
+          //     suffix.push_back(mp[i]+suffix.back()); 
+          // } 
+          // modified_suffix.push_back(0); 
+          // reverse(modified_suffix.begin(),modified_suffix.end()); 
+ 
+ 
+          // long long ans=modified_prefix[1]+modified_suffix[1]; 
+          // for(long long i=1;i<=n;i++) 
+          // { 
+          //     cout<<i<<" "<<(modified_prefix[i]+modified_suffix[i])<<"\n"; 
+          //     ans=min(ans,modified_prefix[i]+modified_suffix[i]); 
+          // } 
+          // return ans; 
+ 
+      } 
+ } ;
