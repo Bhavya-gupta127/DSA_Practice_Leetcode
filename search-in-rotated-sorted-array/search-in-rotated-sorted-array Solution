@@ -5,44 +5,30 @@ class   Solution   {
           int  a = nums [ 0 ] ; 
           if ( target == a ) 
               return   0 ; 
-          int  l = 0 ; 
+          int  l = 1 ; 
           int  h = nums . size ( ) - 1 ; 
-          int  mid ; 
+          int  mid = 0 ; 
           while ( l <= h ) 
           { 
              mid = ( l + h ) / 2 ; 
              
               if ( nums [ mid ] < a ) 
+              { 
+                  if ( mid != 0   &&  nums [ mid - 1 ] > nums [ mid ] ) 
+                      break ; 
                  h = mid - 1 ; 
+              } 
               else  
                  l = mid + 1 ; 
              
           } 
           int  n = mid ; 
-         l = 0 ; 
-         h = n ; 
-          while ( l <= h ) 
-          { 
-             mid = ( l + h ) / 2 ; 
-              if ( nums [ mid ] == target ) 
-                  return  mid ; 
-              else   if ( nums [ mid ] > target ) 
-                 h = mid - 1 ; 
-              else 
-                 l = mid + 1 ; 
-          } 
-         l = n ; 
-         h = nums . size ( ) - 1 ; 
-          while ( l <= h ) 
-          { 
-             mid = l + ( h - l ) / 2 ; 
-              if ( nums [ mid ] == target ) 
-                  return  mid ; 
-              else   if ( nums [ mid ] > target ) 
-                 h = mid - 1 ; 
-              else 
-                 l = mid + 1 ; 
-          } 
+          auto  it = lower_bound ( nums . begin ( ) , nums . begin ( ) + n , target ) ; 
+          if ( it != nums . begin ( ) + n  &&   * ( it ) == target ) 
+              return  it - nums . begin ( ) ; 
+         it = lower_bound ( nums . begin ( ) + n , nums . end ( ) , target ) ; 
+          if ( it != nums . end ( )   &&   * ( it ) == target ) 
+              return  it - nums . begin ( ) ; 
           return   - 1 ; 
       } 
  } ;
