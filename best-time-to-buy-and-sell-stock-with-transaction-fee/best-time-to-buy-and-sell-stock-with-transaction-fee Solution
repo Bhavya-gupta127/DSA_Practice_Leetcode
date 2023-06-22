@@ -1,0 +1,44 @@
+class   Solution   { 
+ public : 
+      // int solve(int i,int j,vector<int>& prices, int fee,map<string,int>&dp) 
+      // { 
+      //     if(i>=prices.size()) 
+      //         return 0; 
+      //     string s=to_string(i)+"#"+to_string(j); 
+      //     if(dp[s]!=0) 
+      //         return dp[s]; 
+      //     int buy=0,sell=0,notpick=0; 
+      //     if(j==-1) 
+      //         buy=solve(i+1,i,prices,fee,dp); 
+      //     else if(prices[i]>prices[j]+fee) 
+      //         sell=solve(i+1,-1,prices,fee,dp)+prices[i]-prices[j]-fee; 
+      //     notpick=solve(i+1,j,prices,fee,dp); 
+      //     return dp[s]=max({buy,sell,notpick}); 
+      // } 
+      int   maxProfit ( vector < int > &  prices ,   int  fee )   { 
+          //brute force 
+          // int n=prices.size(); 
+          // map<string,int>dp; 
+          // return solve(0,-1,prices,fee,dp); 
+          int  buyprice = prices [ 0 ] , sellprice = prices [ 0 ] , ans = 0 ; 
+          for ( int  i = 1 ; i < prices . size ( ) ; i ++ ) 
+          { 
+              int  profit = sellprice - buyprice - fee ; 
+              if ( prices [ i ] <= sellprice - fee  ||   ( profit < 0   &&  prices [ i ] < buyprice )   )   
+              { 
+                  //sell 
+                  if ( profit > 0 ) 
+                     ans += profit ; 
+                 buyprice = prices [ i ] ; 
+                 sellprice = prices [ i ] ; 
+              } 
+              else 
+                 sellprice = max ( sellprice , prices [ i ] ) ; 
+ 
+          } 
+          int  profit = sellprice - buyprice - fee ; 
+          if ( profit > 0 ) 
+             ans += profit ; 
+          return  ans ; 
+      } 
+ } ;
