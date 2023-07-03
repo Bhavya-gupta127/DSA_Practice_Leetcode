@@ -1,0 +1,45 @@
+class   Solution   { 
+ public : 
+      bool   buddyStrings ( string s ,  string goal )   { 
+          // bhavya 
+          // bhvaya 
+ 
+          //base case 
+          if ( s . size ( ) != goal . size ( ) ) 
+              return   false ; 
+         map < char , int > mp ; 
+          char  diff1 = '#' , diff2 = '$' , diff11 = '#' , diff22 = '$' ; 
+ 
+          for ( int  i = 0 ; i < s . size ( ) ; i ++ ) 
+          { 
+             mp [ s [ i ] ] ++ ; 
+              if ( s [ i ] != goal [ i ] ) 
+              { 
+                  if ( diff1 == '#' ) 
+                  { 
+                     diff1 = s [ i ] ; 
+                     diff11 = goal [ i ] ; 
+                  } 
+                  else   if ( diff2 == '$' ) 
+                  { 
+                     diff2 = goal [ i ] ; 
+                     diff22 = s [ i ] ; 
+                  } 
+                  else 
+                      return   false ; 
+              } 
+          } 
+          if ( diff1 == '#'   &&  diff2 == '$' ) 
+          { 
+              for ( auto  i : mp ) 
+              { 
+                  if ( i . second > 1 ) 
+                      return   true ; 
+              } 
+          } 
+          return  diff1 == diff2  &&  diff11 == diff22 ; 
+ 
+         
+ 
+      } 
+ } ;
