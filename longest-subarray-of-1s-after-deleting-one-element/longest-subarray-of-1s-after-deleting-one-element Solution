@@ -1,0 +1,32 @@
+// Time complexity => O(n) 
+ // Space complexity => O(1) 
+ class   Solution   { 
+ public : 
+      int   longestSubarray ( vector < int > &  nums )   { 
+ 
+          //sliding window 
+          int  i = 0 , j = 0 , ans = 0 , cnt = 0 , n = nums . size ( ) ; 
+          for ( i = 0 ; i < n ; i ++ ) 
+          { 
+              if ( nums [ i ] == 0 ) 
+                 cnt ++ ; 
+              while ( cnt >= 2 ) 
+              { 
+                  if ( nums [ j ] == 0 ) 
+                     cnt -- ; 
+                 j ++ ; 
+              } 
+             ans = max ( ans , i - j ) ; 
+          } 
+          return  ans ; 
+ 
+      } 
+ } ; 
+ //Dry Run 
+ // [0,1,1,1,0,1,1,0,1] 
+ // i = 0 , j = 0 , cnt = 0 , ans = 0  
+ // i = 4 , j = 1 , cnt = 1 , ans = 3  
+ // i = 6 , j = 1 , cnt = 1 , ans = 5 
+ 
+ 
+ 
