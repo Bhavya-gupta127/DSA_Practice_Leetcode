@@ -1,18 +1,16 @@
 class   Solution   { 
  public : 
       int   minSubArrayLen ( int  target ,  vector < int > &  nums )   { 
-          int  i , j = 0 , ans = INT_MAX , cursum = 0 ; 
+          int  i , j = 0 , sum = 0 , ans = INT_MAX ; 
           for ( i = 0 ; i < nums . size ( ) ; i ++ ) 
           { 
-             cursum += nums [ i ] ; 
-              while ( cursum >= target ) 
+             sum += nums [ i ] ; 
+              while ( sum >= target ) 
               { 
                  ans = min ( ans , i - j + 1 ) ; 
-                 cursum -= nums [ j ++ ] ; 
+                 sum -= nums [ j ++ ] ; 
               } 
           } 
-          if ( cursum >= target ) 
-             ans = min ( ans , i - j + 1 ) ; 
           return  ans == INT_MAX ? 0 : ans ; 
       } 
  } ;
