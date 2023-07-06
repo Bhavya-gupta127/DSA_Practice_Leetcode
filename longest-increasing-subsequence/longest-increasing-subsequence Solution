@@ -1,0 +1,20 @@
+class   Solution   { 
+ public : 
+      int   solve ( int  i ,   int  j , vector < int > & nums , vector < vector < int >> & dp ) 
+      { 
+          if ( i >= nums . size ( ) ) 
+              return   0 ; 
+          if ( dp [ i ] [ j + 1 ] != - 1 ) 
+              return  dp [ i ] [ j + 1 ] ; 
+          int  pick = 0 , notpick = 0 ; 
+          if ( j == - 1   ||  nums [ i ] > nums [ j ] ) 
+             pick = solve ( i + 1 , i , nums , dp ) + 1 ; 
+         notpick = solve ( i + 1 , j , nums , dp ) ; 
+          return  dp [ i ] [ j + 1 ] = max ( pick , notpick ) ; 
+      } 
+      int   lengthOfLIS ( vector < int > &  nums )   { 
+         vector < vector < int >> dp ( nums . size ( ) , vector < int > ( nums . size ( ) + 1 , - 1 ) ) ; 
+          return   solve ( 0 , - 1 , nums , dp ) ; 
+        
+      } 
+ } ;
