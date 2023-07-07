@@ -1,0 +1,28 @@
+class   Solution   { 
+ public : 
+      int   slidingwindow ( string answerkey , char  ans , int  k ) 
+      { 
+          int  res = 0 , i = 0 , j = 0 ; 
+          for ( i = 0 ; i < answerkey . size ( ) ; i ++ ) 
+          { 
+              if ( answerkey [ i ] == ans ) 
+                 k -- ; 
+              while ( k < 0 ) 
+              { 
+                  if ( answerkey [ j ] == ans ) 
+                     k ++ ; 
+                 j ++ ; 
+              } 
+             res = max ( res , i - j + 1 ) ; 
+          } 
+          return  res ; 
+      } 
+      int   maxConsecutiveAnswers ( string answerkey ,   int  k )   { 
+          // cases2  
+          // answer is max consecutive 1. T => sliding window with max k F 
+          //                           2. F => sliding window with max k T 
+         
+          return   max ( slidingwindow ( answerkey , 'F' , k ) , slidingwindow ( answerkey , 'T' , k ) ) ; 
+ 
+      } 
+ } ;
