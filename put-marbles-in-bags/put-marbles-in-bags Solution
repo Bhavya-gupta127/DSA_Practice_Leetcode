@@ -1,0 +1,27 @@
+class   Solution   { 
+ public : 
+      long   long   putMarbles ( vector < int > &  weights ,   int  k )   { 
+ 
+          long   long  ans = 0 ; 
+         vector < long   long > pairsum ; 
+          for ( int  i = 1 ; i < weights . size ( ) ; i ++ ) 
+             pairsum . push_back ( weights [ i ] + weights [ i - 1 ] ) ; 
+          sort ( pairsum . begin ( ) , pairsum . end ( ) ) ; 
+          // for(auto i:pairsum) 
+          //     cout<<i<<" "; 
+          for ( int  i = 0 ; i < k - 1 ; i ++ ) 
+          { 
+             cout << "-" << pairsum [ i ] << "\n" ; 
+             ans -= pairsum [ i ] ; 
+          } 
+          int  size = pairsum . size ( ) ; 
+          // cout<<"i="<<pairsum.size()-1<<"\n"; 
+          // cout<<"i>"<<size-k<<"\n"; 
+          for ( int  i = size - 1 ; i > size - k ; i -- ) 
+          { 
+              // cout<<"+"<<pairsum[i]<<"\n"; 
+             ans += pairsum [ i ] ; 
+          } 
+          return  ans ; 
+      } 
+ } ;
