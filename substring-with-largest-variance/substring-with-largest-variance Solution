@@ -1,0 +1,61 @@
+class   Solution   { 
+ public : 
+ 
+      int   kadane ( char  a , char  b ,  string s ) 
+      { 
+         
+          int  cursum = 0 , sum = 0 ; 
+          bool  flag = false ; 
+          for ( auto  i : s ) 
+          { 
+              if ( i == a ) 
+                 cursum ++ ; 
+              else   if ( i == b ) 
+              { 
+                 flag = true ; 
+                 cursum -- ; 
+              } 
+              if ( cursum < 0 ) 
+              { 
+                 cursum = 0 ; 
+                 flag = false ; 
+              } 
+              if ( flag ) 
+                 sum = max ( cursum , sum ) ; 
+          } 
+         cout << a << " " << b << " " << sum << "\n" ; 
+          return  sum ; 
+      } 
+ 
+ 
+      int   largestVariance ( string s )   { 
+ 
+         set < char > letters ; 
+          for ( auto   & i : s ) 
+             letters . insert ( i ) ; 
+          int  ans = 0 ; 
+         string rev = s ; 
+          reverse ( rev . begin ( ) , rev . end ( ) ) ; 
+          for ( auto  i : letters ) 
+          { 
+              for ( auto  j : letters ) 
+              { 
+                  if ( i != j ) 
+                  { 
+                     ans = max ( ans , kadane ( i , j , s ) ) ; 
+                     ans = max ( ans , kadane ( j , i , s ) ) ; 
+                     ans = max ( ans , kadane ( i , j , rev ) ) ; 
+                     ans = max ( ans , kadane ( j , i , rev ) ) ; 
+                  } 
+              } 
+          } 
+          return  ans ; 
+          // intutuion : there can be max 26 characters so for all possible pairs 26^2 = ~ 700 
+         
+     
+          //find maximum subarray here (similar to kadane's algo) 
+          // time O(700*N*2) 
+          // space O(1) 
+ 
+      } 
+ } ;
