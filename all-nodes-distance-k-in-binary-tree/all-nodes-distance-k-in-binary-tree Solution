@@ -1,0 +1,67 @@
+/**
+  * Definition for a binary tree node.
+  * struct TreeNode {
+  *     int val;
+  *     TreeNode *left;
+  *     TreeNode *right;
+  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  * };
+  */ 
+ class   Solution   { 
+ public : 
+      void   preorder ( TreeNode *  root , map < TreeNode * , vector < TreeNode * >> & adj ) 
+      { 
+          if ( root == NULL ) 
+              return ; 
+          if ( root -> left != NULL ) 
+          { 
+             adj [ root ] . push_back ( root -> left ) ; 
+             adj [ root -> left ] . push_back ( root ) ; 
+          } 
+          if ( root -> right != NULL ) 
+          { 
+             adj [ root ] . push_back ( root -> right ) ; 
+             adj [ root -> right ] . push_back ( root ) ; 
+          } 
+          preorder ( root -> left , adj ) ; 
+          preorder ( root -> right , adj ) ; 
+      } 
+     vector < int >   bfs ( TreeNode  *  src , int  k , map < TreeNode * , vector < TreeNode * >> & adj ) 
+      { 
+         queue < TreeNode * > q ; 
+         q . push ( src ) ; 
+         map < TreeNode * , int > vis ; 
+         vis [ src ] = 1 ; 
+         vector < int > ans ; 
+          while ( ! q . empty ( ) ) 
+          { 
+              while ( k == 0   &&   ! q . empty ( ) ) 
+              { 
+                 ans . push_back ( q . front ( ) -> val ) ; 
+                 q . pop ( ) ; 
+              } 
+             k -- ; 
+              int  s = q . size ( ) ; 
+              for ( int  i = 0 ; i < s ; i ++ ) 
+              { 
+                 TreeNode *  cur = q . front ( ) ; 
+                 q . pop ( ) ; 
+                  for ( auto  j : adj [ cur ] ) 
+                  { 
+                      if ( vis [ j ] != 1 ) 
+                      { 
+                         q . push ( j ) ; 
+                         vis [ j ] = 1 ; 
+                      } 
+                  } 
+              }    
+          } 
+          return  ans ; 
+ 
+      } 
+     vector < int >   distanceK ( TreeNode *  root ,  TreeNode *  target ,   int  k )   { 
+         map < TreeNode * , vector < TreeNode * >> adj ; 
+          preorder ( root , adj ) ; 
+          return   bfs ( target , k , adj ) ; 
+      } 
+ } ;
