@@ -1,0 +1,41 @@
+class   Solution   { 
+ public : 
+      int   dfs ( int  node , vector < vector < int >> & graph , vector < int > & vis ) 
+      { 
+         vis [ node ] = - 1 ; 
+          bool  flag = false ; 
+          for ( auto  i : graph [ node ] ) 
+          { 
+              if ( vis [ i ] == 1 )   continue ; 
+              if ( vis [ i ] == - 1   ||   dfs ( i , graph , vis ) == - 1 ) 
+              { 
+                 flag = true ; 
+                  break ; 
+              } 
+          } 
+          if ( ! flag ) 
+             vis [ node ] = 1 ; 
+          return  vis [ node ] ; 
+ 
+      } 
+     vector < int >   eventualSafeNodes ( vector < vector < int >> &  graph )   { 
+          // adj list is given 
+          // method1 
+          // 1. find all nodes which are part of cycle return rest of nodes 
+          // method2 
+          // dp+graph 
+         vector < int > vis ( graph . size ( ) , 0 ) ; 
+          for ( int  i = 0 ; i < graph . size ( ) ; i ++ ) 
+          { 
+              if ( vis [ i ] == 0 ) 
+                  dfs ( i , graph , vis ) ; 
+          } 
+         vector < int > ans ; 
+          for ( int  i = 0 ; i < vis . size ( ) ; i ++ ) 
+          { 
+              if ( vis [ i ] == 1 ) 
+                 ans . push_back ( i ) ; 
+          } 
+          return  ans ; 
+      } 
+ } ;
