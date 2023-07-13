@@ -1,29 +1,36 @@
 class   Solution   { 
  public : 
-      bool   hasCycle ( int  node , vector < vector < int >> & adj , vector < int > & vis , vector < int > & pathvis ) 
-      { 
-         vis [ node ] = 1 ; 
-         pathvis [ node ] = 1 ; 
-          bool  ans = false ; 
-          for ( auto   & i : adj [ node ] ) 
-          { 
-              if ( pathvis [ i ] == 1 ) 
-                  return   true ; 
-              if ( vis [ i ] != 1 ) 
-                 ans = ans || hasCycle ( i , adj , vis , pathvis ) ; 
-          } 
-         pathvis [ node ] = 0 ; 
-          return  ans ; 
-      } 
       bool   canFinish ( int  numCourses ,  vector < vector < int >> &  prerequisites )   { 
-         vector < vector < int >> adj ( numCourses + 2 ) ; 
-          for ( auto   & i : prerequisites ) 
-             adj [ i [ 1 ] ] . push_back ( i [ 0 ] ) ; 
-         vector < int > vis ( numCourses + 2 , 0 ) ; 
-         vector < int > pathvis ( numCourses + 2 , 0 ) ; 
-          for ( int  i = 0 ; i <= numCourses ; i ++ ) 
+         vector < vector < int >> adj ( numCourses ) ; 
+         vector < int > indegree ( numCourses , 0 ) ; 
+          for ( auto  i : prerequisites ) 
           { 
-              if ( vis [ i ] != 1   &&   hasCycle ( i , adj , vis , pathvis ) ) 
+             adj [ i [ 1 ] ] . push_back ( i [ 0 ] ) ; 
+             indegree [ i [ 0 ] ] ++ ; 
+          } 
+          //toposort 
+         queue < int > q ; 
+          for ( int  i = 0 ; i < numCourses ; i ++ ) 
+          {    
+              if ( indegree [ i ] == 0 ) 
+                 q . push ( i ) ; 
+              // cout<<i<<" "; 
+          } 
+          while ( ! q . empty ( ) ) 
+          { 
+              int  cur = q . front ( ) ; 
+             q . pop ( ) ; 
+              for ( auto  i  :  adj [ cur ] ) 
+              { 
+                 indegree [ i ] -- ; 
+                  if ( indegree [ i ] == 0 ) 
+                     q . push ( i ) ; 
+              } 
+          } 
+          for ( auto  i : indegree ) 
+          { 
+              // cout<<i<<" "; 
+              if ( i > 0 ) 
                   return   false ; 
           } 
           return   true ; 
