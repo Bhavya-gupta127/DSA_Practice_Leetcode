@@ -1,35 +1,35 @@
 class   Solution   { 
  public : 
-      bool   valid ( map < char , int > & mps , map < char , int > & mpt ) 
+      bool   check ( map < char , int > & mp , map < char , int > & mp_t ) 
       { 
-          for ( auto   & i : mpt ) 
+          for ( auto   & i : mp_t ) 
           { 
-              if ( mps [ i . first ] < i . second ) 
+              if ( mp [ i . first ] < i . second ) 
                   return   false ; 
           } 
           return   true ; 
       } 
      string  minWindow ( string s ,  string t )   { 
-          int  i , j = 0 ; 
-          int  ans_start = - 1 , ans_len = INT_MAX ; 
-         map < char , int > mpt , mps ; 
+         map < char , int > mp_t ; 
+         map < char , int > mp ;   // max size 26+26 => 52 
           for ( auto   & i : t ) 
-             mpt [ i ] ++ ; 
+             mp_t [ i ] ++ ; 
+          int  i , j = 0 , ans_start = 0 , min_len = INT_MAX ; 
           for ( i = 0 ; i < s . size ( ) ; i ++ ) 
           { 
-             mps [ s [ i ] ] ++ ; 
-              while ( valid ( mps , mpt ) ) 
+             mp [ s [ i ] ] ++ ; 
+              while ( check ( mp , mp_t ) ) 
               { 
-                  if ( ans_len > i - j + 1 ) 
+                  if ( i - j + 1 < min_len ) 
                   { 
+                     min_len = i - j + 1 ; 
                      ans_start = j ; 
-                     ans_len = i - j + 1 ; 
                   } 
-                 mps [ s [ j ++ ] ] -- ; 
-              } 
+                 mp [ s [ j ++ ] ] -- ; 
+              }           
           } 
-          if ( ans_len == INT_MAX ) 
+          if ( min_len == INT_MAX ) 
               return   "" ; 
-          return  s . substr ( ans_start , ans_len ) ; 
+          return  s . substr ( ans_start , min_len ) ; 
       } 
  } ;
