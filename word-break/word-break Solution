@@ -1,0 +1,33 @@
+class   Solution   { 
+ public : 
+      bool   solve ( int  i , string cur , string s , set < string > & st , map < pair < int , string > , int > & mp ) 
+      { 
+          //base case 
+          if ( i >= s . size ( ) ) 
+              return   false ; 
+         cur . push_back ( s [ i ] ) ; 
+          if ( i == s . size ( ) - 1 ) 
+          { 
+              if ( st . find ( cur ) == st . end ( ) ) 
+                  return   false ; 
+              return   true ; 
+          } 
+          if ( mp . count ( { i , cur } ) ) 
+              return  mp [ { i , cur } ] ; 
+          bool  pick = false , notpick = false ; 
+          if ( st . find ( cur ) != st . end ( ) ) 
+             pick = solve ( i + 1 , "" , s , st , mp ) ; 
+         notpick = solve ( i + 1 , cur , s , st , mp ) ; 
+          // cout<<cur<<" "<<pick<<" "<<notpick<<"\n"; 
+          return  mp [ { i , cur } ] = pick || notpick ; 
+      } 
+      bool   wordBreak ( string s ,  vector < string > &  wordDict )   { 
+         set < string > st ; 
+          for ( auto   & i : wordDict ) 
+             st . insert ( i ) ; 
+          //dp 
+         map < pair < int , string > , int > mp ; 
+          return   solve ( 0 , "" , s , st , mp ) ; 
+ 
+      } 
+ } ;
