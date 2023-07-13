@@ -1,0 +1,57 @@
+class   Solution   { 
+ public : 
+      int   solve ( int  i , int  j , vector < int > & cuts , vector < vector < int >> & dp , int  cut_i , int  cut_j ) 
+      { 
+          // //base case 
+          if ( cut_i > cut_j ) 
+              return   0 ; 
+          //memoize 
+          if ( dp [ cut_i ] [ cut_j ] != - 1 ) 
+              return  dp [ cut_i ] [ cut_j ] ; 
+          int  ans = 1e9 ; 
+          //logic 
+          for ( int  k = cut_i ; k <= cut_j ; k ++ ) 
+          { 
+             ans = min ( ans , solve ( i , cuts [ k ] , cuts , dp , cut_i , k - 1 ) + solve ( cuts [ k ] , j , cuts , dp , k + 1 , cut_j ) + j - i ) ; 
+          } 
+          //return 
+          return  dp [ cut_i ] [ cut_j ] = ( ans == 1e9 ? 0 : ans ) ; 
+      } 
+      int   minCost ( int  n ,  vector < int > &  cuts )   { 
+          int  m = cuts . size ( ) ; 
+         vector < vector < int >> dp ( m + 1 , vector < int > ( m + 1 , - 1 ) ) ; 
+          sort ( cuts . begin ( ) , cuts . end ( ) ) ; 
+          return   solve ( 0 , n , cuts , dp , 0 , m - 1 ) ; 
+      } 
+ 
+ 
+      //TLE dp on n 
+      // int solve(int i,int j,vector<int>&cuts,vector<vector<int>>&dp) 
+      // { 
+      //     //base case 
+      //     bool flag=false; 
+      //     for(int k=0;k<cuts.size();k++) 
+      //     { 
+      //         if(i<cuts[k] && j>cuts[k]) 
+      //             flag=true; 
+      //     } 
+      //     if(flag==false) 
+      //         return 0; 
+      //     //memoize 
+      //     if(dp[i][j]!=-1) 
+      //         return dp[i][j]; 
+      //     int ans=1e9; 
+      //     //logic 
+      //     for(int k=0;k<cuts.size();k++) 
+      //     { 
+      //         if(i<cuts[k] && j>cuts[k]) 
+      //             ans=min(ans,solve(i,cuts[k],cuts,dp)+solve(cuts[k],j,cuts,dp)+j-i); 
+      //     } 
+      //     //return 
+      //     return dp[i][j]=(ans==1e9?0:ans); 
+      // } 
+      // int minCost(int n, vector<int>& cuts) { 
+      //     vector<vector<int>>dp(n+1,vector<int>(n+1,-1)); 
+      //     return solve(0,n,cuts,dp); 
+      // } 
+ } ;
