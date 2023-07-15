@@ -1,0 +1,71 @@
+//do later 
+ class   Solution   { 
+ public : 
+      int   longestArithSeqLength ( vector < int > &  nums )   { 
+          int  n  =  nums . size ( ) ; 
+          if   ( n  <=   2 ) 
+              return  n ; 
+ 
+          int  longest  =   2 ; 
+         vector < unordered_map < int ,   int >>   dp ( n ) ; 
+ 
+          for   ( int  i  =   0 ;  i  <  n ;  i ++ )   { 
+              for   ( int  j  =   0 ;  j  <  i ;  j ++ )   { 
+                  int  diff  =  nums [ i ]   -  nums [ j ] ; 
+                 dp [ i ] [ diff ]   =  dp [ j ] . count ( diff )   ?  dp [ j ] [ diff ]   +   1   :   2 ; 
+                 longest  =   max ( longest ,  dp [ i ] [ diff ] ) ; 
+              } 
+          } 
+ 
+          return  longest ; 
+      } 
+ } ; 
+ 
+ // class Solution { 
+ // public: 
+ //     // int longestArithSeqWithDelta(int delta,vector<int>&nums) 
+ //     // { 
+ //     //     int n=nums.size(),count,prev=-1,ans=0; 
+ //     //     for(int i=0;i<n;i++) 
+ //     //     { 
+ //     //         count=1; 
+ //     //         prev=nums[i]; 
+ //     //         for(int j=i+1;j<n;j++) 
+ //     //         { 
+ //     //             if(nums[j]-prev==delta) 
+ //     //             { 
+ //     //                 prev=nums[j]; 
+ //     //                 count++; 
+ //     //             } 
+ //     //         } 
+ //     //         ans=max(ans,count); 
+ //     //     } 
+ //     //     return ans; 
+ //     // } 
+ //     int longestArithSeqLength(vector<int>& nums) { 
+ //         // brute force  
+ //         // for -500 to 500 check length of subsequence possible  
+ //         // return max 
+ //         // time complexity => O(N*N*N) 
+ //         // int ans=0; 
+ //         // for(int i=-500;i<=500;i++) 
+ //         //     ans=max(ans,longestArithSeqWithDelta(i,nums)); 
+ //         // return ans; 
+ //         vector<map<pair<int,int>,int>>dp(nums.size()); 
+ //         return solve(0,-1,-501,nums,dp); 
+ //     } 
+ //     int solve(int i,int j,int delta,vector<int>&nums,vector<map<pair<int,int>,int>>&dp) 
+ //     { 
+ //          if(i>=nums.size())   
+ //             return 0; 
+ //         if(dp[i].count({j,delta})) 
+ //             return dp[i][{j,delta}]; 
+ //         int pick=0,notpick=0; 
+ //         if(j==-1) 
+ //             pick=solve(i+1,i,delta,nums,dp)+1; 
+ //         else if(delta==-501 || nums[i]-nums[j]==delta) 
+ //             pick=solve(i+1,i,nums[i]-nums[j],nums,dp)+1; 
+ //         notpick=solve(i+1,j,delta,nums,dp); 
+ //         return dp[i][{j,delta}]=max(0,max(pick,notpick)); 
+ //     } 
+ // };
