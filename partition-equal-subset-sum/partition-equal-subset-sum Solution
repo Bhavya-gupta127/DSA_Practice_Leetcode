@@ -1,0 +1,24 @@
+class   Solution   { 
+ public : 
+      bool   solve ( int  i , int  k , vector < int > & nums , vector < vector < int >> & dp )     
+      { 
+          if ( i == 0 ) 
+              return  nums [ i ] == k ; 
+          if ( dp [ i ] [ k ] != - 1 ) 
+              return  dp [ i ] [ k ] ; 
+          bool  pick = false , notpick = false ; 
+          if ( k >= nums [ i ] ) 
+             pick = solve ( i - 1 , k - nums [ i ] , nums , dp ) ; 
+         notpick = solve ( i - 1 , k , nums , dp ) ; 
+          return  dp [ i ] [ k ] = pick || notpick ; 
+      } 
+      bool   canPartition ( vector < int > &  nums )   { 
+          int  sum = 0 ; 
+          for ( auto  i : nums ) 
+             sum += i ; 
+          if ( sum % 2 == 1 )     
+              return   false ; 
+         vector < vector < int >> dp ( nums . size ( ) , vector < int > ( sum / 2 + 1 , - 1 ) ) ; 
+          return   solve ( nums . size ( ) - 1 , sum / 2 , nums , dp ) ; 
+      } 
+ } ;
