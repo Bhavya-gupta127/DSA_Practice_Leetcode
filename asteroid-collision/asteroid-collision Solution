@@ -1,0 +1,28 @@
+class   Solution   { 
+ public : 
+     vector < int >   asteroidCollision ( vector < int > &  asteroids )   { 
+         vector < int > v ; 
+          for ( auto  i : asteroids ) 
+          { 
+              if ( v . empty ( )   ||   ( v . back ( ) >= 0   &&  i >= 0 )   ||   ( v . back ( ) < 0 ) ) //same direction 
+                 v . push_back ( i ) ; 
+              else   //opp direction 
+              { 
+                  bool  flag = false ; 
+                  while ( ! v . empty ( )   &&  v . back ( ) > 0   &&  v . back ( ) <= - i ) 
+                  { 
+                      if ( v . back ( ) == - i ) 
+                      { 
+                         v . pop_back ( ) ; 
+                         flag = true ; 
+                          break ; 
+                      } 
+                     v . pop_back ( ) ; 
+                  } 
+                  if ( ( v . empty ( )   ||  v . back ( ) < 0 )   &&   ! flag ) 
+                     v . push_back ( i ) ; 
+              } 
+          } 
+          return  v ; 
+      } 
+ } ;
