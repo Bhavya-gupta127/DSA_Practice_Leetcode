@@ -1,5 +1,5 @@
 class   Solution   { 
-  public : 
+ public : 
       int   orangesRotting ( vector < vector < int >> &  grid )   { 
          vector < int > delrow = { - 1 , 0 , 0 , 1 } ; 
          vector < int > delcol = { 0 , 1 , - 1 , 0 } ; 
@@ -35,4 +35,4 @@ class   Solution   {
                       return   - 1 ; 
           return  ans ; 
       } 
-  } ;
+ } ;
