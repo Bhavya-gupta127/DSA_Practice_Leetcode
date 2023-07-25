@@ -1,5 +1,5 @@
 class   Solution   { 
-  public : 
+ public : 
       void   bfs ( vector < vector < int >> & mat , vector < vector < int >> & vis , vector < vector < int >> & ans ) 
       { 
          queue < vector < int >> q ; 
@@ -58,4 +58,4 @@ class   Solution   {
           bfs ( mat , vis , ans ) ; 
           return  ans ; 
       } 
-  } ;
+ } ;
