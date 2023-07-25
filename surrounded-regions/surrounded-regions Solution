@@ -1,5 +1,5 @@
 class   Solution   { 
-  public : 
+ public : 
       void   dfs ( int  i , int  j , vector < vector < int >> & vis , vector < vector < char >> & board ) 
       { 
           if ( i >= board . size ( )   ||  i < 0   ||  j >= board [ 0 ] . size ( )   ||  j < 0   ||  board [ i ] [ j ] == 'X'   ||  vis [ i ] [ j ] == 1 ) { 
@@ -49,4 +49,4 @@ class   Solution   {
               } 
           } 
       } 
-  } ;
+ } ;
