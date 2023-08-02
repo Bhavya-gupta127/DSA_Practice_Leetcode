@@ -1,27 +1,33 @@
 class   Solution   { 
  public : 
-      int   fact ( int  n ) 
+      void   solve ( int  i ,  vector < int > & nums ,  vector < int > & v  , vector < vector < int >> & ans ) 
       { 
-          int  ans = 1 ; 
-          while ( n > 0 ) 
+          if ( v . size ( ) == nums . size ( ) ) 
           { 
-             ans *= n ; 
-             n -- ; 
+             ans . push_back ( v ) ; 
+              return ; 
           } 
-          return  ans ; 
+          for ( int  j = 0 ; j < nums . size ( ) ; j ++ ) 
+          { 
+              bool  flag = false ; 
+              for ( auto  k : v ) 
+                  if ( k == nums [ j ] ) 
+                     flag = true ; 
+              if ( ! flag ) 
+              { 
+                 v . push_back ( nums [ j ] ) ; 
+                  solve ( j + 1 , nums , v , ans ) ; 
+                 v . pop_back ( ) ; 
+              } 
+          } 
+          return ; 
       } 
+ 
+ 
      vector < vector < int >>   permute ( vector < int > &  nums )   { 
-          sort ( nums . begin ( ) , nums . end ( ) )    ; 
          vector < vector < int >> ans ; 
-          // vector<int>v; 
-          int  n = nums . size ( ) ; 
-         n = fact ( n ) ; 
-          for ( int  i = 0 ; i < n ; i ++ ) 
-          { 
-              // vector<int>v; 
-              next_permutation ( nums . begin ( ) , nums . end ( ) ) ; 
-             ans . push_back ( nums ) ; 
-          } 
+         vector < int > v ; 
+          solve ( 0 , nums , v , ans ) ; 
           return  ans ; 
       } 
  } ;
