@@ -1,0 +1,32 @@
+class   Solution   { 
+ public : 
+      int   solve ( int  i , string s , set < string > & st , vector < int > & dp ) 
+      { 
+          if ( i >= s . size ( ) ) 
+              return   0 ; 
+          if ( dp [ i ] != - 1 ) 
+              return  dp [ i ] ; 
+          int  pick = INT_MAX , notpick = INT_MAX ; 
+         string temp ; 
+          for ( int  j = i ; j < s . size ( ) ; j ++ ) 
+          { 
+             temp . push_back ( s [ j ] ) ; 
+              if ( st . find ( temp ) != st . end ( ) ) 
+              { 
+                 pick = min ( pick , solve ( j + 1 , s , st , dp ) ) ; 
+              } 
+          } 
+         notpick = 1 + solve ( i + 1 , s , st , dp ) ; 
+          // cout<<i<<" "<<pick<<" "<<notpick<<"\n"; 
+          return  dp [ i ] = min ( pick , notpick ) ; 
+         
+      } 
+      int   minExtraChar ( string s ,  vector < string > &  d )   { 
+         set < string > st ; 
+          for ( auto  i : d ) 
+             st . insert ( i ) ; 
+         vector < int > dp ( s . size ( ) , - 1 ) ; 
+          return   solve ( 0 , s , st , dp ) ; 
+          // shelloworlddddd 
+      } 
+ } ;
