@@ -1,0 +1,50 @@
+// class Solution { 
+ // public: 
+ 
+ //     int solve(int i,int j,vector<vector<int>>&v,vector<vector<int>>&dp) { 
+ 
+ //         if(i>=v.size()) 
+ //             return 0; 
+ //         if(dp[i][j]!=-1) 
+ //             return dp[i][j]; 
+ //         int pick=0; 
+ //         int notpick=0; 
+ 
+ //         if(v[j][1]<=v[i][0]) 
+ //             pick=solve(i+1,i,v,dp)+v[i][2]; 
+ 
+ //         notpick=solve(i+1,j,v,dp); 
+ 
+ //         return dp[i][j]=max(pick,notpick); 
+ //     } 
+ 
+ //     int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) { 
+ //         vector<vector<int>>v; 
+ //         v.push_back({0,0,0}); 
+ //         for(int i=0;i<startTime.size();i++) 
+ //             v.push_back({startTime[i],endTime[i],profit[i]}); 
+ 
+ //         vector<vector<int>>dp(startTime.size()+2,(vector<int>(endTime.size()+2,-1))); 
+ //         sort(v.begin(),v.end()); 
+ //         return solve(1,0,v,dp); 
+ //     } 
+ // }; 
+ class   Solution   { 
+ 
+      public : 
+      int   jobScheduling ( vector < int > &  startTime ,  vector < int > &  endTime ,  vector < int > &  profit )   { 
+          int  n  =  startTime . size ( ) ; 
+         vector < vector < int >>  jobs ; 
+          for   ( int  i  =   0 ;  i  <  n ;   ++ i )   { 
+             jobs . push_back ( { endTime [ i ] ,  startTime [ i ] ,  profit [ i ] } ) ; 
+          } 
+          sort ( jobs . begin ( ) ,  jobs . end ( ) ) ; 
+         map < int ,   int >  dp  =   { { 0 ,   0 } } ; 
+          for   ( auto &  job  :  jobs )   { 
+              int  cur  =   prev ( dp . upper_bound ( job [ 1 ] ) ) -> second  +  job [ 2 ] ; 
+              if   ( cur  >  dp . rbegin ( ) -> second ) 
+                 dp [ job [ 0 ] ]   =  cur ; 
+          } 
+          return  dp . rbegin ( ) -> second ; 
+      } 
+ } ;
